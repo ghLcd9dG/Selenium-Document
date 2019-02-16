@@ -1,0 +1,4168 @@
+强尤测试,2018/7/30 23:07,selenium自动化之javascrip,"我们在做web自动化测试时候，有时候会遇到富文本这类的控件的时候，不管你怎么定位，都定位不到的时候，你需要换个思维，我们可以用一下javascript脚本来实现这样。
+webdriver提供了execute_script()方法来执行javascript代码,这个我们用一个案例来展示如何，打开百度搜索页面，利用javascript代码把“selenium调用js”文字输入到文本框当中。
+python脚本如下:
+#导入webdriver类
+from selenium import webdriver
+#打开火狐浏览器
+driver=webdriver.Firefox()
+#最大化浏览器界面窗口
+driver.maximize_window()
+#打开网址
+driver.get(""打开百度网址"")
+#定义一个变量，输入文本框的文字
+text=""selenium调用js""
+#javascript代码
+js=""var ms=document.getElementById('kw');ms.value='""+text+""';""
+#selenium调用javascript
+driver.execute_script(js)
+#退出并关闭浏览器
+driver.quit()
+其实在selenium中还可以利用javascript来实现其他一些特殊的操作，可以操作网页上下滚动，上下移动这样的操作行为。
+python实现脚本如下：
+from selenium import webdriver
+from time import sleep
+#打开火狐浏览器
+driver=webdriver.Firefox()
+driver.get(""打开百度网页"")
+#设置浏览器窗口大小
+driver.set_window_size(600,600)
+#文本框里输入值
+driver.find_element_by_id(""kw"").send_keys(""测试"")
+#点击百度一下按钮
+driver.find_element_by_id(""su"").click()
+#暂停5秒时间
+sleep(5)
+#设置网页滚动条停留的位置
+js=""window.scrollTo(100,450);""
+#执行javascript代码
+driver.execute_script(js)
+driver.quit()"
+,,,
+learnaLanguage,2018/7/17 6:00,Python：Selenium爬取动态网页,"Selenium 是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。
+Selenium：
+框架底层使用JavaScript模拟真实用户对浏览器进行操作。测试脚本执行时，浏览器自动按照脚本代码做出点击，输入，打开，验证等操作，就像真实用户所做的一样，从终端用户的角度测试应用程序。
+使浏览器兼容性测试自动化成为可能，尽管在不同的浏览器上依然有细微的差别。
+使用简单，可使用Java，Python等多种语言编写用例脚本。
+平时都在写爬虫代码，有的时候的遇到一些网站它们可不会乖乖就范哦，一般的都会有一些反爬措施的，再就是一些通过框架渲染出来的页面。
+对于这些网站，前者一般需要修改请求头、代理或者判断验证码等方可解决；后者由于网页信息是动态加载的， 常用的 Requests 库就显得有些无力了，拿不到渲染后的内容。
+那么就到 Selenium 出场了，本次就利用该库爬取腾讯招聘的信息。
+运行环境：
+System：Windows 10
+Python version：3.6
+代码如下：
+安装 Selenium
+下载驱动
+ps：只能图片展示咯，不过网上很多很容易可以找到，下载好对应的浏览器驱动放到 Python 安装目录下就行
+导入相关模块
+创建Firefox参数对象
+把Firefox设置成无界面模式，自动适配对应参数
+创建Firefox无界面对象
+ps：若是不加参数浏览器会弹出来，如本次演示，加了参数则浏览器不会显示，但这需要前两行代码的配合
+发起请求，这个URL是直接在浏览器上拿过来的，剔除了一些不需要的参数
+WebDriverWait() 这一行代码是传入一个WebDriver的实例,后面两个参数是超时时间和睡眠间隔
+until() 是判断目标元素是否出现，代码中等待的是标签中 id=""next"" 的出现，网页中为下一页的标签，以此判断招聘信息已加载完毕
+ps：若是无界面模式那一定要记得最后一行代码是必不可少的，不然浏览器你没关，你又看不见它这就很尴尬
+运行效果如下：
+作者也在学习当中，难免会有错漏的地方，恳请读者能给予意见或建议，谢谢！转载请注明：[learnaLanguage_YiZhou_Python：Selenium爬取动态网页]"
+,,,
+小菜鸟学前端,2018/6/5 10:40,Selenium IDE 页面功能介绍,"打开Selenium IDE，如下图：
+Selenium IDE 界面介绍：
+1、 文件（File）：创建、打开和保存测试案例和测试案例集。
+编辑（Edit）：复制、粘贴、删除、撤销和选择测试案例中的所有命令。
+Actions（行为）:设置的脚本的录制与运行。
+Options（设置）: 用于设置seleniunm IDE。
+2、Base URL：用来填写被测试的基础URL 地址。
+图 Selenium IDE 窗口
+3、速度控制（fast-slow）：控制案例的运行速度。滑动按钮拖到Fast 侧用例将快速执行，相反拖动到Slow 侧缓慢执
+行。
+4、运行所有(Play entire test suite)：运行一个测试案例集中的所有案例。
+5、运行(Play current test case)：运行当前选定的测试案例。
+6、暂停/恢复(Pause/Resume)：暂停和恢复测试案例执行。
+7、单步(Step)：可以运行一个案例中的一行命令。
+8、应用汇总规则(Apply rollup rules)：这个功能可以让一组命令组合成一个单个行动。
+9、Turn test scheduler on/off
+10、录制(Click to record)：点击之后，开始记录你对浏览器的操作。
+11、Test Case 表示案例集列表。
+12、测试脚本
+table 标签：用表格形式展现命令及参数。
+source 标签：以本地格式显示测试用例（以文件方式保存），默认是HTML语言格式，也可以用其他语言展示。
+13、Runs/Failures：查看脚本运行通过/失败的个数。
+Runs 表示用例执行成功的个数。Failures 表示用例失败的个数。
+14、当选中前命令对应参数。一条命令由command、Target、value 三个部分组成。
+15、Log/Reference/UI-Element/Rollup
+Log：当你运行测试时，错误和信息将会自定显示。 最右边有Info 按钮， 可以选择显示日志的级别； Clear 用来清除日志显示。
+Reference：当在表格模式下输入和修改命令及参数的时候，这个区块会显示一些相关命名的调用和参数的状况，相当与一个快速帮助的区块。
+UI-Element:UI-Element DocumentationUI元素
+Rollup：统计
+后记：对于大部分转行的人来说，找机会把自己的基础知识补齐，边工作边补基础知识，真心很重要。
+“我们相信人人都可以成为一个IT大神，现在开始，选择一条阳光大道，助你入门，学习的路上不再迷茫。这里是北京尚学堂，初学者转行到IT行业的聚集地。"""
+,,,
+墨城君,2017/5/5 18:57,Selenium自动化脚本开发,"Selenium简介
+Selenium Selenium 是ThoughtWorks专门为Web应用程序编写的一个验收测试工具。
+Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE、Mozilla Firefox、Mozilla Suite等。这个工具的主要功能包括：测试与浏览器的兼容性——测试你的应用程序看是否能够很好得工作在不同浏览器和操作系统之上。测试系统功能——创建衰退测试检验软件功能和用户需求。支持自动录制动作和自动生成。Net、Java、Perl等不同语言的测试脚本。
+Selenium+Visual Studio环境配置
+先到官网先下载IEDriverServer（32位或者64位），解压文件将IEDriverServer.exe存放到一个指定路径，要记住这个路径，配置过程中要用到。
+打开VS（为了便于查看，我用的是中文版的，英文版的请自己对照位置），打开“工具”菜单下的“扩展管理器”：
+我们需要在“扩展管理器”中安装“NuGet”，单击下载安装，然后重启你的VS。
+创建一个测试项进行测试
+右键“引用”，选择“NuGet程序包”。
+在这里选择“联机”，搜索“selenium”。然后安装就行了。
+安装Selenium包后项目引用里可看到如下动态库
+创建一个测试类进行环境验证(注意到“C：IEDriverServer”了吗？这就是存放IEDriverServer.exe的路径)
+可能遇到的问题：
+1：未找到驱动服务
+参考方案：
+就看看IEDriverServer.exe的路径是不是错了。
+另外：浏览器的“启动保护模式”我给取消勾选了，如果勾选的话偶尔也会报异常。
+可能遇到的问题：
+1：用户代码未处理
+参考方案：
+看看是不是浏览器的驱动用错了（32位用了64位的，或者反过来）。
+Selenium—页面元素定位
+By.className(className))
+By.cssSelector(selector)
+By.id(id)
+By.linkText(linkText)
+By.name(name)
+By.partialLinkText(linkText)
+By.tagName(name)
+By.xpath(xpathExpression)
+注意：selenium-webdriver通过findElement() indElements()等find方法调用""By""对象来定位和查询元素。
+By类只是提供查询的方式进行分类。findElement返回一个元素对象否则抛出异常，findElements返回符合条
+件的元素List，如果不存在符合条件的就返回一个空的list。
+By.className(className))
+By.cssSelector(selector)
+By.id(id)
+By.linkText(linkText)
+By.name(name)
+By.partialLinkText(linkText)
+By.tagName(name)
+By.xpath(xpathExpression)
+注意：selenium-webdriver通过findElement() indElements()等find方法调用""By""对象来定位和查询元素。
+By类只是提供查询的方式进行分类。findElement返回一个元素对象否则抛出异常，findElements返回符合条
+件的元素List，如果不存在符合条件的就返回一个空的list。
+各方法使用优先级为：id,name,linktext优先使用，cssselector次之，最后使用xpath。
+Selenium自动化--对象操作
+1：点击按钮/链接click()
+Driver.FindElement(By.XPath(“//input[@id=‘submit’ and @value=‘下一步’]”)).click()；
+2：清空文本框clear()
+Driver.FindElement(By.Id(“tranAmtText”)).clear()；
+3：在文本框中输入指定的字符串sendkeys()
+Driver.FindElement(By.Id(""tranAmtText"")).SendKeys(“123456”)；
+4：移动光标到指定的元素上perform
+Actions action=new Actions(driver)；
+action.MoveToElement(Find(By.XPath(""//input[@id='submit' and @value='确定']""))).Perform();
+5：模拟光标晃动movebyoffset()
+Actions action = new Actions(driver);
+action.MoveByOffset(2, 4);
+6：等待页面元素加载完成，默认等待100秒
+WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(100));
+//等待页面上ID属性值为submitButton的元素加载完成
+wait.Until((d) => { return WaitForObject(By.Id(""submitButton"")); });
+Select操作//选择下拉框
+protected void SelectUsage(string selectid, string text)
+{
+IWebElement select = Find(By.Id(selectid));
+IList<IWebElement> AllOptions = select.FindElements(By.TagName(""option""));
+foreach (IWebElement option in select.FindElements(By.TagName(""option"")))
+{
+if (option.GetAttribute(""value"").Equals(text))
+option.Click();
+}
+}
+Selenium自动化—操作iframe
+1：切换焦点到id为固定值的iframe上
+进入页面后，光标默认焦点在DefaultContent中，若想要定位到iframe 需要转换焦点
+driver.SwitchTo().DefaultContent();
+//切换焦点到mainFrame
+driver.SwitchTo().Frame(""mainFrame"");
+需要注意的是：切换焦点之后若想切换焦点到其他iframe上 需要先返回到defaultcontent，再切换焦点到指定的iframe上。
+2切换焦点到id值为动态值的iframe上
+有时候 页面上浮出层的id为动态值，此时需要先获取所有符合记录的iframe放置在数组中，然后遍历数组切换焦点到目标iframe上。
+如下方法：
+protected string bizFrameId = string.Empty;
+protected string bizId = string.Empty;
+//获取动态iframe的id值
+protected void SetIframeId()
+{
+ReadOnlyCollection<IWebElement> els = driver.FindElements(By.TagName(""iframe""));
+foreach (var e in driver.FindElements(By.TagName(""iframe"")))
+{
+string s1 = e.GetAttribute(""id"");
+if (s1.IndexOf(""window"") >= 0 && s1.IndexOf(""content"") >= 0)
+{
+bizFrameId = e.GetAttribute(""id"");
+string[] ss = s1.Split(new char[] { '_' });
+bizId = ss[1];
+}
+}
+}
+Selenium自动化—alert prompt confirm
+//在本次浏览器兼容性测试项目中遇到的只有confirm和alert
+//下面举例说明confirm和alert的代码，prompt类似
+//confirm的操作
+IAlert confirm = driver.SwitchTo().Alert();
+confirm.Accept();
+//Alert的操作
+//个人网银中同样的业务有时候不会弹对alert，此时需要判断alert是否存在
+//对Alert提示框作确定操作,默认等待50毫秒
+protected void AlertAccept()
+{
+AlertAccept(0.05);
+}
+//等待几秒，可以为小数，单位为秒
+protected void AlertAccept(double waitseSonds)
+{
+double nsleepMillon = waitseSonds * 1000;
+int k=0;
+int split=50;
+IAlert alert = null;
+do
+{
+k++;
+Thread.Sleep(split);
+alert = driver.SwitchTo().Alert();
+} while (k * split <= nsleepMillon || alert==null);
+if (alert != null)
+{
+alert.Accept();
+}
+}
+Selenium自动化—浏览器操作
+首先生成一个Web对象
+IWebDriver driver = new FirefoxDriver();
+//打开指定的URL地址
+driver.Navigate().GoToUrl(@""http://12.99.102.196:9080/corporbank/logon_pro.html"");
+//关闭浏览器
+Driver.quit();
+网银浏览器兼容性测试过程中，关闭浏览器后会有对话框，此问题解决方法如下：
+public void logout()
+{
+System.Diagnostics.Process[] myProcesses;
+myProcesses = System.Diagnostics.Process.GetProcessesByName(""IEXPLORE"");
+foreach (System.Diagnostics.Process instance in myProcesses)
+{
+instance.Kill();
+}
+}
+//获取所有的WindowHandle，关闭所有子窗口
+string oldwin = driver.CurrentWindowHandle;
+ReadOnlyCollection<string> windows = driver.WindowHandles;
+foreach (var win in windows)
+{
+if (win != oldwin)
+{
+driver.SwitchTo().Window(win).Close();
+}
+}
+driver.SwitchTo().Window(oldwin);"
+,,,
+愿景驱动开发,2018/4/22 15:47,敏捷测试系列：Selenium从入门到实战,"第一章：Selenium 介绍
+第二章：Selenium 测试环境搭建
+第三章：Selenium WebDriver 命令
+第四章：Selenium WebDriver元素定位与XPath
+第五章：Selenium WebDriver 窗口切换（Alerts & Windows）
+第六章：Selenium与TestNG 测试框架集成
+第七章：Selenium与MongoDB与MySQL数据库集成
+第八章：Maven集成
+第九章：测试报告框架集成
+第十章：Selenium与Jenkins持续集成（CI)"
+,,,
+程序员小新人学习,2018/7/20 12:29,Selenium 自动化测试从零实战,"内容
+导读：自动化定位解析
+写在前面的话
+测试自动化是现在的一种趋势，更是许多厌倦功能测试想转型高端测试的测试从业者的迫切需求。关于测试自动化的资料比比皆是，但是杂乱无章，而且好多知识只是一带而过，并且更多针对 Selenium 这块的测试以 Python 语言居多，Java 语言很少。其实，Java 语言更加灵活，毕竟面向对象语言中 Java 才是当之无愧的王者。
+怎样良好的整合 Java 知识与 Selenium 完美结合，是本课要讲解的内容，同时，会以实际案例来逐步引出 Selenium 的使用。课程主要有以下特色：
+（1）内容由浅入深，零基础自动化人员也能看得懂。
+（2）始终以解决实际问题为出发点，通过实际案例引出 Selenium 的相关知识，最大限度的避免课程枯燥，用生动的语言来描述自动化。
+（3）细化每个实施的细节，希望讲解一个知识点就能彻底的讲透，并且会以一种由浅入深的形式进行讲解。
+说了这么多，希望读者阅读完全部文章后会以最大限度的掌握自动化，并且爱上自动化！好了，下面开始步入正题。
+准备工作
+“工欲善其事必先利其器”，做自动化也是如此，所以先花一点时间来介绍要准备的工作。
+（1）软件工具准备：JDK 和 Eclipse，搭建 Java 的开发环境，需要注意的是二者的版本必须统一，即 32 位的 JDK 必须对应 32 位的 Eclipse。
+（2）框架软件准备：TestNG
+安装方式有两种：
+help-Eclipse Markplace 市场查找下载安装。
+在 TestNG 官网上下载对应版本的插件，help-Install new Software 安装已经下载好的插件。
+当然所有的插件安装都是这两种方式。
+（3）Foxfire（火狐浏览器，建议使用 30~32 版本，目前最新的版本兼容性不好且对插件的支持不够理想）。在火狐浏览器里要下载其插件，必须使用的有：
+Firebug+firepath 用来辅助我们进行元素定位。
+Selenium IDE 主要用来验证自动化脚本是不是与实际情况一致。
+需要说明的是，Selenium IDE 本身就有用来做简单 UI 界面录制回放的功能。
+（4）Google Chrome（谷歌浏览器），演示的时候可能只调用火狐浏览器，但是谷歌浏览器是当前 UI 自动化测试的首选，因为其稳定，插件更新快。
+（5）必要的 jar 包
+log4j-1.2.11.jar，用来支持日志功能的 jar。
+selenium-server-standalone-2.43.1.jar，核心 jar 必须要有。
+（6）浏览器必要的 driver
+谷歌的 chromedriver.exe。
+IE 的 IEDriverServer64.exe。
+Windows 10 自带的 Microsoft Edge 的 Microsoft WebDriver。
+写到这里有可能会问，为什么需要这么多的 driver，其实如果只针对一套流程进行自动化操作，只需要操作一个浏览器即可，但是如果想用同一个流程验证不同浏览器的兼容性时，那么需要同时启动多个浏览器，所以提前准备好主流浏览器的 driver，对我们的工作来说是非常有必要的。
+上面的工作全都完成，在 Eclipse 里创建一个纯净的自动化工作目录，将下载好的插件、驱动、jar 都配置好，此时 Eclipse 的工程目录如下图所示：
+其中 files 是新建的目录，用来存储各种浏览器的驱动。lib 也是新建的目录，用来存储各种 jar 包。当然，这两个文件的名称都可以自行改变。好了准备工作到此结束，下面进行定位的讲解。
+定位实战
+UI 自动化的实质其实就是做下面两件事情：
+定位到 Web 界面的被测试元素；
+对定位到的元素进行录入、单击、双击、拖拽、上传文件、清空等等操作的过程。
+请看下面的例子。
+（1）打开百度网站的首页：
+（2）在输入框输入 GitChat：
+此场景运用自动化的思维解决就是：首先要打开一个浏览器 | 在导航栏处输入百度的网址 | 定位到输入框 | 键盘敲入 GitChat 的过程。操作火狐浏览器实现 Java 代码如下：
+package com.test.baidu;import org.openqa.selenium.By;import org.openqa.selenium.WebDriver;import org.openqa.selenium.WebElement;import org.openqa.selenium.firefox.FirefoxDriver;public class Baidu { public static void main(String[] args) { //启动火狐浏览器 WebDriver driver = new FirefoxDriver(); //将导航栏导航到百度首页 driver.navigate().to(""http://www.baidu.com""); //定位到输入框 WebElement element = driver.findElement(By.id(""kw"")); //输入 GitChat element.sendKeys(""GitChat""); }}
+这里重点先讲解里面的定位问题：
+WebElement element = driver.findElement(By.id(""kw""));
+定位方式
+常用的定位方式如下：
+这些都是常用的定位方式，有 by.id、by.name、by.cssSelector、by.xpath 等等。其中除了 by.cssSelector、by.xpath 外，其他的 by 后面的 id、name、link Text 等指的是 HTML 标记语言中页签内的属性内容，如百度输入框的 HTML 源代码如下：
+<span class=""bg s_ipt_wr quickdelete-wrap ipthover""><span class=""soutu-btn""/><input id=""kw"" class=""s_ipt"" autocomplete=""off"" maxlength=""255"" value="""" name=""wd""/><a id=""quickdelete"" class=""quickdelete"" href=""javascript:;"" title=""清空"" style=""top: 0px; right: 0px; display: none;""/></span>
+这段代码里的 class、id 就是属性。所以针对百度输入框我们使用的是其 id 的属性。
+xpath 定位
+首先要明白为什么使用 xpath 定位，它的好处有如下几个方面：
+方便维护
+定位准确
+推荐以后大家无论任何被测试对象都采用 xpath 定位的方式
+其次需要了解 xpath 常用符号说明，常用的符号及含义如下所示：
+/：表示绝对路径，绝对路径是指从跟目录开始
+//：表示相对路径
+.：表示当前层
+..：表示上一层
+*：表示通配符
+@：表示属性
+[]：属性的判断条件表达式
+最后运用上面的符号结合 xapth 的相关语法进行定位演示。
+演示场景
+任找一个 HTML 网页进行定位实战，按照页面代码结构逐级定位得出的结果解释如下，希望通过下面的逐级定位内容能理解相对路径、HTML 的层级结构。
+（1）/html/div：没有节点可以被选择，因为 / 代表绝对路径，本定位表示的是 HTML 下一级目录的元素，很明显 HTML 的下一级是 head 和 body，所以本写法无法定位到任何元素。
+（2）/html//div：选中 HTML 标签中的所有 div 元素，// 相对路径。就完全等价于 //div 的写法。
+（3）//div/div 表示所选择的 div 元素下又包含 div 元素的所有元素。此时完全等价于 //div/div/. 的写法。
+（4）//div/div/..：表示 //div/div 定义到的上一层 div 上。
+（5）//div/div/*：此时会将 div 下的子节点含有 div 的这层节点下的所有元素都匹配到。
+（6）//div[@id=""input""]：此时表示在 div 目录下选择一个 id=input 的子节点。
+and 与 or 连接符在 xpath 中的使用
+and 的使用：此种定位的应用场景为下图所示：
+此种场景的 HTML 编码为：
+<td class=""widgetStyle""><div id=""radio""><input class=""Volvo"" type=""radio"" name=""identity""/><label>Volvo</label><br/><input class=""Saab"" type=""radio"" name=""identity""/><label>Saab</label><br/><input class=""Opel"" type=""radio"" name=""identity""/><label>Opel</label><br/><input class=""Audi"" type=""radio"" name=""identity""/><label>Audi</label></div>
+此时我们想定位到 Saab 怎么写呢？（当然也可以不使用 and 连接符进行书写）书写为：//input[@class=""Saab"" and @name=""identity""]，当然若写成 //input[@class=""Saab""] 肯定也不会有问题。
+or 的使用：如果定位到 Saab 或者定位到 Opel，此时书写方式为：//input[@class=""Saab"" or @class=""Opel""]。
+定位顺序（从1开始切记）
+现在学习第二种方式，比如定位 Saab。可以这样写：//input[@name='identity'][2]，同理定位 Volvo，//input[@name='identity'][1]（这就是一开始强调的，这种写法必须从 1 开始编号）。
+定位 Opel，写成：//input[@name='identity'][3]
+定位 Audi，写成：//input[@name='identity'][4]
+常用函数
+Xpath 定位还可以使用一些函数，常用的函数如下：
+（1）contains()：包含。若要匹配出 Saab 还可以这样写：//input[@name=""identity"" and contains(@class,'S')]
+（2）text()：一个节点的文本值。举个例子，这里面篮字显示的英文结果，HTML 代码为：
+<a target=""_self"" href=""/s?rsv_idx=1&wd=111&usm=3&ie=utf-8&sl_lang=en&rsv_srlang=en&rsv_rq=en&rqlang=cn"">英文结果</a>
+可见这四个字没有任何属性值信息，所以定位此信息的时候需要使用 text() 函数。场景如下图所示：
+此时定位英文结果即可使用：//a[text()=""英文结果""]
+（3）last()函数，定位 Audi 写成 //input[@name='identity'][4]，可以看到 Audi 这个元素本身就处于 input 最后一个了，此时可以使用 last() 函数进行匹配：//input[@name=""identity""][last()]。
+（4）starts-with：以 starts-with 为开头写法实例：//input[starts-with(@id,'user')]代表 input 下 id 以 user 为开头的元素。
+（5）not()：表示否定，一般情况下会与返回值为 true 或者 false 的函数组合起来使用。比如上面提到的 contains() 与 starts-with。
+用实例来说：现在想要定位到不是 Audi 车除外的三种车元素，此时写法为：//input[@name=""identity"" and not (contains(@class,'A'))]。
+当然 not() 还有一种特殊用法就是直接 Not。//input[not(@class)] 表示匹配出 input 下所有不含 class 属性的元素。
+总结：唯一需要注意的是所有函数的写法 function(@属性,'内容')。
+Xpath 轴定位说明
+（1）基本轴
+轴可以在位置路径中快捷引用特定的节点（忽略属性和名称空间节点）。child 例子：
+""child::*"" 当前节点的子节点。 ""child::childnodename"" 当前节点名为childnodename的子节点。 ""child::text()"" 当前节点文本子节点。 ""child::node()"" 当前节点的子节点。 ""child::*/child::nodename"" 取当前节点的子节点的名为nodename的子节点。
+（2）特殊轴
+self当前节点descendant当前节点的后代（子节点或子节点的子节点…）parent当前节点的父节点ancestor当前节点的祖先节点（父节点和父节点的父节点…）preceding按文档顺序位于当前节点之前的非祖先节点attribute当前节点的属性namespace当前节点的名称空间preceding-sibling当前节点之前的所有兄弟节点following当前节点之后的所有节点following-sibling当前节点之后的所有兄弟节点descendant-or-self当前节点和后代节点ancestor-or-self当前节点和祖先节点
+以上的两种轴类型，没什么好说的，先记住吧。具体怎么用请看下面实例。
+第一个实例：继续定位上述中的 Volvo，使用 xpath 轴书写如下：//div[@id=""radio""]/descendant::input[1] 也可以定位到。
+第二个实例：定义 Audi 上的所有节点，使用 xpath 轴写法如下：//input[@name=""identity"" and @class=""Audi""]/preceding-sibling::*
+（3）需要注意的几个问题。
+[] 后面需要跟 /，/ 后面在加上关键字。
+轴关键字后面必须使用 ::，这个后面可以接节点名称，如 input、div 等。如果后面跟的是 *，代表全部。
+轴后面接节点名称是节点前面的定位方式全部可以继续适用。
+对于轴的使用建议是能不用就不用，条条大路通罗马，没必要非使用轴进行定位。
+cssSelector 定位
+了解即可，能用 xpath 就不用 cssSelector。原因很简单，HTML 的代码我们更熟悉。
+CSS 常用符号说明
+# 表示 id
+. 表示class
+：表示子元素，层级
+值得注意的是：一个空格也表示子元素，但是所有的后代子元素，就相当于 xpath 中的相对路径。"
+,,,
+it从业,2018/4/16 20:27,selenium问题,"问题一：
+org.openqa.selenium.interactions.MoveTargetOutOfBoundsException
+此问题就是按钮没有出现在科室的范围内
+一般的解决方式就是sleep(3000)
+问题二：
+org.openqa.selenium.ElementNotInteractableException: Cannot click on element
+此问题经常出现在，点击某个按钮出现的异常
+解决方法
+public void holdButton(WebElement webElement) {
+Actions action = new Actions(driver);
+action.moveToElement(webElement).clickAndHold(webElement).click().build().perform();
+}
+问题三：
+Protected Mode settings are not the same for all zones
+浏览器的缩放调节成100%"
+,,,
+it从业,2018/3/28 19:14,selenium上传excel,"一、添加依赖
+<dependency>
+<groupId>net.sourceforge.jexcelapi</groupId>
+<artifactId>jxl</artifactId>
+<version>2.6.12</version>
+</dependency>
+二、主要的方法
+主要就是一个标题和一个内容，分两行去写入
+三、效果
+写入两个sheet表格
+四、上传
+由于网页上是input,所以只需要传入路径就可以
+uploadFile.sendKeys(filePath);"
+,,,
+世界依然很美好,2018/6/28 9:25,Selenium——Actions类介绍,"我们已经学过了单击click() 方法，但这还不够，我们实际工作中通过鼠标除了单击外，我们还会用到右键，双击，拖拽等等，也可能需要用到键盘操作，那这些操作WebDriver的Actions类都支持。
+在某元素上鼠标右键和双击
+右键：contextClick().perform()双击：doubleClick().perform()
+两个方法如果传入WebElement参数，则在元素上右键或者双击，如果不传入任何参数，则在鼠标当前位置右键和双击。
+代码示例：
+@Test public void keyTest() throws InterruptedException { driver.get(""http://www.baidu.com""); WebElement ele = driver.findElement(By.id(""su"")); Actions action = new Actions(driver); // 在元素上右键 action.contextClick(ele).perform(); Thread.sleep(3000); // 在上双击 action.doubleClick(ele).perform(); }
+鼠标移动到某个元素上
+moveToElement(element).perform()
+代码示例：
+@Test public void moveTest(){ driver.get(""http://www.qq.com/""); WebElement ele = driver.findElement(By.className(""searchSelected"")); Actions action = new Actions(driver); // 鼠标移动到某个元素上 action.moveToElement(ele).perform(); }
+把元素拖动到（x,y）上
+dragAndDropBy(WebElement,x,y).perform()
+该方法传入三个参数，第一个是WebElement，第二个是x轴坐标，第三个是y轴坐标。
+代码示例：
+@Test public void dragTest(){ driver.get(""file:///D:/html/dragAndDrop.html""); WebElement ele = driver.findElement(By.id(""drag"")); Actions action = new Actions(driver); // 拖动某个元素到某个坐标 action.dragAndDropBy(ele,500,500).perform(); }
+把元素拖动到另一个元素上
+clickAndHold(ele1).moveToElement(ele2).release(ele1).perform()
+clickAndHold(ele1)按住元素1，moveToElement(ele2)移动到元素2，release(ele1)再释放元素1.
+代码示例：
+@Test public void dragTest1(){ driver.get(""file:///D:/html/dragAndDrop.html""); WebElement ele1 = driver.findElement(By.id(""drag"")); WebElement ele2 = driver.findElement(By.xpath(""html/body/h1"")); Actions action = new Actions(driver); // 在元素1上按住,然后拖动到元素2在释放 action.clickAndHold(ele1).moveToElement(ele2).release(ele1).perform(); }
+模拟键盘操作
+按住某个按键：keyDown()松开某个按键：keyUp()
+两个方法均传入Keys类型参数。注意的是Actions类提供的模拟键盘操作，只能模拟键盘键盘四周的按键，也就是无法模拟字母按键，如果需要模拟字母按键的操作可以结合Java的Robot类来实现。
+代码示例：
+@Test public void selectedTest() throws InterruptedException { driver.get(""file:///D:/html/index.html"");// 定位下拉框 WebElement selected = driver.findElement(By.id(""selectWithMultipleEqualsMultiple""));// 定位下拉框中的选项 java.util.List<WebElement> eles = selected.findElements(By.tagName(""option"")); Actions action = new Actions(driver); Thread.sleep(3000); // 按住 shift ，鼠标点击元素1和元素2 action.keyDown(Keys.SHIFT).click(eles.get(1)).click(eles.get(2)).perform(); }
+Robot 类示例：
+@Test public void robotTest() throws AWTException, InterruptedException { Robot robot = new Robot(); driver.get(""file:///D:/html/index.html""); // 按住 Ctrl + S robot.keyPress(KeyEvent.VK_CONTROL); robot.keyPress(KeyEvent.VK_S); Thread.sleep(3000); // 释放 Ctrl + S robot.keyRelease(KeyEvent.VK_CONTROL); robot.keyRelease(KeyEvent.VK_S); }
+keyPress() 按住某个按键 keyRelease() 松开某个按键"
+,,,
+世界依然很美好,2018/6/8 9:40,Selenium 环境搭建,"Java 环境搭建
+下载JDK:http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+安装JDK
+配置Java 环境
+设置JAVA_HOME 环境变量：安装路径
+设置Path值：%JAVA_HOME%in;%JAVA_HOME%jrein;
+设置CLASSPATH: .;%JAVA_HOME%lib;%JAVA_HOME%lib ools.jar
+校验是否安装完成
+控制台输入: java –version
+提示版本信息便表示配置完成
+安装Maven
+Maven 简单介绍
+简单来说，Ｍaven是一个项目管理工具，我们可以通过Maven来对项目进行构建打包等。 通过Maven来管理项目，配置项目所需的jar包非常方便，后期我们还将通过Maven命令来运行我们的测试脚本。
+安装
+如果你使用的是IDEA这个集成开发工具，那么默认情况下其实已经安装好了Maven，如果不是用IDEA可能你需要自己去安装个Maven，安装步骤：
+下载最新maven包：http://maven.apache.org/download.cgi
+直接解压
+配置Maven 环境变量
+添加MAVEN_HOME 环境变量： 实际解压路径
+设置Path值：%MAVEN_HOME%in;
+校验是否安装完成：
+控制台输入：mvn -v
+提示版本信息便表示配置完成
+IDE 工具配置Maven
+通常情况下IDEA安装后就自带了Maven，但是经常遇到自带的Maven无法使用，这时我们可以修改IDEA配置，使其Maven使用的是我们本地安装的Maven 版本.
+修改方法：
+打开IDEA：File --> Settings --> Build,Execution,Deloyment --> Build Tools -->Maven，然后修改Maven home directory 为你本地的maven地址保存便可。
+image.png
+IDEA 新建Selenium 的Maven 工程
+注意：这里会有个经常遇到的问题，默认的maven下载包是从国外的远程Maven仓库下载，如果你相应包下不下来或者网速很慢，那么你可以修改下maven配置，让其从国内的阿里仓下载。"
+,,,
+吾八哥,2018/3/6 19:43,吾八哥学Selenium(二)：操作输入框/按钮的方法,"一个web页面一定少不了输入框或者按钮这两种元素，那么在Python里如何使用Selenium操作web页面里的输入框和按钮呢？本文带你简单入门。
+本文采用了一个例子，就是利用Selenium打开百度网页，然后进行搜索关键字“Python”，执行搜索动作。具体代码如下：
+Python
+# Autor: 5bug# WebSite: http://www.XuePython.wang# 学Python网QQ群： 643829693from selenium import webdriverdriver = webdriver.Chrome(""C:/Users/5bug/AppData/Local/Google/Chrome/Application/chromedriver.exe"")# driver.maximize_window()driver.get('https://www.baidu.com')input = driver.find_element_by_id('kw')input.send_keys('Python')button = driver.find_element_by_xpath('//*[@id=""su""]')print(button.get_attribute(""value""))button.click()
+运行效果：
+这个例子里面主要使用了如下几个方法：
+find_element_by_id：通过元素id来找元素对象，参数为元素id
+find_element_by_xpath：通过xpath来找元素对象，参数为元素xpath
+send_keys：向输入框内发送文本，参数为文本内容
+get_attribute：获取某元素的某个属性，参数为属性名
+文本输入框还有一个方法clear() 用于清空当前文本"
+,,,
+强尤测试,2018/7/26 16:48,selenium多窗口切换处理技巧,"在用selenium做自动化的时候遇到多窗口切换处理的场景，这里给大家提供处理方式。
+思路：
+1、获取所有标签值
+2、循环遍历并判断是否是当前标签页，如果不是则切换。
+from selenium import webdriver
+driver = webdriver.Firefox()
+driver.maximize_window()
+driver.get(""搜狗搜索页"")
+driver.find_element_by_link_text(""微信"").click()
+driver.find_element_by_link_text(""图片"").click()
+#获取所有标签值
+handles=driver.window_handles
+#后循环遍历并判断是否是当前标签页，如果不是则切换
+for handle in handles:
+if driver.current_window_handle!=handle:
+driver.switch_to.window(handle)
+driver.find_element_by_id(""form_querytext"").send_keys(""sky"")"
+,,,
+百味小生,2017/9/14 2:12,java+eclipse+testng+maven selenium入门，框架搭建一,"本文档只针对selenium的入门，老司机的请绕道。
+1.JDK安装配置
+1.1.下载地址：http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+1.2.下载后直接默认安装到结束
+1.3.JDK环境变量配置
+a.右击计算机--属性--高级系统设置--环境变量
+b.新建系统环境变量，变量名为JAVA_HOME，值为JDK安装的路径，例如C:Program FilesJavajdk1.7.0_51
+c.新建系统环境变量，变量名为CLASSPATH，值为 .;%JAVA_HOME%lib;%JAVA_HOME%lib ools.jar，注意的是最前面的"".;""不要掉了
+d.%JAVA_HOME%in;%JAVA_HOME%jrein添加到path变量
+1.4.验证是否配置成功，cmd运行java -version命令，如下图表明配置成功
+2.eclipse的下载安装
+下载地址：http://pan.baidu.com/s/1eSs3exW 解压即可使用
+3.selenium三大依赖包
+selenium-server-standalone-2.48.2.jar，selenium-java-2.48.2.jar，selenium-java-2.48.2-srcs.jar
+下载地址：http://pan.baidu.com/s/1kUWDQib"
+,,,
+W挖挖W,2018/5/15 16:22,采用selenium登录新浪微博,"前几天试着去爬取新浪微博数据，发现反爬措施做得有点严格，就着手准备分析JS代码，找出其中用户名及登录密码加密的方式，一打开大几千行JS代码，眼睛都看得花，就放弃了JS调试这条路，然后采用了selenium方式，虽然效率低点，但是如果只用来登录也还能接受。
+Python实现登录代码如下：
+代码部分1
+代码部分2"
+,,,
+强尤测试,2018/7/20 6:42,1分钟，快速使用selenium定位相同元素,"在做自动化的朋友，你们会不会经常遇到同一个页面，有多个相同页面元素，如无id ,namep这些唯一的属性，用常规的办法是没有办法定位到自己需要的元素的。
+那么这种情况需要怎么办呢，我来告诉你怎么办，使用selenium find_elements 定位。find_elements 是把页面上所有相同的元素都放到了一个数组里，我们再根据实际的需要去定位某个元素就可以了。
+下面我给出两个案例，给大家讲解一下，如何在多种相同元素中，精确定位到我们需要元素。
+1、 需求：
+打开百度首页，选择上方导航条里的【贴吧】超文本链接。
+截图如下：
+源代码：
+<div>
+<a class=”mnav” href=”#”>新闻</a>
+<a class=”mnav” href=”#”>hao123</a>
+<a class=”mnav” href=”#”>地图</a>
+<a class=”mnav” href=”#”>视频</a>
+<a class=”mnav” href=”#”>贴吧</a>
+<a class=”mnav” href=”#”>学术</a>
+<a class=”mnav” href=”#”>登录</a>
+<a class=”mnav” href=”#”>设置</a>
+</div>
+Python脚本实现：
+from selenium import webdriver
+#打开谷歌浏览器
+driver =webdriver.Chrome()
+#最大化窗口
+driver.maximize_window()
+#打开百度首页
+driver.get(""http://www.baidu.com"")
+#获取所有类名为mnav超级链接文本数组，并选择第5个元素值点击。
+driver.find_elements_by_class_name(""mnav"")[4].click()
+2、 需求：
+点击表格末行末列【已复核】按钮
+截图如下：
+源代码：
+<table id=""customers"">
+<tr>
+<th>产品名称</th>
+<th>金额</th>
+<th>状态</th>
+</tr>
+<tr>
+<td>Apple</td>
+<td>4999.00</td>
+<td><input type=""button"" value=""已复核""></td>
+</tr>
+<tr class=""alt"">
+<td>Lenovo</td>
+<td>5999.00</td>
+<td><input type=""button"" value=""已复核""></td>
+</tr>
+<tr class=""alt"">
+<td>Nokia</td>
+<td>1888.00</td>
+<td><input type=""button"" value=""已复核""></td>
+</tr>
+</table>
+Python 脚本实现
+from selenium import webdriver
+#打开谷歌浏览器
+driver = webdriver.Chrome()
+#最大化窗口
+driver.maximize_window()
+#打开网址
+driver.get(""d:\yuangbao\bao1\test.html"")
+#点击数组最后一个元素
+driver.find_elements_by_xpath(""//input[@type='button']"")[-1].click()"
+,,,
+软件测试资源站,2018/2/17 10:21,selenium系列教程 | 6.测试对象解析及操作,"题图授权IC
+操作测试对象
+selenium定位之后需要对这个元素进行操作。
+鼠标点击呢还是键盘输入，这要取决于我们定位的是按钮还输入框。
+一般来说，webdriver 中比较常用的操作对象的方法有下面几个
+click点击对象
+send_keys在对象上模拟按键输入
+clear清除对象的内容
+submit清除对象的内容
+text用于获取元素的文本信息
+鼠标点击与键盘输入
+在我们本系列开篇的第一个例子里就用到了到 click 和 send_skys
+别翻回去找了，我再贴一下代码:
+coding=utf-8 from selenium import webdriver import time
+driver = webdriver.Firefox() driver.get(""http://www.baidu.com"")
+driver.find_element_by_id(""kw"").clear() driver.find_element_by_id(""kw"").send_keys(""selenium"") time.sleep(2)
+#通过submit() 来操作 driver.find_element_by_id(""su"").submit()
+time.sleep(3) driver.quit() send_keys(""xx"") 用于在一个输入框里输入 内容,
+click() 用于点击一个按钮,
+clear() 用于清除输入框的内容，
+比如百度输入框里默认有个“请输入关键字”的信息，再比如我们的登陆框一般默认会有“账号”“密码”这样的默认信息。
+clear 可以帮助我们清除这些信息。
+submit 提交表单
+我们把“百度一下”的操作从 click 换成 submit 可以达到相同的效果:
+#coding=utf-8 from selenium import webdriver import time
+driver = webdriver.Firefox() driver.get(""http://www.baidu.com"")
+driver.find_element_by_id(""kw"").send_keys(""selenium"") time.sleep(2)
+#通过submit() 来操作 driver.find_element_by_id(""su"").submit()
+time.sleep(3) driver.quit()
+西边人细说测试，
+头条号(软件测试资源站)作者，程序爬虫获取国内外测试资源分享给自学爱好者。
+今日头条关注后，私信回复如下关键词获取大量打包资料下载。
+测试资料、工具、Python、自动化测试报告、梯子 等"
+,,,
+百味小生,2017/10/21 14:00,selenium入门，常见的元素定位方式,"本文档介绍selenium常见的元素定位方式，只针对selenium的入门，老司机的请绕道
+selenium元素定位
+这里介绍几种常见的定位方式
+1. By.name()
+2. By.id()
+3. By.className()
+4. By.xpath()
+浏览器定位插件：
+Firefox：firebug+firepath
+chrome：xpath helper
+绝对路径写法(只有一种)，写法如下：
+引用页面上的form元素(即源码中的第3行)：/html/body/form[1]
+下面是相对路径的引用写法：
+查找页面根元素：//
+查找页面上所有的input元素：//input
+查找页面上第一个form元素内的直接子input元素(即只包括form元素的下一级input元素，使用绝对路径表示，单/号)：//form[1]/input
+查找页面上第一个form元素内的所有子input元素(只要在form元素内的input都算，不管还嵌套了多少个其他标签，使用相对路径表示，双//号)：//form[1]//input
+查找页面上第一个form元素：//form[1]
+查找页面上id为loginForm的form元素：//form[@id='loginForm']
+查找页面上具有name属性为username的input元素：//input[@name='username']
+查找页面上id为loginForm的form元素下的第一个input元素：//form[@id='loginForm']/input[1]
+查找页面具有name属性为contiune并且type属性为button的input元素：//input[@name='continue'][@type='button']
+查找页面上id为loginForm的form元素下第4个input元素：//form[@id='loginForm']/input[4]
+最后再总结一下，各种方式在选择的时候应该怎么选择：
+1. 当页面元素有id属性时，最好尽量用id来定位。但由于现实项目中很多程序员其实写的代码并不规范，会缺少很多标准属性，这时就只有选择其他定位方法。
+2. xpath很强悍，但定位性能不是很好，所以还是尽量少用。如果确实少数元素不好定位，可以选择xpath。
+3. 当要定位一组元素相同元素时，可以考虑用tagName或name。"
+,,,
+强尤测试,2018/7/28 22:57,selenium操作常用radio/submit/text页面元素,"selenium操作常用radio/submit/text页面元素,在做自动化过程当中，文本框，单选框，按钮这些元素是web页面最常见的。那么如何精准的定位这些元素呢，使用最大的方法就是根据id,name,xpath这四种方法来定位，如果id,name,class属性都没有的话，那么就用xpath来定位。
+下面分别用几个案例，使用几种定位方法给大家讲解一下怎么根据不同的场景来灵活选择相应的定位方式。
+1、页面元素具体多种属性如(id,name)
+单选框<input type=""radio"" id=""radio1"" name=""radio1"">男<input type=""radio"" id=""radio2"" name=""radio2"">女
+文本框<input type=""text"" id=""text1"" name=""text1""/>
+按钮<input type=""submit"" id=""submit1"" name=""submit1"" value=""submit""/>
+这种页面元素，比较好定位，id,name属性都有，我们用find_element_by_id,find_element_by_name就很容易定位。
+参考上面的源码，可以使用下面脚本来定位：
+driver=webdriver.Chrome()
+#根据id定位单选框
+driver.find_element_by_id(""radio2"").click()
+#根据name定位单选框
+driver.find_element_by_name(""radio1"").click()
+#根据id定位文本框
+driver.find_element_by_id(""text1"").send_keys(""ssss"")
+#根据name定位文本框
+driver.find_element_by_name(""text1"").send_keys(""ssss"")
+#根据id定位按钮
+driver.find_element_by_id(""submit1"").click()
+#根据name定位按钮
+driver.find_element_by_name(""submit1"").click()
+2、页面元素没有相应的属性（没有id,name）
+单选框源代码<input type=""radio"">男<input type=""radio"">女
+文本框<input type=""text""/>
+按钮<input type=""submit""/>
+这种页面元素就比较难定位了，我们可以考虑使用xpath或者使用find_elements数组来定位,否则很难定位到页面元素。
+参考以上源码，我们先分析一下，首先，定位文本框跟按钮的话，我们可以考虑xpath来进行定位，定位单选框元素的话，因为有两个相同的表单
+所以使用xpath定位的，不一定能选择到我们需要的表单元素，这个时间我们就要考虑一下使用find_elements来定位。
+使用脚本参考如下：
+driver=webdriver.Chrome()
+#使用xpath定位文本框
+driver.find_element_by_xpath(""//input[@type='text']"").send_keys(""text"")
+#定位按钮，使用xpath定位
+driver.find_element_by_xpath(""//input[@type='submit']"").click()
+#定位两个单选框中值为女的元素
+driver.find_elements_by_xpath(""//input[@type='radio']"")[1].click()"
+,,,
+it从业,2018/3/23 22:41,selenium自动化问题集锦,"1.org.openqa.selenium.WebDriverException: unknown error: Element is not clickable at point (255, 575) (Session info: chrome=60.0.3112.113)
+解决方式：使用javascript点击
+2.invalid element state: Element is not currently
+自动测试时，会出现某些带有默认值的输入框Clear()方法报错，错误提示：interactable and may not be manipulated，此时需要检查下输入文本框是否带有placeholder属性，如果有则直接略过Clear方法，
+3.怎么 判断元素是否存在
+public static boolean checkElementExists(WebDriver driver, WebElement element, int timeoutInSeconds) {
+try {
+driver.manage().timeouts().implicitlyWait(timeoutInSeconds, TimeUnit.SECONDS);
+Common.scrollToElement(driver, element);
+// if scroll succeed, means exists, but not sure if it is displayed or not.
+return true;
+} catch (NoSuchElementException | InterruptedException e) {
+return false;
+} finally {
+driver.manage().timeouts().implicitlyWait(PropsUtils.getDefaultTimeout(), TimeUnit.SECONDS);
+}
+}
+4.如何判断元素是否出现
+public static boolean checkElementDisplays(WebDriver driver, WebElement element, int timeoutInSeconds) {
+try {
+driver.manage().timeouts().implicitlyWait(timeoutInSeconds, TimeUnit.SECONDS);
+Common.scrollToElement(driver, element);
+return element.isDisplayed();
+} catch (NoSuchElementException | InterruptedException e) {
+return false;
+} finally {
+driver.manage().timeouts().implicitlyWait(PropsUtils.getDefaultTimeout(), TimeUnit.SECONDS);
+}
+}
+5.滚动到指定位置
+public static void scrollToElement(WebDriver driver, WebElement element) throws InterruptedException {
+Thread.sleep(1000);
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript(""arguments[0].scrollIntoView();"", element);
+js.executeScript(""window.scrollBy(0, -100)"");
+Thread.sleep(2000);
+}
+6.定位元素找不到
+（1）iframe原因定位不到元素
+切换到Frame
+driver.switchTo().frame(driver.findElement(By.id(""displayFrame"")));
+切换回
+driver.switchTo().defaultContent();
+（2）先睡上几秒钟，thread.sleep(3000)
+7.切换到新的浏览器窗口
+public void switchToWindow(int windowNo) {
+try {
+Thread.sleep(2000);
+ArrayList<String> windows = new ArrayList<String>(driver.getWindowHandles());
+driver.switchTo().window(windows.get(windowNo));
+} catch (InterruptedException e) {
+// TODO Auto-generated catch block
+e.printStackTrace();
+}
+8.处理alert弹出框
+Alert alert = driver.switchTo().alert();
+alert.accept();"
+,,,
+世界依然很美好,2018/6/21 9:29,Selenium——常用操作元素方法3,"判断元素是否激活：isEnabled()
+测试用例：
+1. 打开“UI自动化测试”主页2. 校验 submit 文本框为不可输入状态
+代码实现：
+@Test public void isEnabledTest() { driver.get(""file:///C:/selenium_html/index.html""); Boolean b = driver.findElement(By.name(""buttonhtml"")).isEnabled(); Assert.assertFalse(b); }
+判断元素是否展示：isDisplayed()
+之前我们讲过如果一个元素没有显示在页面，那么我们去操作往往会出现错误，所以我们一个去判断一个元素是否显示状态的方法。
+测试用例：
+1. 打开百度首页2. 校验百度一下按钮已经展示
+代码实现：
+@Test public void isDisplayedTest() { driver.get(""http://www.baidu.com""); Boolean b = driver.findElement(By.id(""su"")).isDisplayed(); Assert.assertTrue(b, ""校验百度一下按钮是否显示""); }
+判断单选/复选框是否选取：isSelected()
+测试用例：
+1. 打开 “UI自动化测试”主页2. 校验 “Volvo”单选框已经选中
+代码实现：
+@Test public void idSelectTest() { driver.get(""file:///C:/selenium_html/index.html""); WebElement element = driver.findElement(By.xpath(""//*[@id=""radio""]/input[1]"")); element.click(); Boolean b = element.isSelected(); Assert.assertTrue(b); }
+截图
+测试用例：
+1. 打开百度主页2. 截图
+代码实现：
+@Test public void screenShot() { driver.get(""https://www.baidu.com""); File screenShotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE); try { FileUtils.copyFile(screenShotFile, new File(""./test.png"")); } catch (IOException e) { e.printStackTrace(); } }
+执行JavaScript 脚本
+自动化开展过程中，有时会遇到直接通过WebDriver提供的API并无法满足我们的要求，这时我们可能需要通过执行JavaScript 的方式来处理。
+测试用例
+1. 打开百度首页2. 通过JS方式，往查询框插入值
+代码实现：
+@Test public void exJS() throws InterruptedException { driver.get(""http://www.baidu.com""); JavascriptExecutor js = (JavascriptExecutor) driver; // 执行JS语句 js.executeScript(""document.getElementById(""kw"").setAttribute(""value"",""执行JS"")""); Thread.sleep(5000); }"
+,,,
+软件测试资源站,2018/2/16 15:14,selenium系列教程｜5.操作浏览器最大化及相应设置,"题图授权IC
+浏览器最大化
+我们知道调用启动的浏览器不是全屏的，这样不会影响脚本的执行，但是有时候会影响我们“观看”脚本的执行。
+#coding=utf-8 from selenium import webdriver import time
+browser = webdriver.Firefox() browser.get(""http://www.baidu.com"")
+print ""浏览器最大化"" browser.maximize_window()
+#将浏览器最大化显示 time.sleep(2)
+browser.find_element_by_id(""kw"").send_keys(""selenium"") browser.find_element_by_id(""su"").click() time.sleep(3) browser.quit()
+设置浏览器宽|高
+最大化还是不够灵活，能不能随意的设置浏览的宽、高显示？当然是可以的。
+#coding=utf-8 from selenium import webdriver import time
+browser = webdriver.Firefox() browser.get(""http://m.mail.10086.cn"") time.sleep(2)
+#参数数字为像素点 print ""设置浏览器宽480、高800显示""
+browser.set_window_size(480, 800) time.sleep(3) browser.quit()
+西边人细说测试，
+头条号(软件测试资源站)作者，程序爬虫获取国内外测试资源分享给自学爱好者。
+今日头条关注后，私信回复如下关键词获取大量打包资料下载。
+测试资料、工具、Python、自动化测试报告、梯子 等"
+,,,
+点融黑帮,2016/11/28 15:01,他山之石，可以攻玉——Selenium爬虫应用初探,"前 言
+Selenium
+所谓爬虫，简单来说就是通过网络请求获取内容并解析出结果的过程，当中以网页爬虫最为常见。然而随着Web应用的日益复杂化，各种Ajax和JS加持的Web页面对于爬虫来说，在请求内容这第一步就造成了不小难度。爬虫工程师们往往不得不苦于分析网页请求中各种不明意义的字段，开始一段心酸的JS探寻之旅。而此时，来自测试领域的一套自动化测试工具，却给爬虫工程师们带了新的曙光——她，就是Selenium。
+关于Selenium
+Selenium是一套Web应用的自动化测试框架，拥有完整的浏览器支持，通过模拟浏览器的真实操作实现Web应用测试，并且提供简单好用的录制/回放工具让使用者无需了解脚本语言就能写出可以执行的测试用例。
+Selenium底层由各种web driver驱动，提供丰富的API接口。对Python/Java等语言的支持，再配合上headless的浏览器（如PhantomJS），注定会成为爬虫工程师手中的利器！
+实践看亮点
+准备
+Python 2.7.12
+python-selenium 3.0.0
+Selenium Webdriver(本文因可视化展示所需，所以用到chromedriver，实际爬虫应用中，一般常用PhantomJS作为headless浏览器)
+亮点
+1、完整的Web支持
+得益于Selenium的运行机制，因为实际启用了浏览器，所以能够对Web应用进行完整的支持。一句话：浏览器看到的样子就是爬虫可以获取到的内容，所以在用Selenium编写爬虫的过程中，爬虫开发者不用再纠结于网页请求的分析，只需关注于页面解析即可。
+以某企业信息查询网站查询“星巴克”为例，抓包可知其实际查询请求如下：
+如图可见该接口的请求cookie中带有一个神奇的token字段。令人比较遗憾的是，该token并非是来自于其它请求的返回，而是由JS生成。
+通常情况下，需要找到生成该token的JS代码段，分析其输入输出，使用JS执行器或者将该部分JS的逻辑自行实现，以获得token。而使用Selenium编写爬虫，则不用关心这个部分，短短几行就可以完成一次页面查询。代码示例：
+从查询结果页的URL来看，我们还能更进一步简化查询操作，甚至一句代码就能完成，如下：
+2、支持响应式交互
+浏览网页中，经常会遇到执行某些操作后才出现相关页面元素的情况。这种场景用普通爬虫方式很难模拟，但对于Selenium来说，却有着先天优势。
+以中国电信登录页为例，对于多次登录错误的帐号会出现图片验证码，而该验证码只有在输入帐号后才会出现。普通做法，分析整个过程中执行了哪些请求，请求cookie和请求参数如何获得，然后模拟发送请求获取结果。例如该场景中，通过抓包分析可知当中有三次关键请求（如图）。
+第一次根据号码获得城市代码，第二次检查对应手机号登录是否需要验证码，第三次获取验证码图片。
+然而仅仅看这三次请求，其所需输入都是欠缺的，因此整个分析过程会变得非常繁杂。此时使用Selenium直接模拟登录操作，不失为一种简单有效的方法。整个模拟过程如图所示：
+代码示例：
+3、丰富的html解析支持
+Selenium API提供丰富的方法获取页面元素，支持多种方式进行元素定位选择，比如根据元素id，name，xpath，css选择器等。
+find_element_by_id
+find_element_by_name
+find_element_by_xpath
+find_element_by_link_text
+find_element_by_partial_link_text
+find_element_by_tag_name
+find_element_by_class_name
+find_element_by_css_selector
+当然同时也支持直接返回网页源代码，然后再自行使用其它第三方html解析库进行解析。
+4、动作链（ActionChains）
+动作链是Selenium提供的用于模拟自动化交互的方式，如鼠标移动，鼠标按键点击，键盘按键点击和复杂菜单交互等等。在复杂的动作场景中，比如拖拽和滑动，非常有用。
+基于此，Selenium爬虫可以实现一些普通爬虫难以实现的功能，比如特征位点击、滑动验证码自动验证等。以某常见滑动验证码为例，合理使用动作链可以实现自动验证，效果如下图所示：
+注：具体实现方式不在本文敖述，大概思路为：获取完整背景图片及缺块图片，通过比较获得缺块位置，得出滑动距离，再用Selenium模拟鼠标拖拽滑动实现自动滑动验证。示例中可以看出两次尝试后才验证成功。因此成功率并非100%，所以加入自动重试以保证验证结果。
+总结
+优点
+通过以上几个例子可以看出，在网页爬虫中应用Selenium的优势特别明显。
+完全浏览器化的操作简化掉了请求分析的过程，让爬虫开发更多关注于页面解析和结果处理。
+爬虫实现难度比较低。对于某些特殊的场景，比如对同样功能的查询类网站进行查询接口封装，Selenium能够通过模拟浏览器的查询操作快速实现。
+缺点
+因为Selenium实际上使用了浏览器，所以其缺点也显而易见。
+资源占用大，每开一个浏览器进程就会占用将近20MB左右内存，在爬虫应用中需要进行及时关闭释放，因此这也注定了Selenium爬虫不适用于批量爬取。
+速度慢，因为浏览器请求页面会加载所有相关的资源请求，同时还有页面操作的模拟过程，会导致爬虫的执行周期较长，因此也不适用于即时性要求较高的场景。
+来自于测试领域的Selenium，对于爬虫应用来说是一柄利剑同时也是一把重剑，只有恰当的取舍和准确的使用才能真正达到“他山之石，可以攻玉”的最终目的。
+本文作者：彭英杰（点融黑帮），就职于点融成都Data Team，负责接口集成以及爬虫开发工作。喜欢折腾新事物，爱游戏，爱运动。
+本文由@点融黑帮（ID：DianrongMafia）原创发布于今日头条，未经许可，禁止转载。"
+,,,
+it从业,2018/5/3 21:25,selenium弹窗集锦,"一、普通弹出框 div
+一般这种弹出框都属于dom的一部分，我们查看一下页面源码就可以定位到改弹出框了，然后定位下右上角的那个关闭，这里有id，所以很方便通过
+dr.findElement(By.id(""xxx"")).click(); 就可以关掉这个弹出框了。
+二、新窗口弹出框
+这里我们可以看到点击open new window 这个链接以后会弹出一个新浏览器窗口.
+这时，我们就需要用switch window的方法了，一般对于两个窗口来说，我们直接可以简单的switch到非当前窗口就可以了, 代码如下:
+Set handles = dr.getWindowHandles();
+String currentHandle = dr.getWindowHandle();
+for(String handle : handles)
+{
+if(!handle.equals(currentHandle))
+{
+dr.switchTo().window(handle);
+break;
+}
+}
+如果窗口更多的话，我们就需要通过其他方式，比如窗口的title, 或是新窗口的url来判断我们需要切换的那个窗口。
+三、Alert弹出框
+最后我们介绍些Alert弹出框的情况，
+1). Alert 类型：
+点击ok
+dr.switchTo().alert().accept();
+2). Confirm 类型:
+点击ok
+dr.switchTo().alert().accept();
+点击Cancel
+dr.switchTo().alert().dismiss();"
+,,,
+软件测试的修行者,2018/4/23 17:21,Selenium学习1-Web Element的识别和定位,"定位
+find_element_by_id(‘id_value')：通过元素的id属性来查找元素；
+find_element_by_name('name_value')：通过name属性来查找元素；
+find_element_by_tag_name(“tag_name_vaule”)：通过标签名称tag_name来查找元素；
+find_element_by_class_name(“class_name”)：通过class_name定位元素；
+find_element_by_xpath(“xpath”)：通过Xpath定位元素；
+find_element_by_xpath(""//标签[@属性名=属性值]"")：属性名可以是id、name、class或者其他可唯一标识该标签的元素；
+find_element_by_css_selector("".类属性值"")：通过class属性定位；class选择器选择class=""a""的所有元素，点号(.)表示通过class属性定位元素；
+find_element_by_css_selector(""#id值"")： id选择器选择id=""a""的所有元素，#号表示通过id属性定位元素；
+find_element_by_css_selector(""[属性名=属性值]"")：通过标签属性定位；
+find_element_by_link_text(“text_vaule”)：通过link定位元素，适用于页面中出现的文字链接;
+find_element_by_partial_link_text()：部分文字匹配；
+driver.find_element_by_link_text(u""维保计划"").click() #点击“维保计划”超链接；driver.find_element_by_partial_link_text(u""计划"").click() #链接中文字的部分匹配也可以；
+这里我们了解一下浏览器打开超链接时，如果是chrome，点超链接的同时按下Ctrl会打开新标签，按下shift会打开新窗口。
+selenium有两个关于获取窗口的方法：
+driver.getWindowHandle()： 返回的是字符串，获取当前窗口的句柄
+driver.getWindowHandles()： 返回的是 Set<String> ，获取所有窗口
+如果你想在窗口之间切换：driver.switchTo().window(window);
+Action
+click(elementLocation):点击超链接、按钮，复选框，单选框；
+clickAndWait：点击并等待；
+open(url)：在浏览器中打开URL；
+type(inputLocator,Value):模拟人手输入的过程，也适合给复选框和单选框赋值；
+例如：<input type=""text"" name=""code"" value="""" class=""check_inp"" placeholder="" 输入编号"">
+在selenium上录制时：
+代码时，用send_keys方法：
+driver.find_element_by_name(""code"").send_keys('B_00001')
+select(dropDownLocator,optionSpecifier)：选择一个下拉项的值；
+例如：
+<select id=""level"" name=""level"" class=""organ-info cenz check_inp check_inps"">
+<option value="""">请选择任务级别</option>
+<option value=""1"">低</option>
+<option value=""2"">中</option>
+<option value=""3"">高</option>
+<option value=""4"">紧急</option>
+</select>
+在selenium上录制时：
+代码时，
+方法一：Select(driver.find_element_by_name('level')).select_by_index(2)方法二：Select(driver.find_element_by_id(""level"")).select_by_visible_text(u""中"")方法三：Select(driver.find_element_by_name('level')).select_by_value('2')
+选择select的option有以下三种方法：
+selectByIndex(int index) ：通过index，从0开始，选择第几个选项的值；
+selectByVisibleText(String text) ：通过匹配到的可见字符，即在下拉时我们可以看到的文本；
+selectByValue(String value) ：通过匹配到标签里的value的值；
+selectWindow：选择弹出窗口
+pause：等待指定时间，以毫秒为单位，即要睡眠的时间
+setSpeed：设定执行速度。以毫秒延迟间隔长度。默认没有延迟，即为0
+setTimeout：指定等待动作完成的等待时间。默认为30秒。需要等待的动作包括了OPEN 和WAITFOR
+goBack：模拟用户点击其浏览器上的“back”按钮
+close：模拟用户点击弹出窗体或表单标题栏上的”关闭”按钮
+辅助accessors
+storeElementPresent(locator,variableName)：用于检查应用程序的状态并将结果存储到变量中
+断言
+常用的两咱模式： Assert 和Verify；
+Assert：失败时，该测试将终止。
+Verify：失败时，该测试将继续执行，并将错误记入日显示屏 。也就是说允许此单个 验证通过。确保应用程序在正确的页面上。
+assertLocation：判断当前是在正确的页面
+assertTitle：检查当前页面的title是否正确
+assertValue：检查input的值， checkbox或radio，有值为”on”无为”off”
+assertSelected：检查select的下拉菜单中选中是否正确
+assertSelectedOptions：检查下拉菜单中的选项的是否正确
+assertText：检查指定元素的文本
+assertTextPresent：检查在当前给用户显示的页面上是否有出现指定的文本
+assertTextNotPresent：检查在当前给用户显示的页面上是否没有出现指定的文本
+assertAttribute：检查当前指定元素的属性的值
+assertTable：检查table里的某个cell中的值
+assertEditable：检查指定的input是否可以编辑
+assertNotEditable：检查指定的input是否不可以编辑
+assertAlert：检查是否有产生带指定message的alert对话框
+waitForElementPresent ：等待检验某元素的存在。为真时，则执行。"
+,,,
+云测学院,2017/11/7 19:13,软件测试Selenium自学免费课第二节：编写你的第一个Selenium测试,"使用Selenium开始测试前，你需要知道两条最基本的信息：你想要用的页面元素是哪些和你想要用他们做些什么。这两点日后就会像你的双拳一样，不断发威、重复出击直到达到你测试某一个程序的最终工作目标——这个目标达成的时候也就是你判定到此阶段这些执行的结果是你预期结果的时候。
+以登录一个网站为例。Selenium可以:
+访问该网站的登录页面
+找到登录表单的用户名字段并输入用户名
+找到登录表单的密码字段并输入密码
+找到并单击“提交”按钮
+Selenium能够通过不同的定位策略找到页面上的元素并与之进行交互。其中包括(按字母顺序排序):
+类Class
+CSS选择器
+ID
+链接文本
+Name
+部分链接文本
+标签名
+XPath
+每个元素都有其存在的目的,但现在你只需要知道几个就可以开始编写有效的测试。
+如何找到定位器
+找到定位器最简单的方式就是去检查页面上的元素。现下主流的浏览器都有预装开发工具,你可以通过已有的浏览器检查到这些页面元素，轻松完成这一步。
+查看页面时,右键点击你想要检查的元素并单击检查，这时页面会弹出一个小窗口,所有页面的标记都在其中显示，从这个窗口中你可以查看到页面上所有独特属性或描述性的属性以便你使用。
+如何找到高质量的元素
+你想要找的应该是一个惟一的、描述性的、不太可能更改的元素。
+成熟的候选对象是id和class属性。而文本(例如，链接的文本)则不太理想，因为它更容易改变。当然这一点可能不成立，如果你想尝试的话，这也是一个很好的目标。
+如果你试图使用的元素身上并没有唯一的id或类属性，那么可以查看包含他们的元素(即父元素)。通常，父元素都会有一个独特的元素，你可以利用这个独特的元素指向你想要使用的那个子元素。
+当你找不到任何独特的元素时，就要与开发团队沟通，让他们知道你想要达到的目标。对于他们来说，为页面添加有用的语义标记使其更加利于测试，是一件微不足道的事情——特别是当他们知道你想要自动化测试时。寻找拎一个替代方案可能会是一个漫长而痛苦的过程，最后可能会产生一份测试代码，但它会变得脆弱，难以维护。
+一旦你确定了测试的目标元素，就进入到使用到Selenium策略来创建一个定位器的阶段了。
+实战部分（一个例子）
+第1部分:找到元素，编写测试
+这是标准的登录表单的标记(在互联网上搞到的登录的例子)。
+请注意表单中的独特元素。 用户名输入字段具有唯一的ID，密码输入字段也是如此。 提交按钮没有，但它是页面上唯一的按钮，所以我们可以很容易地找到它并点击它。
+让我们把这些元素用于我们的第一个测试。 首先，我们需要在项目目录的根目录下创建一个名为tests的新文件夹。 其中我们将创建一个名为login_test.py的新测试文件和一个名为__init__.py的目录必需Python文件。 当我们完成创建后，我们的目录结构应该是这样的。
+下面是我们将要在测试文件中添加的代码，来使用selenium命令和创建定位器。
+在导入pytest和Selenium的必需类之后，我们首先声明一个测试类，例如，class TestLogin() ，然后我们在类中声明一个名为driver的方法。之后，我们添加一个装饰器来表示这是一个fixture，例如，pytest.fixture ，这样在pytest中默认地，所有测试方法会调用fixture方法，因此，我们可以使用这个方法来对我们的Selenium实例进行setUp初始，或tearDown回收初始化数据垃圾。
+装饰器的作用，可参考知乎《如何理解Python装饰器？》：https://www.zhihu.com/question/26930016
+创建一个Selenium实例，我们先调用webdriver. firefox()并将其存储在一个变量中。由于该方法实际上是个驱动程序，因此这里我们将此变量称为driver_。这个变量将在该方法的末尾返回，这个地方我们的测试中很快就会用到。
+方法有两个参数self和request。self是类方法的必需参数；request是可用于fixture的参数，测试运行期间利用它可以访问大量的东西。另外还有一个相关的方法:request.addfinalizer。测试方法完成后会传递给addfinalizer。因此我们调用driver_. quit()并将其传递到addfinalizer方法中。
+我们的测试方法从这个词开始：test_(这使得pytest知道该方法是一个测试)。它有两个参数，self和driver。driver让我们访问到之前在类顶部创建的fixture方法。该方法会返回一个浏览器实例，我们可以使用Selenium命令来引用这个变量目录。在这个测试中，我们通过它的URL访问登录页面(driver.get())，通过ID找到输入字段(driver.find_element(By.ID, ""username""))，在输入框中输入文本(使用.send_keys())，然后单击提交按钮提交表单(例如，By.CSS_SELECTOR,""button"").click() )。
+保存该文件并运行py.test，它就会逐步执行了。但有一件事缺失了——断言（assertion）。为了找到一个元素来写断言，我们需要看到提交登录表单后的页面的标记是什么。
+第2部分:找出进行Assert断言的部分
+下面显示的是登录后包含页面标记的代码。
+在这种标记中，我们可以使用一些元素来进行断言，这里有flash massage(最吸引人)的类，logout按钮(有吸引力)，或者是h2或flash massage的副本(最不吸引人)。
+由于flash massage的类名是描述性的，表示一个成功的登录，相较于其副本不太可能会改动，所以我们选它。
+当我们试图访问这样的元素时(例如,多个词连接起来命名的类),我们将需要使用一个CSS选择器或XPath。
+注意:CSS选择器和XPath这两个方式效果都不错,但本课程中的例子都选择CSS选择器。
+CSS选择器快速入门
+在网页设计中使用CSS(层叠样式表)将样式应用到页面上的标记(HTML)。CSS是能做到这一点通过声明的哪位标记它想改变通过使用选择器。硒在类似的方式运营,而是改变元素的风格,这与他们通过点击,获取值,打字,送钥匙,等等。
+CSS选择器是一个非常简单和方便的方式编写定位器,特别是难以到达的元素。
+在web设计中，CSS(层叠样式表)用于将样式应用于页面上的带标记部分(HTML)。CSS选择器通过声明来改变标记区的特定部分来实现这一点。Selenium以类似的方式运行，但是它没有改变元素的样式，而是通过单击、获取值、键入、send key等来与它们交互。
+CSS选择器是一种非常简单、方便的编写定位器的方法，特别是对于很难到达的元素。
+现在，你需要知道的是。在CSS中，类名以点(.)开头。对于有多个单词的类，在每个单词前面加一个点，并删除它们之间的空间(例如，.flash.success来表示 class='flash success')。
+第3部分:编写Assertion进行验证
+有了定位器后,我们再添加一个验证它的Assert部分。
+With assert we are checking for a true Boolean response. If one is not received the test will fail. With Selenium we are seeing if the success message element is displayed on the page (with .is_displayed). This Selenium command returns a Boolean. So if the element is rendered on the page and is visible (e.g., not hidden or covered up by an overlay), true will be returned, and our test will pass.
+When we save this and run it it will run and pass just like before, but now there is an assertion which will catch a failure if something is amiss.
+利用Assert我们可以检测到布尔响应的true值。如果没有收到，测试就代表失败。Selenium命令.is_displayed 会返回布尔值，通过判断返回的是True还是False可以知道测试是否成功。如果元素在页面上呈现，并且是可见的(例如，没有被覆盖)，true将被返回，就代表我们的测试通过了。
+当我们保存并运行文件时，它会像以前一样运行；不同的是，添加了Assert部分之后，如果有什么事情出错将会返回失败信息。
+再确保一下
+为了确保这个测试正在做我们认为应该做的事情，让我们尝试人为改变Assert部分中的定位器，尝试强制失败并再次运行。 一个简单的定位器名称错误就足够了。
+下节课,我们将学习编写可维护的测试代码。"
+,,,
+it从业,2018/3/3 14:49,自动化设计基础（selenium）,"今天我们来讲一下自动化测试框架selenium的定位方法和测试点，其实selenium非常简单，就是一些API和了解一些定位方法就可以完全掌握，首先来看看定位方法
+一、定位方法
+selenium有三类定位元素的方法，
+第一种是直接通过属性、标签以及链接来定位，
+第二种是XPath方式
+第三种是CSS方式
+参考下图
+最后总结一下，我们平时工作中最常用的就是xpath，为什么这么说呢，因为平时的开发变动较大，为了减少对我们测试的影响，我们需要采用xpath这种定位方式
+二、测试点
+上图只是selenium的一些基础，只有掌握了这些基础，才能更进一步的去提升自己，更好的在实际项目中去操作
+三、pom
+pom为我们设计自动化用例提供了指导，而我在实际的应用中也是完全应用pom设计模式"
+,,,
+软件测试BlackCoffee,2018/6/8 21:59,第二章：Python Selenium 自动化测试之selenium IDE 入门,"selenium环境搭建
+浏览器：火狐浏览器，只能是火狐
+必备的插件：FireBug 和FirePath，这两个是FireFox的拓展，需要额外的安装，值得注意的是，在2016 年 6 月，Firebug 和 Firefox DevTools 整合在一起了,在2017年的时候和大家说再见了，所以高版本的FireFox无法安装FireBug。FireBug的作用主要是用来调试网页的，FirePath的作用主要是定位网页元素的。
+selenium IDE简介：一个Firefox插件，需要额外安装，可以录制用户的基本操作，生成测试用例。随后可以运行这些测试用例在浏览器里回放，可将测试用例转换为其他语言的自动化脚本。selenium IDE安装，用火狐浏览器打开 https://addons.mozilla.org/en-US/firefox/addon/selenium-ide/，然后点击Add to Firefox就好了，这个网站加载的有点慢。
+selenium IDE打开:
+打开的界面如下：
+不同版本的浏览器安装的IDE版本可能不一样，这里安装的是最新的版本
+selenium IDE界面大致介绍：
+1.用来填写被测网站的地址。
+2.速度控制：控制案例的运行速度。
+3.运行所有：运行一个测试案例集中的所有案例。
+4.运行：运行当前选定的测试案例。
+5.录制：点击之后，开始记录你对浏览器的操作。
+6.案例集列表。
+7.当选中前命令对应参数。
+8.日志：案例运行时的日志
+9.新建案例
+10.测试的结果
+新版的IDE相对于老版的IDE简化很多功能。比如去掉了定时执行、单步执行等等。
+selenium IDE的使用
+基本的步骤如下：
+输入测试网页的地址
+打开录制按钮
+在浏览器界面进行相关操作
+回放录制的脚本(注意回放的时候，浏览器一定要处于打开的状态)
+保存测试脚本
+注意：selenium为我们录制的脚本不是100%符合我们的需求的，所以，编辑录制的脚本是必不可少的工作。
+selenium IDE常用的命令
+Selenium 的命令格式
+语法:Command Target Value
+Command:操作命令
+Target:操作对象，通常是页面及页面元素
+Value:作为断言的值
+Comment:相当于注释
+open(打开)：
+(1)作用：打开指定的URL，URL可以为相对的也可以是绝对的URL
+(2)target：要打开的URL，value值为空，当target为空的时候，将要打开baseURL中填写的页面
+(3)当target不为空切值为相对路径，将打开baseURL+target页面，如，假设baseURL为https://cnblogs.com,而target为/blog/all/，则执行open命令的时候，将打开：https://cnblogs.com/blog/all/
+(4)当target以http://开头的时候，将忽略baseURL，直接打开target的网址
+pause（暂停）
+(1)作用：暂停脚本运行
+(2)waittime：等待时间，单位ms
+goBack(后退)
+作用：模拟单机浏览器的后退按钮，由于没有参数，所以target和value可不填
+refresh(刷新)
+作用：刷新当前页面，由于没有参数，所以target和value可不填
+windowMaximize(最大化)
+作用：将当前的窗口最大化，即设置为全屏显示，由于没有参数，所以target和value可不填
+click(点击)
+作用：单击一个按钮，链接，复选框或者单选按钮，如果该单击事件导致新的页面加载，命令将会加上后缀AndWait,即clickAndWait,或者waitForToLoad命令
+type(输入)
+作用：向指定输入域中输入指定的值，也可以为下拉框，复选框，和单选按钮赋值
+target：元素的定位表达式，如id=kw
+value：要输入的值
+selec(selectLocator,optionLocator)
+作用：模拟人工单击下拉列表框，selectLocator：指向指定选择元素的定位器,optionLocator：选项的选择器，（默认为标签）
+注意：选项的定位方式和下拉框的定位方式有所不同，选项的定位方式：label和Value
+label=文本值，基于选项的文本进行匹配（默认方式），如label=three
+Value=实际值，基于选项的真实进行匹配的，如：value=4
+close(关闭)
+作用:用于模拟用户单击窗口上的关闭按钮,没有参数，target和value可以不填写
+selenium断言
+概念：断言就是验证程序的状态是否同期望的一致
+断言的四种模式
+1.Assert:断言失败时，案例将终止，并宣布用例执行失败
+2.Verify:断言失败时，测试还会继续执行，并将错误记录日志，允许单个验证通过，提高脚本的伸缩性
+3.Waitfor:用于等待某些条件为真，可用于AJAX应用程序的测试，如果为真，他们讲立即成功执行，如果不为真则将失败并暂停测试，知道超过当前设定的时间，经常和setTimeout一起使用
+4.store:定义变量，可以获取页面的相关元素进行判断
+断言的五种手段
+Title:获取页面的标题
+Value:获取元素的值
+Text:获取元素文本的信息
+Table:获得元素标签
+ElementPresent:获得当前元素
+常用的断言
+assertTitle:检查当前页面的标题是否正确
+assertValue:检查输入框的值，单选或复选框的值
+verifyValue:验证元素的值
+selenium IDE只能做简单的自动化场景，下一章我们从Python开始。"
+,,,
+python蔷薇,2017/9/21 10:53,Selenium+PhantomJS加载ajax数据,"如果您对相关知识有兴趣，欢迎加群（526929231）与大神一起共同学习交流
+如今的网站有两种。一种是同步加载的。另一种是异步加载的，也即我们常说的用ajax。对于那种同步加载的网站，普通的爬虫程序轻轻松松的就能搞定。但是对于那种异步请求数据的网站，就不能走寻常路了。对于这种情况，通常的解决方案是使用selenimu+PhantomJS组合来完成。有的童鞋可能还不是很了解这两者之间的关系，接下来做个简单介绍：
+selenium：是一个web的自动化测试工具，最初是为网站自动化测试而开发的.我们可以通过他使用代码来操作浏览器以及其中的网页元素。selenium支持绝大部分的浏览器，以及类似PhantomJS这种无界面的浏览器。
+PhantomJS：是一个基于Webkit的“无界面”(headless)浏览器。他除了没有界面，其他功能跟普通浏览器是一样的。也正因为他没有界面，因此运行效率比普通浏览器要高。
+PhantomJS安装：
+从http://phantomjs.org/下载合适自己电脑版本的PhantomJS。然后根据自己的操作系统配置其环境变量。比如mac或者linux
+，可以把PhantomJS放置在/usr/bin或者/usr/local/bin中。而windows用户也可以在我的电脑->属性->环境变量中配置好PhantomJS所在的路径。
+selenium使用介绍：
+安装：sudo pip install selenium。
+使用以下代码做个简单介绍.这篇教程不打算对selenium做细节的讲解。如果想要详细了解使用细节，可以访问http://selenium-python.readthedocs.io/或者加我企鹅号（2156600937）我索要教程：
+获取豆瓣热门排行版的电影数据
+豆瓣热门电影的数据，不是一次性加载的。而是通过点击加载更多的方式获取更多数据的。因此我们不能使用传统的方式爬数据。这里我们使用selenium+PhantomJS的方式爬取异步加载的电影："
+,,,
+程序员小新人学习,2018/7/15 11:38,selenium之 玩转鼠标键盘操作（ActionChains）,"用selenium做自动化，有时候会遇到需要模拟鼠标操作才能进行的情况，比如单击、双击、点击鼠标右键、拖拽等等。而selenium给我们提供了一个类来处理这类事件——ActionChains
+selenium.webdriver.common.action_chains.ActionChains(driver)
+这个类基本能够满足我们所有对鼠标操作的需求。
+1.ActionChains基本用法
+首先需要了解ActionChains的执行原理，当你调用ActionChains的方法时，不会立即执行，而是会将所有的操作按顺序存放在一个队列里，当你调用perform()方法时，队列中的时间会依次执行。
+这种情况下我们可以有两种调用方法：
+链式写法
+menu = driver.find_element_by_css_selector("".nav"")
+hidden_submenu = driver.find_element_by_css_selector("".nav #submenu1"")
+ActionChains(driver).move_to_element(menu).click(hidden_submenu).perform()
+1
+2
+3
+4
+分步写法
+menu = driver.find_element_by_css_selector("".nav"")
+hidden_submenu = driver.find_element_by_css_selector("".nav #submenu1"")
+actions = ActionChains(driver)
+actions.move_to_element(menu)
+actions.click(hidden_submenu)
+actions.perform()
+1
+2
+3
+4
+5
+6
+7
+两种写法本质是一样的，ActionChains都会按照顺序执行所有的操作。
+2.ActionChains方法列表
+click(on_element=None) ——单击鼠标左键
+click_and_hold(on_element=None) ——点击鼠标左键，不松开
+context_click(on_element=None) ——点击鼠标右键
+double_click(on_element=None) ——双击鼠标左键
+drag_and_drop(source, target) ——拖拽到某个元素然后松开
+drag_and_drop_by_offset(source, xoffset, yoffset) ——拖拽到某个坐标然后松开
+key_down(value, element=None) ——按下某个键盘上的键
+key_up(value, element=None) ——松开某个键
+move_by_offset(xoffset, yoffset) ——鼠标从当前位置移动到某个坐标
+move_to_element(to_element) ——鼠标移动到某个元素
+move_to_element_with_offset(to_element, xoffset, yoffset) ——移动到距某个元素（左上角坐标）多少距离的位置
+perform() ——执行链中的所有动作
+release(on_element=None) ——在某个元素位置松开鼠标左键
+send_keys(*keys_to_send) ——发送某个键到当前焦点的元素
+send_keys_to_element(element, *keys_to_send) ——发送某个键到指定元素
+接下来用示例来详细说明和演示每一个方法的用法：
+3.代码示例
+1. 点击操作
+示例网址http://sahitest.com/demo/clicks.htm
+代码：
+# -*- coding: utf-8 -*-
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from time import sleep
+driver = webdriver.Firefox()
+driver.implicitly_wait(10)
+driver.maximize_window()
+driver.get('http://sahitest.com/demo/clicks.htm')
+click_btn = driver.find_element_by_xpath('//input[@value=""click me""]') # 单击按钮
+doubleclick_btn = driver.find_element_by_xpath('//input[@value=""dbl click me""]') # 双击按钮
+rightclick_btn = driver.find_element_by_xpath('//input[@value=""right click me""]') # 右键单击按钮
+ActionChains(driver).click(click_btn).double_click(doubleclick_btn).context_click(rightclick_btn).perform() # 链式用法
+print driver.find_element_by_name('t2').get_attribute('value')
+sleep(2)
+driver.quit()
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+结果：
+[CLICK][DOUBLE_CLICK][RIGHT_CLICK]
+1
+2.鼠标移动
+示例网址http://sahitest.com/demo/mouseover.htm
+示例代码：
+# -*- coding: utf-8 -*-
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from time import sleep
+driver = webdriver.Firefox()
+driver.implicitly_wait(10)
+driver.maximize_window()
+driver.get('http://sahitest.com/demo/mouseover.htm')
+write = driver.find_element_by_xpath('//input[@value=""Write on hover""]') # 鼠标移动到此元素，在下面的input框中会显示“Mouse moved”
+blank = driver.find_element_by_xpath('//input[@value=""Blank on hover""]') # 鼠标移动到此元素，会清空下面input框中的内容
+result = driver.find_element_by_name('t1')
+action = ActionChains(driver)
+action.move_to_element(write).perform() # 移动到write，显示“Mouse moved”
+print result.get_attribute('value')
+# action.move_to_element(blank).perform()
+action.move_by_offset(10, 50).perform() # 移动到距离当前位置(10,50)的点，与上句效果相同，移动到blank上，清空
+print result.get_attribute('value')
+action.move_to_element_with_offset(blank, 10, -40).perform() # 移动到距离blank元素(10,-40)的点，可移动到write上
+print result.get_attribute('value')
+sleep(2)
+driver.quit()
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+结果
+Mouse moved
+Mouse moved
+1
+2
+3
+一般很少用位置关系来移动鼠标，如果需要，可参考下面的链接来测量元素位置
+http://jingyan.baidu.com/article/eb9f7b6d87e2ae869264e847.html
+3.拖拽
+示例网址http://sahitest.com/demo/dragDropMooTools.htm
+代码：
+# -*- coding: utf-8 -*-
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from time import sleep
+driver = webdriver.Firefox()
+driver.implicitly_wait(10)
+driver.maximize_window()
+driver.get('http://sahitest.com/demo/dragDropMooTools.htm')
+dragger = driver.find_element_by_id('dragger') # 被拖拽元素
+item1 = driver.find_element_by_xpath('//div[text()=""Item 1""]') # 目标元素1
+item2 = driver.find_element_by_xpath('//div[text()=""Item 2""]') # 目标2
+item3 = driver.find_element_by_xpath('//div[text()=""Item 3""]') # 目标3
+item4 = driver.find_element_by_xpath('//div[text()=""Item 4""]') # 目标4
+action = ActionChains(driver)
+action.drag_and_drop(dragger, item1).perform() # 1.移动dragger到目标1
+sleep(2)
+action.click_and_hold(dragger).release(item2).perform() # 2.效果与上句相同，也能起到移动效果
+sleep(2)
+action.click_and_hold(dragger).move_to_element(item3).release().perform() # 3.效果与上两句相同，也能起到移动的效果
+sleep(2)
+# action.drag_and_drop_by_offset(dragger, 400, 150).perform() # 4.移动到指定坐标
+action.click_and_hold(dragger).move_by_offset(400, 150).release().perform() # 5.与上一句相同，移动到指定坐标
+sleep(2)
+driver.quit()
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+结果：
+dropped dropped dropped dropped
+1
+一般用坐标定位很少，用上例中的方法1足够了，如果看源码，会发现方法2其实就是方法1中的drag_and_drop()的实现。注意：拖拽使用时注意加等待时间，有时会因为速度太快而失败。
+4.按键
+模拟按键有多种方法，能用win32api来实现，能用SendKeys来实现，也可以用selenium的WebElement对象的send_keys()方法来实现，这里ActionChains类也提供了几个模拟按键的方法。
+示例网址http://sahitest.com/demo/keypress.htm
+代码1：
+# -*- coding: utf-8 -*-
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from time import sleep
+driver = webdriver.Firefox()
+driver.implicitly_wait(10)
+driver.maximize_window()
+driver.get('http://sahitest.com/demo/keypress.htm')
+key_up_radio = driver.find_element_by_id('r1') # 监测按键升起
+key_down_radio = driver.find_element_by_id('r2') # 监测按键按下
+key_press_radio = driver.find_element_by_id('r3') # 监测按键按下升起
+enter = driver.find_elements_by_xpath('//form[@name=""f1""]/input')[1] # 输入框
+result = driver.find_elements_by_xpath('//form[@name=""f1""]/input')[0] # 监测结果
+# 监测key_down
+key_down_radio.click()
+ActionChains(driver).key_down(Keys.CONTROL, enter).key_up(Keys.CONTROL).perform()
+print result.get_attribute('value')
+# 监测key_up
+key_up_radio.click()
+enter.click()
+ActionChains(driver).key_down(Keys.SHIFT).key_up(Keys.SHIFT).perform()
+print result.get_attribute('value')
+# 监测key_press
+key_press_radio.click()
+enter.click()
+ActionChains(driver).send_keys('a').perform()
+print result.get_attribute('value')
+driver.quit()
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+结果：
+key downed charCode=[0] keyCode=[17] CTRL
+key upped charCode=[0] keyCode=[16] NONE
+key pressed charCode=[97] keyCode=[0] NONE
+1
+2
+3
+示例2：
+示例网址http://sahitest.com/demo/label.htm
+代码：
+# -*- coding: utf-8 -*-
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
+from time import sleep
+driver = webdriver.Firefox()
+driver.implicitly_wait(10)
+driver.maximize_window()
+driver.get('http://sahitest.com/demo/label.htm')
+input1 = driver.find_elements_by_tag_name('input')[3]
+input2 = driver.find_elements_by_tag_name('input')[4]
+action = ActionChains(driver)
+input1.click()
+action.send_keys('Test Keys').perform()
+action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).perform() # ctrl+a
+action.key_down(Keys.CONTROL).send_keys('c').key_up(Keys.CONTROL).perform() # ctrl+c
+action.key_down(Keys.CONTROL, input2).send_keys('v').key_up(Keys.CONTROL).perform() # ctrl+v
+print input1.get_attribute('value')
+print input2.get_attribute('value')
+driver.quit()
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+结果：
+Test Keys
+Test Keys
+1
+2
+复制粘贴用WebElement< input >.send_keys()也能实现，大家可以试一下，也可以用更底层的方法，同时也是os弹框的处理办法之一的win32api，有兴趣也可以试试SendKeys、keybd_event"
+,,,
+社会人369258147,2018/1/29 21:54,Python爬虫：学习Selenium并使用Selenium模拟登录知乎,"现在开始要学习使用Python进行动态爬虫了，而Selenium是来进行动态爬虫的一种工具
+介绍Selenium
+众所周知很多网站的内容需要登录后能去获取他们的内容，这个时候我们就需要先登录进去，所以就有了这篇模拟登录文章
+模拟登录我们要使用到 selenium 自动化测试工具，这个工具需要另行安装，如果你是使用pycharm,你可以直接去setting中点击一键安装selenium，
+然后还要去下载浏览器驱动，这里我推荐使用Firefox,因为相对Chrome来说，它是没有版本限制的，不容易出错. Firefox 直接百度就能下载，有一个推荐下载的， Firefox的驱动也可以百度一下 Geckodriver 下载后安装，最后要记得设置环境变量，不然会带来一系列麻烦与错误的，所以这里切记一定要设置。
+webdriver.Firefox() 这是获取Firefox浏览器的驱动，
+元素.click()这是模拟网页的某个控件的点击事件
+元素.clear() 清除元素的值
+元素.send_keys(username) 给元素赋值
+元素定位
+再说一下元素的定位方法，元素的定位方法有很多种，下面我列举一下，这些方法看单词就能明白意思.
+find_element_by_id
+find_element_by_name
+find_element_by_xpath
+find_element_by_link_text
+find_element_by_partial_link_text 通过部分超连接文本定位
+find_element_by_tag_name
+find_element_by_class_name
+find_element_by_css_selector
+窗口切换
+切换window
+driver.switch_to_window('windowname')
+切换frame
+driver
+弹窗处理
+alert = driver.switch_to_alert()
+alert.dismiss
+使用Selenium来模拟登录知乎
+代码，下面是完整代码
+# coding=utf-8import osfrom selenium import webdriver#知乎的用户名和密码username = ""XXXXXXX""password = ""XXX""#，获取浏览器的驱动，这里需要提前给firefox指定环境变量，如果没有指定则需要指定路径driver = webdriver.Firefox()#窗口最大化driver.maximize_window()#打开登录页面driver.get(""https://www.zhihu.com/signup?next=%2F"")#切换到登录页面driver.find_element_by_xpath('//*[@id=""root""]/div/main/div/div/div/div[2]/div[2]/span').click()#给输入框赋值driver.find_element_by_xpath('//*[@id=""root""]/div/main/div/div/div/div[2]/div[1]/form/div[1]/div[2]/div[1]/input').send_keys(username)driver.find_element_by_xpath('//*[@id=""root""]/div/main/div/div/div/div[2]/div[1]/form/div[2]/div/div[1]/input').send_keys(password)#模拟点击事件driver.find_element_by_xpath('//*[@id=""root""]/div/main/div/div/div/div[2]/div[1]/form/button').click()print driver.titleos.system(""pause"")
+登录成功后的图片
+说明：这种模拟登录还不怎么完全，因为这没有涉及到验证码的操作，如果设计到了登录需要输入验证码，就更复杂了。后面我会进一步讲解.
+（持续关注Python绿色通道，第一时间获取更新文章）"
+,,,
+it从业,2018/4/26 8:09,selenium自动化测试之Alert,"package org.openqa.selenium;
+public interface Alert {
+//取消
+void dismiss();
+//接受
+void accept();
+//获取文本
+String getText();
+//输入内容
+void sendKeys(String keysToSend);
+}"
+,,,
+看到他请叫他快去学习,2018/3/27 23:51,Python+selenium自动上传图片至微博相册,"Why?
+写博客的时候每次使用图片都得先上传到新浪微博，然后在得到链接插入到markdown中。这样操作多来几次就受不了，于是就使用python+selenium自动上传博客图片。
+第一步 安装环境
+Python3
+selenium
+安装chromedriver [各版本下载地址](http://chromedriver.storage.googleapis.com/index.html)
+第二步 获取XPath
+首先打开登录页面，得到需要的账号、密码、登录的XPath(按F12打开开发者工具)
+得到账号的XPath如下图(其他同理,注意是input标签哦)：
+得到上传照片按钮的XPath
+得到普通上传的XPath
+得到选择图片的Xpath
+以下省略1000字……
+第三步 撸代码调试
+代码如下(简单易懂吧)：
+import os
+from selenium import webdriver
+import time
+classConnect():
+def__init__(self):
+self.UserName = '你的账号'
+self.PassWord = '你的密码'
+# 微相册的登录地址
+self.URL = 'https://weibo.com/login.php?url=http://photo.weibo.com/5673857615/albums'
+defupload(self):
+# chromedriver的安装地址(默认)
+self.driver = webdriver.Chrome('C:Program Files (x86)GoogleChromeApplicationchromedriver.exe')
+# 最大化浏览器窗口
+self.driver.maximize_window()
+self.driver.get(self.URL)
+# 输入账号
+self.driver.find_element_by_xpath('//*[@id=""loginname""]').send_keys(self.UserName)
+# 输入密码
+self.driver.find_element_by_xpath('//*[@id=""pl_login_form""]/div/div[3]/div[2]/div/input').send_keys(self.PassWord)
+# 点击登录(我这里忽略需要验证码的情况 可以用打码平台解决，或手动输入)
+self.driver.find_element_by_xpath('//*[@id=""pl_login_form""]/div/div[3]/div[6]/a').click()
+# 等待3秒
+time.sleep(3)
+# 点击上传照片
+self.driver.find_element_by_xpath('//*[@id=""user_info""]/div/a').click()
+time.sleep(3)
+# 点击普通上传
+self.driver.find_element_by_xpath('//*[@id=""flash_upload""]/p/a').click()
+# 打开需要记录上传的图片地址的txt
+fr = open(""E:pythonpySinaAutoUploadimgsPath.txt"", ""r"")
+content = fr.readlines()
+# 循环上传图片
+for index,val in enumerate(content):
+imgPath = val.strip() #去掉每行头尾空白
+time.sleep(3)
+i = index + 1
+if i == 1:
+self.driver.find_element_by_xpath('//*[@id=""common_upload""]/ul/li/form/input').send_keys(imgPath)
+time.sleep(3)
+self.driver.find_element_by_xpath('//*[@id=""common_upload""]/ul/li/form/a').click()
+else:
+self.driver.find_element_by_xpath('//*[@id=""common_upload""]/ul/li[' + str(i) + ']/form/input').send_keys(imgPath)
+time.sleep(3)
+self.driver.find_element_by_xpath('//*[@id=""common_upload""]/ul/li[' + str(i) + ']/form/a').click()
+# 关闭文件
+fr.close()
+time.sleep(3)
+# 点击下一步
+self.driver.find_element_by_xpath('//*[@id=""common_upload""]/div/a').click()
+time.sleep(3)
+# 点击保存并发布
+self.driver.find_element_by_xpath('//*[@id=""uploadPanel""]/div[2]/div[4]/a').click()
+time.sleep(3)
+# 得到上传文件的个数
+count = len(content);
+# 打开记录上传图片的URL的txt
+fw = open(""E:pythonpySinaAutoUploadimgsUrl.txt"", ""w"")
+# 循环得到图片Url
+for j in range(count):
+imgsUrl = self.driver.execute_script('return document.getElementsByClassName(""m_photoItem m_photoItem_a"")[' + str(j) + '].getElementsByTagName(""img"")[0].src')
+time.sleep(3)
+imgsUrl = imgsUrl.replace(""small"", ""large"");
+fw.write(imgsUrl + ' ')
+fw.flush()
+fw.close()
+Connect().upload()
+第四步 编写bat批处理文件简化操作
+为什么用bat? 一开始是想直接拖到.py文件上运行的，可以改了注册表重启什么的还是不管用
+getPath.bat // 得到图片路径
+@Echo Off&Setlocal Enabledelayedexpansion
+Del /q E:pythonpySinaAutoUploadimgsPath.txt
+For /l %%a in (1,1,9) do (Call Set ""f=%%%%~a""
+(If defined f Dir /a-d /b /s !f!)>>E:pythonpySinaAutoUploadimgsPath.txt)
+For /f ""tokens=*"" %%i in (imgsPath.txt) do (
+Ren ""%%~dpni_New%%~xi"" ""%%~nxi""
+)
+exit
+upload.bat //运行py
+cd E:pythonpySinaAutoUpload
+python uploadImgs.py
+好了，到此告一段落了，等有时间补上使用py模拟登陆的解决方案"
+,,,
+软件测试程序猿,2018/7/30 15:26,软件测试最全资料和视频免费领取啦,"软件测试基础入门到精通的资料和视频都有，包括：功能测试、JAVA自动化、python自动化、selenium、接口、app、web、自动化，性能、jmeter、LR，都可以免费赠送，私信我回复“领取”即可
+全部软件测试资料
+python资料
+学习视频
+学习视频"
+,,,
+开源优测,2017/5/15 8:26,python selenium 架构说明,"selenium技术族谱
+selenium技术族谱
+selenium家族图说明：
+1、IDE 主要用来学习和对selenium技术有个初步的了解用，不适合日常的自动化测试
+2、grid 可以理解为selenium grid，用于并行部署、测试、执行
+3、selenium 2 包含了1.0 和 2.0，一般情况我们说selenium2 是指webdriver。目前webdriver已被纳入w3c标准，将成为浏览器端自动化测试的标准组件
+webdriver架构图
+用一张最简洁的流程图形来标识webdriver的架构，如下
+webdriver
+webdriver流程架构图说明
+从图来看，webdriver可以看做有四层，分别为：
+1、业务脚本，支持python、java、ruby、perl、php、js等语言
+2、selenium web driver层，从前面几张的源码分析来看，支持ie、google、firefox等等各种常见的浏览器（默认支持firefox，google、ie需要下载对应的驱动）
+3、浏览器层，几乎括揽了所有的浏览器
+4、业务系统，即我们的测试对象"
+,,,
+it从业,2018/4/28 18:25,selenium操作浏览器，清除缓存,"有的时候我们需要操作浏览器清除浏览器的缓存，这个首先需要打开URL
+""chrome://settings/clearBrowserData""
+driver.get(catches);
+Common.sleep(5000);
+driver.switchTo().activeElement();
+driver.findElement(By.cssSelector(""* /deep/ #clearBrowsingDataConfirm"")).click();
+然后需要注意的是xpath无法使用，得需要使用css定位方式"
+,,,
+中国统计网,2017/8/9 19:30,Selenium 抓取淘宝商品,"我们可以尝试分析Ajax来抓取了相关数据，但是并不是所有的页面都是可以分析Ajax来就可以完成抓取的，比如淘宝。它的整个页面数据确实也是通过Ajax获取的，但是这些Ajax接口参数比较复杂，可能会包含加密密钥等参数，所以我们如果想自己构造Ajax参数是比较困难的，对于这种页面我们最方便快捷的抓取方法就是通过Selenium，本节我们就来用Selenium来模拟浏览器操作，抓取淘宝的商品信息，并将结果保存到MongoDB。
+接口分析
+首先我们来看下淘宝的接口，看看它的接口相比一般Ajax多了怎样的内容。
+打开淘宝页面，搜索一个商品，比如iPad，此时打开开发者工具，截获Ajax请求，我们可以发现会获取商品列表的接口。
+它的链接包含了几个GET参数，如果我们要想构造Ajax链接直接请求再好不过了，它的返回内容是Json格式。
+但是这个Ajax接口包含了几个参数，其中_ksTS、rn参数不能直接发现其规律，如果我们要去探寻它的生成规律也不是做不到，但这样相对会比较繁琐，所以如果我们直接用Selenium来模拟浏览器的话就不需要再关注这些接口参数了，只要在浏览器里面可以看到的我们都可以爬取。这也是为什么我们选用Selenium爬取淘宝的原因。
+页面分析
+我们本节的目标是爬取商品信息，例如：
+这样的一个结果就包含了一个商品的基本信息，包括商品图片、名称、价格、购买人数、店铺名称、店铺所在地，我们要做的就是将这些信息都抓取下来。
+抓取入口就是淘宝的搜索页面，这个链接是可以直接构造参数访问的，例如如果搜索iPad，就可以直接访问https://s.taobao.com/search?q=iPad，呈现的就是第一页的搜索结果，如图所示：
+如果想要分页的话，我们注意到在页面下方有一个分页导航，包括前5页的链接，也包括下一页的链接，同时还有一个输入任意页码跳转的链接，如图所示：
+在这里商品搜索结果一般最大都为100页，我们要获取的每一页的内容，只需要将页码从1到100顺次遍历即可，页码数是确定的。所以在这里我们可以直接在页面跳转文本框中输入要跳转的页码，然后点击确定按钮跳转即可到达页码页码对应的页面。
+在这里我们不直接点击下一页的原因是，一旦爬取过程中出现异常退出，比如到了50页退出了，我们如果点击下一页就无法快速切换到对应的后续页面，而且爬取过程中我们也需要记录当前的页码数，而且一旦点击下一页之后页面加载失败，我们还需要做异常检测检测当前页面是加载到了第几页，因此整个流程相对复杂，所以在这里我们直接选用跳页的方式来爬取页面。
+当我们成功加载出某一页商品列表时，利用Selenium即可获取页面源代码，然后我们再用相应的解析库解析即可，在这里我们选用PyQuery进行解析。
+代码实战
+下面我们用代码来实现一下整个抓取过程。
+获取商品列表
+首先我们需要构造一个抓取的URL，https://s.taobao.com/search?q=iPad，URL非常简洁，参数q就是要搜索的关键字，我们只需要改变链接的参数q即可获取不同商品的列表，在这里我们将商品的关键字定义成一个变量，然后构造出这样的一个URL。
+构造出URL之后我们就需要用Selenium进行抓取了，我们实现如下抓取列表页的方法：
+from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+from urllib.parse import quote
+browser = webdriver.Chrome()
+wait = WebDriverWait(browser, 10)
+KEYWORD = 'iPad'
+def index_page(page):
+""""""
+抓取索引页
+:param page: 页码
+""""""
+print('正在爬取第', page, '页')
+try:
+url = 'https://s.taobao.com/search?q=' + quote(KEYWORD)
+browser.get(url)
+if page > 1:
+input = wait.until(
+EC.presence_of_element_located((By.CSS_SELECTOR, '#mainsrp-pager div.form > input')))
+submit = wait.until(
+EC.element_to_be_clickable((By.CSS_SELECTOR, '#mainsrp-pager div.form > span.btn.J_Submit')))
+input.clear()
+input.send_keys(page)
+submit.click()
+wait.until(
+EC.text_to_be_present_in_element((By.CSS_SELECTOR, '#mainsrp-pager li.item.active > span'), str(page)))
+wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.m-itemlist .items .item')))
+get_products()
+except TimeoutException:
+index_page(page)
+在这里我们首先构造了一个WebDriver对象，使用的浏览器是Chrome，然后指定一个关键词，如iPad，然后我们定义了一个get_index()方法，用于抓取商品列表页。
+在该方法里我们首先访问了这个链接，然后判断了当前的页码，如果大于1，那就进行跳页操作，否则等待页面加载完成。
+等待加载我们使用了WebDriverWait对象，它可以指定等待条件，同时指定一个最长等待时间，在这里指定为最长10秒。如果在这个时间内成功匹配了等待条件，也就是说页面元素成功加载出来了，那就立即返回相应结果并继续向下执行，否则到了最大等待时间还没有加载出来就直接抛出超时异常。
+比如我们最终要等待商品信息加载出来，在这里就指定了presence_of_element_located这个条件，然后传入了 .m-itemlist .items .item 这个选择器，而这个选择器对应的页面内容就是每个商品的信息块，可以到网页里面查看一下。如果加载成功，就会执行后续的get_products()方法，提取商品信息。
+关于翻页的操作，我们在这里是首先获取了页码输入框，赋值为input，然后获取了提交按钮，赋值为submit，分别是下图中的两个元素：
+首先我们清空了输入框，调用clear()方法即可，随后调用send_keys()方法将页码填充到输入框中，然后点击确定按钮即可。
+那么怎样知道有没有跳转到对应的页码呢？我们可以注意到成功跳转某一页后页码都会高亮显示：
+我们只需要判断当前高亮的页码数是当前的页码数即可，所以在这里使用了另一个等待条件 text_to_be_present_in_element，它会等待某一文本出现在某一个节点里面即返回成功，在这里我们将高亮的页码节点对应的CSS选择器和当前要跳转的页码通过参数传递给这个等待条件，这样它就会检测当前高亮的页码节点里是不是我们传过来的页码数，如果是，那就证明页面成功跳转到了这一页，页面跳转成功。
+那么这样，刚才我们所实现的get_index()方法就可以做到传入对应的页码，然后加载出对应页码的商品列表后，再去调用get_products()方法进行页面解析。
+解析商品列表
+接下来我们就可以实现get_products()方法来解析商品列表了，在这里我们直接获取页面源代码，然后用PyQuery进行解析，实现如下：
+from pyquery import PyQuery as pq
+def get_products():
+""""""
+提取商品数据
+""""""
+html = browser.page_source
+doc = pq(html)
+items = doc('#mainsrp-itemlist .items .item').items()
+for item in items:
+product = {
+'image': item.find('.pic .img').attr('data-src'),
+'price': item.find('.price').text(),
+'deal': item.find('.deal-cnt').text(),
+'title': item.find('.title').text(),
+'shop': item.find('.shop').text(),
+'location': item.find('.location').text()
+}
+print(product)
+save_to_mongo(product)
+首先我们调用了page_source属性获取了页码的源代码，然后构造了PyQuery解析对象，首先我们提取了商品列表，使用的CSS选择器是 #mainsrp-itemlist .items .item，它会匹配到整个页面的每个商品，因此它的匹配结果是多个，所以在这里我们又对它进行了一次遍历，用for循环将每个结果分别进行解析，在这里每个结果我们用for循环把它赋值为item变量，每个item变量都是一个PyQuery对象，然后我们再调用它的find()方法，传入CSS选择器，就可以获取单个商品的特定内容了。
+比如在这里我们查看一下商品信息源码，如图所示：
+在这里我们观察一下商品图片的源码，它是一个 img 节点，包含了id、class、data-src、alt、src等属性，在这里我们之所以可以看到这张图片是因为它的src属性被赋值为图片的URL，在这里我们就把它的src属性提取出来就可以获取商品的图片了，不过这里我们还注意到有一个data-src属性，它的内容也是图片的URL，观察后发现此URL是图片的完整大图，而src是压缩后的小图，所以这里我们抓取data-src属性来作为商品的图片。
+所以我们需要先利用find()方法先找到图片的这个节点，然后再调用attr()方法获取商品的data-src属性即可，这样就成功提取了商品图片链接。然后我们用同样的方法提取商品的价格、成交量、名称、店铺、店铺所在地等信息，然后将所有提取结果赋值为一个字典，叫做product，随后调用save_to_mongo()将其保存到MongoDB即可。
+保存到MongoDB
+接下来我们再将商品信息保存到MongoDB，实现如下：
+MONGO_URL = 'localhost'
+MONGO_DB = 'taobao'
+MONGO_COLLECTION = 'products'
+client = pymongo.MongoClient(MONGO_URL)
+db = client[MONGO_DB]
+def save_to_mongo(result):
+""""""
+保存至MongoDB
+:param result: 结果
+""""""
+try:
+if db[MONGO_COLLECTION].insert(result):
+print('存储到MongoDB成功')
+except Exception:
+print('存储到MongoDB失败')
+我们首先创建了一个MongoDB的连接对象，然后指定了数据库，在方法里随后指定了Collection的名称，然后直接调用insert()方法即可将数据插入到MongoDB，此处的result变量就是在get_products()方法里传来的product，包含了单个商品的信息，这样我们就成功实现了数据的插入。
+遍历每页
+刚才我们所定义的get_index()方法需要接收一个参数page，page即代表页码数，所以在这里我们再实现页码遍历即可，代码如下：
+MAX_PAGE = 100
+def main():
+""""""
+遍历每一页
+""""""
+for i in range(1, MAX_PAGE + 1):
+index_page(i)
+实现非常简单，只需要调用一个for循环即可，在这里定义最大的页码数100，range()方法的返回结果就是1到100的列表，顺次遍历调用index_page()方法即可。
+这样我们的淘宝商品爬虫就完成了，最后调用main()方法即可运行。
+运行
+我们将代码运行起来，可以发现首先会弹出一个Chrome浏览器，然后顺次访问淘宝页面，然后控制台便会输出相应的提取结果，这些商品信息结果都是一个字典形式，然后被存储到了MongoDB里面。
+对接PhantomJS
+但是此次爬取有个不太友好的地方就是Chrome浏览器，爬取过程必须要开启一个Chrome浏览器确实不太方便，所以在这里我们还可以对接PhantomJS，只需要将WebDriver的声明修改一下即可，但是注意这里必须要安装好PhantomJS，如果没有安装可以参考第一章里的安装方法说明。
+将WebDriver声明修改如下：
+browser = webdriver.PhantomJS()
+这样在抓取过程中就不会有浏览器弹出了。
+另外我们还可以设置缓存和禁用图片加载的功能，进一步提高爬取效率，修改如下：
+SERVICE_ARGS = ['--load-images=false', '--disk-cache=true']
+browser = webdriver.PhantomJS(service_args=SERVICE_ARGS)
+这样我们就可以禁用PhantomJS的图片加载同时开启缓存，可以发现页面爬取速度进一步提升。
+源码
+本节代码地址为：https://github.com/Python3WebSpider/TaobaoProduct
+End.
+来源：公众号“Python爱好者社区”
+运行人员：中国统计网小编（微信号：itongjilove）
+微博ID：中国统计网
+中国统计网，是国内最早的大数据学习网站，公众号：中国统计网
+http://www.itongji.cn"
+,,,
+开源优测,2017/7/11 17:30,Python3 Selenium Jmeter几本电子书,"Python3入门系列
+本书概述：
+Python是一门简单易学且功能强大的编程语言。其优雅的语法和动态类型，再结合它的解释性，使其能够轻易的跨平台运行。
+本书是写给哪些对于立即开始Python编程有急切渴望的读者的，当然更重要的是提供给软件测试领域从业者的。
+https://yuedu.baidu.com/ebook/7407741fe3bd960590c69ec3d5bbfd0a7856d54c
+python selenium系列
+本系列基于selenium3 python2进行写作，需要您具备一定的编程基础和web基础，并愿意深入思考、实战文中的每一个实例，从无到有，从浅到深，从不甚理解到深入掌握，每一个章节都值得你反复深入研究学习。
+https://yuedu.baidu.com/ebook/6b010f7f001ca300a6c30c22590102020740f21b
+jmeter入门系列
+于jmeter3介绍基础入门学习，为后续深入性能测试和调优打下扎实的工具基础，并就windows、linux和mysql的监控相关工具、命令进行了较为详细的介绍。
+https://yuedu.baidu.com/ebook/5817603002d8ce2f0066f5335a8102d276a26181"
+,,,
+马蚁蛋,2018/2/14 22:02,selenium系列教程｜3.添加智能等待时间，time 包,"题图正版授权IC
+添加等待时间
+有时候为了保证脚本运行的稳定性，需要脚本中添加等待时间。
+添加休眠
+添加休眠非常简单，我们需要引入 time 包，就可以在脚本中自由的添加休眠时间了。
+from selenium import webdriver
+import time #调入 time 函数
+browser = webdriver.Firefox()
+browser.get(""http://www.baidu.com"")
+time.sleep(0.3) #休眠0.3秒
+browser.find_element_by_id(""kw"").send_keys(""selenium"")
+browser.find_element_by_id(""su"").click()
+time.sleep(3) # 休眠3秒
+browser.quit()
+智能等待
+通过添加 implicitly_wait() 方法就可以方便的实现智能等待；
+implicitly_wait(30)
+的用法应该比 time.sleep() 更智能，后者只能选择一个固定的时间的等待，前者可以
+在一个时间范围内智能的等待。
+selenium.webdriver.remote.webdriver.implicitly_wait(time_to_wait)
+隐式地等待一个无素被发现或一个命令完成；这个方法每次会话只需要调用一次
+time_to_wait: 等待时间
+用法:
+browser.implicitly_wait(30)
+# coding = utf-8
+from selenium import webdriver
+import time #调入 time 函数
+browser = webdriver.Firefox()
+browser.get(""http://www.baidu.com"")
+browser.implicitly_wait(30) #智能等待30秒
+browser.find_element_by_id(""kw"").send_keys(""selenium"")
+browser.find_element_by_id(""su"").click()
+browser.quit()
+打印信息
+很多时间我们不可能盯着脚本执行，我们需要一些打印信息来证明脚本运行是否正确：
+打印 tile
+把刚才访问页面的 title 打印出来。
+coding = utf-8
+from selenium import webdriver
+driver = webdriver.Chrome()
+driver.get('http://www.baidu.com')
+print driver.title # 把页面 title 打印出来
+driver.quit()
+虽然我没看到脚本的执行过程，但我在执行结果里看到了
+>>>
+百度一下，你就知道
+说明页面正确被我打开了。
+打印 URL
+可以将浏览器的 title 打印出来，这里再讲个简单的，把当前 URL 打印出来。其实
+也没啥大用，可以做个凑数的用例。
+#coding=utf-8
+from selenium import webdriver
+import time
+browser = webdriver.Firefox()
+url= 'http://www.baidu.com'
+#通过 get 方法获取当前 URL 打印
+print ""now access %s"" %(url)
+browser.get(url)
+time.sleep(2)
+browser.find_element_by_id(""kw"").send_keys(""selenium"")
+browser.find_element_by_id(""su"").click()
+time.sleep(3)
+browser.quit()
+西边人细说测试，
+头条号(软件测试资源站)作者，程序爬虫获取国内外测试资源分享给自学爱好者。
+今日头条关注后，私信回复如下关键词获取大量打包资料下载。
+测试资料、工具、Python、自动化测试报告、梯子 等"
+,,,
+马蚁蛋,2018/5/14 11:22,selenium Python 软件测试框架：关键字驱动开源优化,"说明
+最新的selenium3 python3的开源优化
+使用
+关注后私信回复框架获取源码
+配置yamls下的config的url
+url: https://testerhome.com/
+命令运行
+python runner.py
+或者修改start.test.bat中的路径后，直接点击运行
+结果展示
+日志目录
+文件夹：chrome_XXXXX，包含截图
+2018-04-29 23:28:09,357 - INFO - ---- test001_登录失败_div.container>ul>li:nth-child(2)_css_click_ ----2018-04-29 23:28:09,970 - INFO - ---- test001_登录失败_input-lg_class_name_send_keys_lose1 ----2018-04-29 23:28:10,066 - INFO - ---- test001_登录失败_user_password_id_send_keys_1231231232 ----2018-04-29 23:28:10,187 - INFO - ---- test001_登录失败_div.form-actions_css_click_ ----2018-04-29 23:28:10,784 - INFO - ---- test001_登录失败_div.alert-warning_css_ _ ----2018-04-29 23:28:10,785 - INFO - [CheckPoint_1]: testALoginFail_ : OK2018-04-29 23:28:36,116 - INFO - ---- test001_登录_div.container>ul>li:nth-child(2)_css_click_ ----2018-04-29 23:29:41,881 - INFO - ---- test001_登录_input-lg_class_name_send_keys_lose1 ----2018-04-29 23:30:16,331 - INFO - ---- test001_登录_user_password_id_send_keys_1231231232 ----2018-04-29 23:30:16,433 - INFO - ---- test001_登录_div.form-actions_css_click_ ----2018-04-29 23:31:02,425 - INFO - [CheckPoint_2]: testBLogin_==请检查dropdown-avatar==: NG
+实时日志
+testALoginFail (TestCase.HomeTest.HomeTest) ... ==操作步骤：div.container>ul>li:nth-child(2)_css_click_ ====操作步骤：input-lg_class_name_send_keys_lose1====操作步骤：user_password_id_send_keys_1231231232====操作步骤：div.form-actions_css_click_ ====操作步骤：div.alert-warning_css_ _ ====用例_登录失败检查点成功==oktestBLogin (TestCase.HomeTest.HomeTest) ... ==操作步骤：div.container>ul>li:nth-child(2)_css_click_ ====操作步骤：input-lg_class_name_send_keys_lose====操作步骤：user_password_id_send_keys_XXXXX====操作步骤：div.form-actions_css_click_ ====操作步骤：dropdown-avatar_class_name_click_ ====操作步骤：//ul[@class='dropdown-menu']/li/a[contains(text(),'lose')]_xpath_ _ ====用例_登录检查点成功==[{'caseName': 'testALoginFail', 'step': '点击登录 输入用户名 输入密码 点击登录 ', 'info': '打开testerhome', 'title': '登录失败', 'checkStep': '错误的密码登录不成功 ', 'id': 'test001', 'msg': '', 'name': 'chrome', 'result': '通过'}]oktestHotTopic (TestCase.MyTest.MyTest) ... ==操作步骤：div.container>ul>li:nth-child(2)_css_click_ ====操作步骤：input-lg_class_name_send_keys_lose====操作步骤：user_password_id_send_keys_XXXX====操作步骤：div.form-actions_css_click_ ====操作步骤：dropdown-avatar_class_name_click_ ====操作步骤：dropdown-avatar_class_name_click_ ====操作步骤：//ul[@class='dropdown-menu']/li/a_xpath_click_ ====操作步骤：//ul[@class=""list-group""]/li[1]/div/a[2]_xpath_get_text_ ====操作步骤：ul.list-group > li:nth-child(1) > div.title > a:nth-child(2)_css_click_ ====操作步骤：/html/head/title_xpath_get_text_ ====用例_热门话题检查点成功==
+测试报告
+代码简要分析
+yml测试用例
+testinfo: - id: test001 title: 登录 info: 打开testerhometestcase: - element_info: div.container>ul>li:nth-child(2) find_type: css operate_type: click info: 点击登录 - element_info: input-lg find_type: class_name operate_type: send_keys msg: lose info: 输入用户名 - element_info: user_password find_type: id operate_type: send_keys msg: XXXXX info: 输入密码 - element_info: div.form-actions find_type: css operate_type: click info: 点击登录 - element_info: dropdown-avatar find_type: class_name operate_type: click info: 点击图像check: - element_info: //ul[@class='dropdown-menu']/li/a[contains(text(),'lose')] find_type: xpath check: default_check(默认可以不传，就是简单的查找页面元素) info: 查找用户名成功
+关于check下面可以填检查点的类型：
+CONTRARY = ""contrary"" # 相反检查点，表示如果检查元素存在就说明失败，如删除后，此元素依然存在
+CONTRARY_GETVAL = ""contrary_getval"" # 检查点关键字contrary_getval: 相反值检查点，如果对比成功，说明失败
+DEFAULT_CHECK = ""default_check"" # 默认检查点，就是查找页面元素
+COMPARE = ""compare"" # 历史数据和实际数据对比
+某个用例的page层
+class LoginPage: def __init__(self, kwargs): _init = {""driver"": kwargs[""driver""], ""test_msg"": getYam(kwargs[""path""]), ""logTest"": kwargs[""logTest""], ""caseName"": kwargs[""caseName""]} self.page = Pages.PagesObjects(_init) def operate(self): # 操作步骤 self.page.operate() def checkPoint(self): # 检查点 self.page.checkPoint()
+pages再次封装了一层，主要使用了 setupclass+ self.driver.get重定位的方式
+避免用例依赖，并不会每个用例重新启动一个session，重连机制也是这样实现的（后续填坑）
+if kwargs.get(""launch"", ""0"") == ""0"": # 若为空， 刷新页面 self.driver.get(self.driver.current_url)
+testcase层调用page层
+cclass HomeTest(ParametrizedTestCase): def testALoginFail(self): app = {""logTest"": self.logTest, ""driver"": self.driver, ""path"": PATH(""../Yamls/home/LoginFail.yaml""), ""caseName"": sys._getframe().f_code.co_name} page = LoginFailPage(app) page.operate() page.checkPoint() def testBLogin(self): app = {""logTest"": self.logTest, ""driver"": self.driver, ""path"": PATH(""../Yamls/home/Login.yaml""), ""caseName"": sys._getframe().f_code.co_name} page = LoginPage(app) page.operate() page.checkPoint()
+封装自己的关键字
+在BaseOperate中定义自己的关键字
+def operate_by(self, operate, testInfo, logTest): ........... elements = { be.CLICK: lambda: self.click(operate), be.GET_VALUE: lambda: self.get_value(operate), be.GET_TEXT: lambda: self.get_text(operate), be.SEND_KEYS: lambda: self.send_keys(operate), be.MOVE_TO_ELEMENT: lambda: self.move_to_element(operate) }
+在用例中yaml传入自己的关键字即可,看看下面的operate_type中的鼠标悬停
+testcase: - element_info: cate_item_108698 find_type: id operate_type: move_to_element info: 鼠标悬停到.net分类上
+后续
+引入重连机制
+docker grid
+作者：西边人，西说测试
+程序爬虫抓取有用资源共享给大家
+头条号、公众号请搜索(软件测试资源站)。
+关注后，私信回复【资料包】获取如下内容，
+测试资料、工具安装、Python、效率软件、自动化测试报告、梯子、微信群、测试框架 等
+微信群、QQ群邀请加入：422703409"
+,,,
+吾八哥,2018/3/6 19:42,吾八哥学Selenium(一)：Python下的selenium安装,"selenium简介
+Selenium也是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE、Mozilla Firefox、Mozilla Suite等。这个工具的主要功能包括：测试与浏览器的兼容性——测试你的应用程序看是否能够很好得工作在不同浏览器和操作系统之上。测试系统功能——创建衰退测试检验软件功能和用户需求。支持自动录制动作和自动生成。Net、Java、Perl等不同语言的测试脚本。Selenium 是ThoughtWorks专门为Web应用程序编写的一个验收测试工具。
+安装selenium包
+使用pip install selenium命令，等待安装完成即可！
+下载浏览器驱动
+当selenium升级到3.0之后，对不同的浏览器驱动进行了规范。如果想使用selenium驱动不同的浏览器，必须单独下载并设置不同的浏览器驱动。当然对应的浏览器必须有啦，不同版本的浏览器驱动对应不同的浏览器版本，下载时要选匹配的哦。个人经验：Chrome和Firefox都是不错的，初学就用Firefox好了，github上有相关驱动的更新，会省去一些麻烦。
+各浏览器驱动下载地址：
+Firefox浏览器驱动：geckodriver
+Chrome浏览器驱动：chromedriver
+IE浏览器驱动：IEDriverServer
+Edge浏览器驱动：MicrosoftWebDriver
+Opera浏览器驱动：operadriver
+PhantomJS浏览器驱动：phantomjs
+注：部分浏览器驱动地址需要科学上网。
+设置浏览器驱动
+设置浏览器的地址非常简单。 我们可以手动创建一个存放浏览器驱动的目录，如： C:driver , 将下载的浏览器驱动文件（例如：chromedriver、geckodriver）丢到该目录下。
+我的电脑–>属性–>系统设置–>高级–>环境变量–>系统变量–>Path，将“C:driver”目录添加到Path的值中，验证不同的浏览器驱动是否正常使用：
+Python
+from selenium import webdriverdriver = webdriver.Firefox() # Firefox浏览器driver = webdriver.Chrome() # Chrome浏览器driver = webdriver.Ie() # Internet Explorer浏览器driver = webdriver.Edge() # Edge浏览器driver = webdriver.Opera() # Opera浏览器driver = webdriver.PhantomJS() # PhantomJS
+测试selenium
+Python
+import time from selenium import webdriver driver = webdriver.Firefox() #打开火狐浏览器 driver.get('http://www.baidu.com') #打开百度界面 driver.find_element_by_id('kw').send_keys('www.5bug.wang') #在搜索框内输入想要搜索内容 time.sleep(2) # 浏览器加载需要时间 driver.find_element_by_id('su').click() #搜索完成
+当你的浏览器自动打开，并出现搜索关键词的时候，说明完成python与selenium的环境搭建。"
+,,,
+Java浅析,2017/8/15 10:21,selenium+java破解极验滑动验证码,"摘要
+分析验证码素材图片混淆原理，并采用selenium模拟人拖动滑块过程，进而破解验证码。
+人工验证的过程
+打开威锋网注册页面（https://passport.feng.com/?r=user/register）
+移动鼠标至小滑块，一张完整的图片会出现（如下图1）
+点击鼠标左键，图片中间会出现一个缺块（如下图2）
+移动小滑块正上方图案至缺块处
+验证通过
+selenium模拟验证的过程
+加载威锋网注册页面（https://passport.feng.com/?r=user/register）
+下载图片1和缺块图片2
+根据两张图片的差异计算平移的距离x
+模拟鼠标点击事件，点击小滑块向右移动x
+验证通过
+详细分析
+打开chrome浏览器控制台，会发现图1所示的验证码图片并不是极验后台返回的原图。而是由多个div拼接而成（如下图3）
+下载图片并还原，上一步骤分析了图片具体的混淆逻辑，具体还原图片的代码实现如下，主要逻辑是把原图裁剪为52张小图，然后拼接成一张完整的图。
+/**
+还原过程需要注意的是，后台返回错位的图片是312 * 116大小的。而网页上图片div的大小是260 * 116。
+计算平移距离，遍历图片的每一个像素点，当两张图的R、G、B之差的和大于255，说明该点的差异过大，很有可能就是需要平移到该位置的那个点，代码如下。
+BufferedImage fullBI = ImageIO.read(new File(basePath + ""result/"" + FULL_IMAGE_NAME + ""result3.jpg""));
+通过图片显示div的style属性可知，极验后台把图片进行切割加错位处理。把素材图片切割成10 * 58大小的52张小图，再进行错位处理。在网页上显示的时候，再通过css的background-position属性对图片进行还原。以上的图1和图2都是经过了这种处理。在这种情况下，使用selenium模拟验证是需要对下载的验证码图片进行还原。如上图3的第一个div.gt_cut_fullbg_slice标签，它的大小为10px * 58px，其中style属性为background-image: url(""http://static.geetest.com/pictures/gt/969ffa43c/969ffa43c.webp""); background-position: -157px -58px;会把该属性对应url的图片进行一个平移操作，以左上角为参考，向左平移157px，向上平移58px，图片超出部分不会显示。所以上图1所示图片是由26 * 2个10px * 58px大小的div组成（如下图4）。每一个小方块的大小58 * 10
+模拟鼠标移动事件，这一步骤是最关键的步骤，极验验证码后台正是通过移动滑块的轨迹来判断是否为机器所为。整个移动轨迹的过程越随机越好，我这里提供一种成功率较高的移动算法，代码如下。
+public static void move(WebDriver driver, WebElement element, int distance) throws InterruptedException { int xDis = distance + 11;
+完整代码如下
+package com.github.wycm;import org.apache.commons.io.FileUtils;import org.jsoup.Jsoup;import org.jsoup.nodes.Document;import org.jsoup.nodes.Element;import org.jsoup.select.Elements;import org.openqa.selenium.By;import org.openqa.selenium.Point;import org.openqa.selenium.WebDriver;import org.openqa.selenium.WebElement;import org.openqa.selenium.chrome.ChromeDriver;import org.openqa.selenium.interactions.Actions;import org.openqa.selenium.support.ui.ExpectedCondition;import org.openqa.selenium.support.ui.WebDriverWait;import javax.imageio.ImageIO;import javax.imageio.ImageReadParam;import javax.imageio.ImageReader;import javax.imageio.stream.ImageInputStream;import java.awt.*;import java.awt.image.BufferedImage;import java.io.File;import java.io.FileInputStream;import java.io.IOException;import java.net.URL;import java.util.Iterator;import java.util.Random;import java.util.regex.Matcher;import java.util.regex.Pattern;public class GeettestCrawler { private static String basePath = ""src/main/resources/""; private static String FULL_IMAGE_NAME = ""full-image""; private static String BG_IMAGE_NAME = ""bg-image""; private static int[][] moveArray = new int[52][2]; private static boolean moveArrayInit = false; private static String INDEX_URL = ""https://passport.feng.com/?r=user/register""; private static WebDriver driver; static {
+pom文件依赖如下
+<dependency> <groupId>org.seleniumhq.selenium</groupId> <artifactId>selenium-server</artifactId> <version>3.0.1</version> </dependency> <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup --> <dependency> <groupId>org.jsoup</groupId> <artifactId>jsoup</artifactId> <version>1.7.2</version> </dependency>
+最后
+完整代码已上传至github,地址:https://github.com/wycm/selenium-geetest-crack
+附上一张滑动效果图"
+,,,
+爱分享IT技术的空空,2018/2/6 9:35,如何使用selenium+Python配置搭建环境,"环境部署
+python-2.7.2.msi，python安装程序
+setuptools-7.0.zip
+pip-1.0.2.tar.gz
+selenium-2.18.1.tar.gz（pip命令下载安装），selenium安装程序
+selenium-ide-1.6.0.xpi，firefoxWebDriver
+selenium-server-standalone-2.18.0.jar，ieWebDriver
+chromedriver.exe（chromedriver_win_18.0.1022.0.zip ），chromeWebDriver
+安装python
+双击安装python-2.7.2.msi即可。建议安装在默认路径：C:Python27
+添加环境变量Path：C:Python27
+安装验证：cmd命令中，输入python，进入python command line模式
+安装setuptools
+方法一：
+双击安装setuptools-0.6c11.win32-py2.7.exe下一步即可。
+安装路径C:Python27Libsite-packages
+必须安装setuptools，是因为pip和selenium的安装文件setup.py中使用。
+方法二：
+进入Python官网https://pypi.python.org/pypi/setuptools/。看到下面的界面
+点击ez_setup.py，在浏览器中弹出新的标签页，里面是代码部分
+直接打开地址为：https://bootstrap.pypa.io/ez_setup.py
+全选并复制到一个新文件命名为ez_setup.py（方便起见保存到桌面）
+双击运行，脚本会自动识别Python版本，并下载相应的文件给你安装好，其实挺傻瓜式的。
+运行过程
+检验
+打开Python目录的script文件夹查看
+安装 pip
+1.在以下地址下载最新的PIP安装文件：http://pypi.python.org/pypi/pip#downloads
+2.下载pip-7.1.2.tar.gz (md5, pgp)完成之后,解压pip-7.1.2.tar.gz，将解压文件放到C:Python27下，在DOS环境进入C:Python27pip-1.0.2，执行命令：python setup.py install。请注意安装路径。
+3.DOS命令：C:Python27pip-1.0.2> python setup.py install
+安装 selenium
+进入c:python27scripts
+输入 pip install -u selenium （这里u为大写，之前安装的时候 使用小写 导致无法安装）【这步是安装selenium 必须是在联网的情况下才可进行的】
+验证
+在验证之前需要先 from selenium import webdriver
+验证是否已经装好，试着启动firefox浏览器
+打开python的idle，运行如下脚本，看运行是否成功。
+from selenium import webdriver
+browser = webdriver.firefox() # 打开火狐浏览器
+browser.get(""http://www.baidu.com"") # 登录百度首页
+配置webdriver
+安装firefox webdirver
+将selenium-ide-1.6.0.xpi拖进firefox浏览器，即开始安装
+Firefox浏览器选装firebug、FirePath插件
+配置chrome webdriver
+1.解压chromedriver.exe到Python的安装目录下，如C:Python27。
+2.添加C:UsersAdministratorAppDataLocalGoogleChromeApplication（chrome安装路径，这里是win7下的安装路径）到环境变量path
+配置 ie webdriver
+复制IEDriverServer.exe到C:Python27
+设置IE浏览器，Internet选线安全，把各模式的“启动保护模式”设置成一样（或者全部启动，或者全部不启动）。
+自定义模块
+添加环境变量PYTHONPATH，定义为工程所在（自定义功能模块）的路径。
+D:workspaceautoprojectsrc
+Demo
+#!/usr/bin/python
+from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
+import time
+# Create a new instance of the Chrome driver, Chrome(), Firefox() or Ie() is useable
+driver = webdriver.Chrome()
+# go to the baidu home page
+driver.get(""http://www.baidu.com"")
+# find the element that's name attribute is q (the google search box)
+inputElement = driver.find_element_by_xpath (""//input[@name='wd']"")
+submitElement = driver.find_element_by_xpath (""id('su')"")
+# type in the search
+inputElement.send_keys(""Cheese!"")
+# submit the form
+submitElement.submit()
+# the page is ajaxy so the title is originally this:
+print driver.title
+driver.quit()"
+,,,
+热衷python和前端,2018/1/22 15:41,Python爬取动态网页之selenium扫盲篇,"Selenium是什么
+Selenium是在2004年由一个叫Jason Huggins的聪明的年轻人开发的，当时身处ThoughtWorks的他，为了不想让自己的时间浪费在无聊的重复性工作中，所以开发一个JS的类库来驱动浏览器页面的行为；这个js类库就是selenium core，同时也是seleniumRC、Selenium IDE的核心组件。这就是Selenium1.0的产生史。
+在2006年，在google的一位有胆识的年轻人Simon Stewart发起了一个叫WebDriver的项目；因为长期以来google一直是selenium的重度用户，但却总是被限制在有限的操控范围内，所以Simon希望能通过浏览器、操作系统的底层方法等一些手段来直接操作浏览器；这样就避免了在JavaScript的沙箱环境里存在的那些限制了，webdriver项目就此诞生！
+在2008年，Selenium和webdriver结合了，从此永结良缘，福泽我们广大的测试工作者。这期间谁追的谁都不重要了，重要的是他们合并的原因正如webdriver的作者所说：
+部分原因是 selenium 补充了 webdriver 的不足
+部分原因是 webdriver 补充了 selenium 的不足
+部分原因是它们合体后能给用户提供一个更好的自动化测试框架
+Selenium经历了两个版本，Selenium1.0 和Selenium2.0，Selenium 也不是简单一个工具，而是由几个工具组成，每个工具都有其特点和应用场景。通常都是用Selenium2
+Selenium支持非常多的浏览器
+我们这里主要用到的是PhantomJS
+PhantomJS是一个而基于webkit的服务器端的JS API。
+他全面支持各种原生的Web标准：DOM处理、CSS选择器、JSON、Canvas和SVG。最重要的是他是一个没有GUI的程序，
+也就意味着他可以省去大量的加载图形界面的时间。而且利用selenium去调用上述浏览器，PhantomJS的速度最快
+PhantomJS的安装：
+Mac下安装PhantomJS:
+brew install phantomjs
+别的就麻烦大家自行搜索了
+简单教程
+我们写一个简单的例子，写一个脚本，通过百度替我们去搜索结果，并将网页以图片的形式保存下来
+代码中注释写的很详细，如果有不懂的可以去看看http://selenium-python-zh.readthedocs.io/en/latest/
+执行结果：
+保存的图片：
+
+这篇博客只是简单的介绍了一下selenium，让大家对他有个认识，下面的几篇文章将实际应用selenium到爬虫中
+本文章是由热衷python和前端原创发布，如需转载请注明出处
+欢迎大家关注头条号：热衷python和前端
+如果有需要源码的同学就留言或者私聊我吧"
+,,,
+软件测试的修行者,2018/4/24 9:45,Selenium+python学习2-断言,"断言的语法格式：
+assert 表达式；
+assert语句是用来判断表达式是否为真的，如果为假，强行抛出一个异常，中断运行。
+如下，当名称为空时，单击save按钮，则返回false值：
+if (name == ''){layer.msg('名称不能为空', {time: 2000});return false;}
+此时可以断言，当名称为空，不返回false时，断言成功：
+assert driver.find_element_by_id(""save"").click() != False"
+,,,
+it从业,2018/4/25 7:29,selenium自动化测试之Navigation Window,"一、Navigation
+interface Navigation {
+//回退
+void back();
+//前进
+void forward();
+//在当前窗口加载
+void to(String url);
+//加载一个url
+void to(URL url);
+//刷新当前页面
+void refresh();
+}
+二、Window
+@Beta
+interface Window {
+//设置当前窗口的大小
+void setSize(Dimension targetSize);
+//设置当前 窗口的position
+void setPosition(Point targetPosition);
+//获取当前窗口的大小
+Dimension getSize();
+//得到当前窗口的位置
+Point getPosition();
+//使窗口最大
+void maximize();
+//全屏
+void fullscreen();
+}
+}"
+,,,
+热衷python和前端,2018/1/23 18:11,利用Python下载漫画（Selenium实践）,"不知道有没有人看过这部漫画（从前有座灵剑山），推荐第一部。
+在之前的文章中（Python爬取动态网页之selenium扫盲篇）用一个简单的介绍了一下Selenium，这次我们用Selenium爬取，网址：http://manhua.sfacg.com/
+主要分为几个步骤：
+从网页输入框中输入漫画名，检测是否含有该漫画
+获取到漫画的链接，遍历出所有章节的链接
+找到下一页按钮，下载每一页的图片
+从网页输入框中输入漫画名，检测是否含有该漫画
+这个和上篇文章中往百度输入框中的操作一样
+这里我们需要判断一下有没有找到该漫画
+获取到漫画的链接，遍历出所有章节的链接
+在上面的步骤中我们获取到了漫画的链接，用浏览器打开
+这里怎么样获取每一章节的链接就不讲了，代码更清楚
+我们将所有章节的链接赋给了chapters，接下来遍历所有章节去下载图片
+找到下一页按钮，下载每一页的图片
+我们当中用到了两个函数，mkdir函数是用来建立漫画目录的，save_pic函数用来将图片存储到文件夹中
+查看我们下载的图片
+到这里爬取漫画就完成了，但是利用Selenium效率非常低，我下载这个漫画大概一共55话，每话平均22张图片，全部下载完用了18分钟
+本文章是由热衷python和前端原创发布，如需转载请注明出处
+欢迎大家关注头条号：热衷python和前端
+如果有需要源码的同学就留言或者私聊我吧"
+,,,
+Python笔录,2018/3/6 7:47,Python爬虫selenium & phantomJS,"selenium和phantomJS
+目录清单
+selenium和phantomjs概述
+selenium常用API
+案例操作：模拟登陆csdn
+课程内容
+1. selenium和phantomJS是什么东西
+selenium是一套web网站自动化测试工具，主要通过命令行的操作完成常规可视化界面下的用户各种操作行为，因为其简单易学成本低，并且执行测试效率较高而在web自动化测试方面比较突出，该库可以直接运行操作各种主流浏览器，辅助浏览器自动完成表单互动、鼠标点击、鼠标拖拽、窗口切换等等各种用户行为，是一套非常好用且强大的测试库，但是selenium没有内置的浏览器模块，不能独立运行，必须要和第三方浏览器配合使用才可以完成自动化测试操作。
+在实际操作的过程中，经常使用selenium和各大主流浏览器共同操作，如谷歌、火狐、IE等等，但是在selenium自动化测试发展过程中，有一个特殊的浏览器经常用于和它配合使用，就是比较出名的无界面浏览器phantomJS。
+2. 爬虫、selenium、phantomJS
+这时候问题就来了，爬虫中，为什么要涉及到selenium测试工具和无界面浏览器这样的东东呢？
+说来话长了
+故事背景：那是很久的以前，人们生活在一个非常平和的年代
+老李住在人民小区的一所豪宅中，人人互爱互助，路不拾遗夜不闭户已经成了传统
+这天，从遥远的他乡来了一个人~老王(爬虫)，禁不住五脏庙的闹腾，终于决定要找点吃的了，他一路独行直接进来了老李家，把老李留给媳妇的无骨炖鸡汤给吃了个精光，然后施施然潇洒的离去了..
+[爬虫老王，根据自己需要的数据对于网站服务器老李进行了数据采集，服务器没有任何防范，数据直接被获取到了！]
+老李终于回家了，发现有人动了他的鸡汤....于是，晚上老李家传来了老李的惨叫声.
+老李吸取教训，应该是有小区之外的人进了小区，于是跟守门大妈说了一句，以后进门的人一定要问问有木有门卡(备注：门卡是小区住户才有的一种身份卡片)，有卡才让进小区，否则不允许进入
+[服务器老李由于数据无端泄露导致出现了安全问题，于是进行了简单的升级防范，针对所有进行访问的用户验证其User-agent，如果User-agent不合适则禁止访问]
+老王这天又饿的不行了，但是进小区时发现大妈竟然要查牌，好吧，老王找到小区的某个人，请它吃了顿饭，顺便看了看门卡长的什么样子，然后自己偷偷去做了一张一模一样的卡片，然后 老王又进去了老李家，半夜小区又传来了老李的惨叫~~
+[爬虫老王通过抓包工具进行了服务器请求的抓包，分析了请求中的各项参数，在请求头中添加了浏览器的User-agent的值，再次访问服务器，顺利拿到了需要采集的数据]
+老李愤慨于老王的行为，再次跟门口大妈说了说，家里的东西又被人动了，大妈回忆了一下这几天的情况，发现老王频繁的进入小区，于是大妈针对每天频繁进入小区的人单独进行了登记，注意防范，一旦出现就坚决不允许这样的人再进入小区
+[服务器老李针对再次数据泄露，认识到了可能有非法用户多次采集数据造成的，于是针对限定时间频繁访问数据的操作进行了屏蔽，如果出现1分钟内访问次数超过30次的直接屏蔽ip地址]
+<> -------------
+老王这天来到小区门口，发现和他一样的老孙饿的皮包骨头，很诧异的问老孙什么情况，老孙据实说了实际情况，老孙已经进了大妈的黑名单，再也不能进小区觅食了！老王发现了这个问题之后，于是~每天只进入一次小区，还跟大妈很热情的打招呼呢.....老李是彻底的愤怒了，家里的吃的虽然没有像之前丢的那么频繁，但是终归还是丢了特别重要的部分，半夜时分，老李的惨叫是那么的惨绝人寰[爬虫老王限制了爬虫访问服务器的时间，根据正常用户的发送请求的时间，限制了不同爬取请求之间的休眠时间，尽管采集数据较慢，但是同样得到了数据]
+<> -------------
+老李这次学乖了，出门的时候给家里上锁了,在也不愁数据数据再次丢失的问题了[服务器老李在请求参数中，添加了一个加密字段，如果参数中包含了正确的加密字段，就允许访问数据，如果参数中没有标注则拒绝访问]
+老王已经饿了太多天了
+老王找到了传说中的某个大师，跟他学了旷古绝技，于是在某个艳阳高照的晴天，再次进了老李家....这天半夜，老李默默的坐了一个晚上[爬虫针对加密数据进行了分析追踪，得到了加密 的具体流程，于是进行了加密字段的重现，将加密数据通过请求传递给了服务器，顺利获取到了数据]
+<> -------------
+老李根据自己的需要，换了指纹密码锁[服务器针对数据安全问题，进行了再次升级，对数据进行了混淆编码的同时，通过混淆编码进行了多重加密操作，同时进行了多个字段的数字指纹签名操作，如果请求中不包含这些数据的情况下，拒绝提供数据]
+<>-------------
+老王看着紧锁的大门，想了很久....
+这天老李家来了客人，好酒好菜两人畅谈甚久，夜幕时分，老王施施然从老李家走了出来，身旁就是老李相送[客户端老王看到服务器老李已经做了非常复杂的反爬虫操作，于是权衡之后不再做反扒操作，直接让自己变成了正式用户发送请求，同样获取到了数据]
+而这里涉及到的正式用户的请求，就是直接通过浏览器发送请求访问服务器，用到的浏览器就是phantomJS无界面浏览器，通过selenium测试工具发送请求操作访问过程获取数据
+准备工作：selenium和PhantomJS
+phantomjs：一个独立的无界面浏览器，并不是python模块，所以需要单独下载安装；phantomjs官方网站：http://phantomjs.org/
+selenium：独立的第三方模块，通过pip install selenium进行安装
+3. selenium核心API
+selenium.webdriver
+find_element_by_id()
+find_elements_by_name()
+find_elemnets_by_xpath()
+find_elements_by_link_text()
+find_elemetns_by_partial_link_text()
+find_elements_by_tag_name()
+find_elements_by_class_name()
+find_elements_by_css_selector()
+根据标签编号查询标签对象
+<div id=""box"">...</div>
+driver.find_by_element_by_id(""box"")
+同下：
+from selenium.webdriver.common.by import By
+driver.find_element(by=By.ID, value='box')
+根据标签的name属性只查询标签对象
+<div name=""real_name""></div>
+driver.find_elements_by_name(""real_name"")
+同下：
+from selenium.webdriver.common.by import By
+driver.find_elemnets(by=By.NAME, value='real_name')
+根据xpath语法查询指定的标签
+driver.find_elements_by_xpath('//input[id=""kw""]')
+同下：
+from selenium.webdriver.common.by import By
+driver.find_elements(by=By.XPATH, value='//input[@id=""kw""]')
+根据超链接标签链接文本查询标签
+driver.find_elements_by_link_text('damu')
+同下：
+from selenium.webdriver.common.by import By
+driver.find_elements(by=By.LINK_TEXT, value='damu')
+根据超链接标签链接文本 扩展 查询标签
+driver.find_elements_by_partial_link_text('damu')
+同下：
+from selenium.webdriver.common.by import By
+driver.find_elements(by=By.PARTIAL_LINK_TEXT, value='damu')
+根据标签名称查询标签
+driver.find_elements_by_tag_text('damu')
+同下：
+from selenium.webdriver.common.by import By
+driver.find_elements(by=By.TAG_NAME, value='damu')
+根据标签的class名称查询标签
+driver.find_elements_by_class_name("""")
+同下：
+from selenium.webdriver.common.by import By
+driver.find_elements(by=By.CLASS_NAME)
+根据标签的样式名称查询得到标签
+driver.find_elements_by_css_selector(""#box > div"")
+同下：
+from selenium.webdriver.common.by import By
+driver.find_elements(by=By.CSS_SELECT, value='#box')
+driver.get(""http://www.baidu.com"")
+如：driver = selenium.webdriver.PhantomJS()
+如：driver = selenium.webdriver.Chrome()
+selenium核心驱动模块，主要包含了web服务相关的核心操作，可以调用指定的服务器
+接续：浏览器填写url地址访问文章：
+接续：获取标签对象
+selenium.webdirver.common.keys.Keys
+from selenium.webdriver.common.keys import Keys
+driver.find_element_by_id(""kw"").send_keys(Keys.CONTROL, ""a"")# ctrl+a全选
+ALT:alt按键
+NUMBER1：数字键1
+LFET：←左方向键
+F1：功能键F1
+更多more~
+from selenium.webdriver.support.ui import Select
+选择下拉框：sl = Select(driver.find_element_by_id(""city""))
+输入选择的值：
+sl.select_by_index(1) # 根据值的索引赋值
+sl.select_by_value(""zhengzhou"") # 根据具体下拉框的value赋值
+sl.select_by_visible_text(""郑州"")# 根据下拉框显示的值赋值
+sl.deselect_all() # 全部取消
+选择输入框：kw = driver.find_element_by_id(""kw"")
+输入数据：kw.send_keys(u""关键字"")
+selenium用于操作用户键盘的核心模块
+表单处理：输入框填写数据
+表单处理：下拉列表框选择数据
+键盘按键：功能键+字母按键
+selenium.webdriver.ActionChains
+from selenium.webdriver import ActionChains # 引入鼠标模块
+su = driver.find_element_by_id(""su"") # 获取标签对象
+ActionChains(driver).move_to_element(su).perform()# 鼠标移动到对象上
+ActionChains(driver).move_to_element(su).click(su).perform()# 鼠标单击
+ActionChains(driver).move_to_element(su).double_click(su).perform()# 鼠标双击
+ActionChains(driver).move_to_element(su).context_click(su).perform()# 鼠标右键单击
+ActionChains(driver).move_to_element(su).click_to_hold(su).perform()# 鼠标单击并按住
+pos1 = driver.find_element_by_element(""pos1"")
+pos2 = driver.find_element_by_element(""pos2"")
+ActionChains(driver).drag_and_drop(pos1, pos2).perform() # 鼠标将pos1脱拽到pos2的位置
+driver.find_element_by_id(""su"").click()
+该模块包含了和鼠标操作相关的行为
+模拟鼠标单击
+鼠标链操作
+页面窗口操作
+driver.switch_to.window(""window name"")# 窗口诶切换
+driver.forward()# 导航前进
+driver.back()# 导航后退
+cookie操作
+driver.get_cookies()获取当前正在访问url地址的所有cookies数据
+driver.delete_cookie(key)根据key值删除对应的cookie数据
+driver.delete_all_cookies()清空cookie
+网页延时：针对网页中通过Ajax异步加载Json数据的情况，不同的网速下返回Json数据并渲染页面会有延迟，网页中并不一定能正常获取数据，需要延时操作
+# coding:utf-8from selenium import webdriverfrom selenium.webdriver.common.by import Byfrom selenium.webdriver.support.ui import WebDriverWaitfrom selenium.webdirver.support import except_conditions as ECdriver = webdriver.PhantomJS()driver.get(""http://www.baidu.com"")try: # 获取标签：间隔10S获取标签~一直等待到标签获取成功 element = WebDriverWait(driver, 10).until( EC.presence_of_element_located((By.ID, ""box"")) )finally: driver.quit()
+这里的等待条件，就是except_conditions调用时执行的函数，内置如下条件可以直接调用
+title_istitle_containspresence_of_element_locatedvisibility_of_element_locatedvisibility_ofpresence_of_all_elements_locatedtext_to_be_present_in_elementtext_to_be_present_in_element_valueframe_to_be_available_and_switch_to_itinvisibility_of_element_locatedelement_to_be_clickable – it is Displayed and Enabled.staleness_ofelement_to_be_selectedelement_located_to_be_selectedelement_selection_state_to_beelement_located_selection_state_to_bealert_is_present
+# coding:utf-8from selenium import webdriverdriver = webdriver.PhantomJS()driver.implicitly_wait(10)driver.get(""http://www.baidu.com"")driver.find_element_by_id(""su"")
+隐时等待：设置一个等待时间即可
+显式等待
+以上，是selenium核心的几个API操作方式
+案例：CSDN登录
+真实用户登录CSDN场景：
+用户打开浏览器，访问并打开csdn登录网页
+填写账号、密码，点击登录
+进入CSDN主页
+selenium配合phantomjs完成登录操作，并保存数据到文件中
+# coding:utf-8from selenium import webdriverdriver = webdriver.PhantomJS(""./phantomjs-2.1.1/bin/phantomjs"")# 访问登录页面driver.get(""https://passport.csdn.net/account/login?ref=toolbar"")# 保存登录页面截图driver.save_screenshot(""csdn1.png"")# 获取登录 用户输入框、密码输入框u_name = driver.find_element_by_id(""username"").send_keys(""damumoye"")p_word = driver.find_element_by_id(""password"").send_keys(""********"")# 模拟点击登录login_btn = driver.find_element_by_css_selector(""#fm1 .logging"")login_btn.click()# 保存登录后的截图driver.save_screenshot(""csdn2.png"")# 保存数据with open(""csdn.html"", ""w"") as f: f.write(driver.page_source.encode(""utf-8""))# 退出浏览器driver.quit()"
+,,,
+大家学python,2017/10/12 19:35,python入门：让网页自己跑起来，selenium框架初探,"很多时候，我们希望计算机帮我做所有的事情。这一讲我们就来学习一下这样的智能技术。
+这次的关键字是selenium框架，它让我们的程序直接在浏览器上运行。通过事先输入的脚本来代替我们的工作。掌握了这项技术之后，你可以拿着茶杯悠闲的看着程序帮你做事儿了。
+selenium的安装（直接用pycharm即可）
+浏览器驱动的安装（这里以谷歌浏览器为例）
+注意点：尽量用最新的谷歌浏览器，然后选择最新的驱动即可。
+http://chromedriver.storage.googleapis.com/index.html然后在里面选择最新的驱动
+3.驱动放到python的安装目录
+4.下面就可以跑我们的第一个小程序啦。
+from selenium import webdriverdriver = webdriver.Chrome()driver.get(""http://www.baidu.com"")driver.find_element_by_id(""kw"").send_keys(""我爱python"")
+接下来，拿起茶杯就可以慢慢欣赏浏览器自动运行啦。"
+,,,
+百味小生,2017/9/19 23:59,eclipse+TestNG+maven配置，selenium入门,"本文档是框架搭建一的延续，只针对selenium的入门，老司机的请绕道。
+一.eclipse+TestNG环境配置
+1.TestNG下载离线安装包，http://www.pc6.com/softview/SoftView_445585.html
+2.安装方法:
+a.把解压后的features中解压出来的testng的文件夹放入对应的eclipse的features文件夹内
+b.把解压后的plugins中解压出来的testng的文件夹放入对应的eclipse的plugins文件夹内
+c.重启eclipse
+d.验证是否安装成功，file–>new–>other–>TestNg
+3.Testng简介
+Testng是一套开源测试框架，是从Junit继承而来，主要有以下特性:
+annotations 注释，如 @test @BeforeMethod
+支持多线程执行case
+支持数据驱动 dataProvider
+支持参参数
+能够作为eclipse的插件
+能够（配合reportng）生产客观的测试报告
+可通过testng.xml管理执行case和suite
+4.Testng使用
+首先了解一下testng 的annotations
+常见的有以下：
+@BeforeClass: 该annotation在class激活之前执行
+@BeforeMethod: 该annotation会在每个执行的方法之前执行
+@Test ,该annotation 是你要执行测试的方法
+@AfterMethod，该annotation在每个测试方法执行之后运行
+@AfterClass 该annotation会在所有测试方法之后运行
+实例：我们验证一下testng annotation 执行顺序，这个case里有两个测试 ，执行顺序为beforeClass->beforeMethod->test1->afterMethod->beforeMethod->
+test2->afterMethod->afterClass.
+5.运行结果
+二.maven安装配置
+1.下载网址：http://maven.apache.org/download.cgi
+2.环境变量配置
+a.新建系统变量
+b.path的添加：%MAVEN_HOME%in
+c.验证是否配置成功
+3.本地仓库配置
+本地仓库是用来存放联网下载的maven插件和jar包，maven本地仓库有的jar包将不再从互联网下载，所以本地仓库就相当于一个缓存。在maven的安装目录中的conf目录下有一个settings.xml文件，在这个文件中可配置本地仓库，如下图：
+如果本地仓库不配置(那么就会从互联网上下载jar包，而且下载速度贼慢)，那么默认的本地仓库的位置就是${user.dir}/.m2/repository目录
+4.全局settings配置文件和用户settings配置文件的区别：
+全局settings配置文件：就是maven的安装目录中的conf目录下的settings.xml文件。该文件里面的所有配置可应用于所有项目。
+用户settings配置文件，在${user.dir}/.m2/repository目录下，如果某些用户需要对maven特殊设置才能用到，一般用不到
+本教程中统一使用全局settings.xml文件
+5.在eclipse关联maven插件
+a.指定installations
+windows--preferences--maven--installations
+刚才在电脑上装了一个maven的程序，这儿要让eclipse找到那个程序，因为最终运行maven项目是通过自己安装的maven程序运行的。一些高版本的eclipse默认内置了maven程序，但是我们一般不用内置的maven程序，原因是为了在项目中统一maven版本。那么怎么去让eclipse知道我用哪个maven程序呢？步骤如下：点击add按钮，弹出如下对话框，选择maven程序的安装目录
+b.指定user setting
+点击【Window】选项，在下拉框中选中【Preferences】，弹出如下对话框，在该对话框中指定user setting
+c.通过eclipse浏览本地仓库
+现在我们要通过eclipse浏览本地仓库了，怎么浏览呢？可先打开maven视图：
+d.然后在输入框中输入maven
+e.接着我们就要重建索引了，重建索引需要耗费一点时间，请耐心等待，过一会儿之后你就可以通过eclipse浏览本地仓库的内容了"
+,,,
+软件测试的修行者,2018/4/26 15:19,selenium+python学习5：find_element_by_css_selector定位详解,"css定位可以分为四类：id、class、其他属性、路径；
+#id
+driver.find_element_by_css_selector(‘tag_name#id_value’)：tag_name可有可无；
+.class
+driver.find_element_by_css_selector(‘tag_name.class_value’)：tag_name可有可无，没有的时候，点要带上；
+注：有的class_value比较长，而且中间有空格时，不能把空格原样写进去，那样不能识别。这时，空格用点代替，前面要加上tag_name；
+其他属性
+driver.find_element_by_css_selector(“tag_name[attri_name=’attri_value’]”)：tag_name可有可无；
+路径
+driver.find_element_by_css_selector(""form#loginForm>ul>input[type='password']""）：注意它的层级关系使用大于号“>”"
+,,,
+马蚁蛋,2018/2/12 12:00,selenium系列教程｜1.windows下搭建环境,"selenium 介绍
+selenium 是一个 web 的自动化测试工具，不少学习功能自动化的同学开始首选 selenium ，相因为它相比 QTP 有诸多有点：
+免费，也不用再为破解 QTP 而大伤脑筋
+小巧，对于不同的语言它只是一个包而已，而 QTP 需要下载安装1个多 G 的程序。
+这也是最重要的一点，不管你以前更熟悉 C、 java、ruby、python、或都是 C# ， 你都可以通过 selenium 完成自动化测试，而 QTP 只支持 VBS
+支持多平台：windows、linux、MAC ，支持多浏览器：ie、ff、safari、opera、chrome
+支持分布式测试用例的执行，可以把测试用例分布到不同的测试机器的执行，相当 于分发机的功能。
+准备工作
+搭建平台 windows，准备工具如下：
+~下载 python
+http://python.org/getit/
+~下载 setuptools -python 的基础包工具
+http://pypi.python.org/pypi/setuptools
+~下载 pip -python 的安装包管理工具
+https://pypi.python.org/pypi/pip
+因为版本都在更新，pyhton 选择2.7.xx ，setuptools 选择你平台对应的版本，pip 不 要担心 tar.gz 在 windows 下一样可用。
+安装步骤
+1.python 的安装 ，这个不解释，exe 文件运行安装即可，既然你选择 python，相信你 是熟悉 python 的，我安装目录 C:Python27
+2.setuptools 的安装也非常简单，同样是 exe 文件，默认会找到python 的安装路径， 将安装到 C:Python27Libsite-packages 目录下
+3.安装 pip ，我默认解压在了 C:pip-1.3.1 目录下
+4.打开命令提示符（开始---cmd 回车）进入 C:pip-1.3.1目录下输入：
+C:pip-1.3.1 > python setup.py install
+「如果提示 python 不是内部或外部命令，去配置一下环境变量.
+修改我的电脑->属性->高级->环境变量->系统变量中的 PATH 为:
+变量名：PATH
+变量值：;C:Python27」
+5.再切换到 C:Python27Scripts 目录下输入：
+C:Python27Scripts > easy_install pip
+6.安装 selenium
+下载地址： https://pypi.python.org/pypi/selenium
+如果是联网状态的话，可以直接在
+C:Python27Scripts 下输入命令安装：
+C:Python27Scripts > pip install -U selenium
+如果没联网（这个一般不太可能），下载 selenium 最新版本并解压，把整个目录放到C:Python27Libsite-packages 目录下。
+7.下载并安装（http://www.java.com/zh_CN/download/chrome.jsp?locale=zh_CN） 什么？你没整过 java，参考其它文档吧！这不难。
+8.下载 selenium 的服务端（https://code.google.com/p/selenium/）在页面的左侧 列表中找到selenium-server-standalone-XXX.jar
+对！就是这个东西，把它下载下来并解压；
+在 selenium-server-standalone-xxx.jar 目 录 下 使 用 命 令 java -jar selenium-server-standalone-xxx.jar 启动（如果打不开，查看是否端口被占 用： netstat -aon|findstr 4444） 。
+安装 chromedriver
+chrome driver 的下载自行百度。
+1.下载解压，你会得到一个 chromedriver.exe 文件（我点开，运行提示 started no prot 9515 ，这是干嘛的？端口9515被占了？中间折腾了半天），后来才知道需要把这家伙放到 chrome 的安装目录下...GoogleChromeApplication ,然后设置 path 环境变量，把 chrome 的安装目录（我的：C:Program FilesGoogleChromeApplication），然后再调用 运行：
+# coding = utf-8
+from selenium import webdriver
+driver =webdriver.Chrome()
+driver.get('http://testpu')
+print driver.title
+driver.quit()
+报错提示
+Chrome version must be >= 27.0.1453.0 (Driver info: chromedriver=2.0,platform=Windows NT 5.1 SP3 x86)
+说我 chrome 的版本没有大于27.0.1453.0 ，这个好办，更新到最新版本即可。
+西边人细说测试，
+头条号(软件测试资源站)作者，程序爬虫获取国内外测试资源分享给自学爱好者。
+今日头条关注后，私信回复如下关键词获取大量打包资料下载。
+测试资料、工具、Python、自动化测试报告、梯子 等"
+,,,
+原创,白果Java技术汇,技术干货分享丨Java Selenium 操作浏览器技术分析,"本篇文章介绍selenium 操作浏览器。
+浏览器最大化 前进，后退， 刷新
+public static void testBrowser(WebDriver driver) throws Exception
+{
+driver.get(""http://www.cnblogs.com/tankxiao"");
+Thread.sleep(5000);
+// 浏览器最大化
+driver.manage().window().maximize();
+driver.navigate().to(""http://www.baidu.com"");
+// 刷新浏览器
+driver.navigate().refresh();
+// 浏览器后退
+driver.navigate().back();
+// 浏览器前进
+driver.navigate().forward();
+// 浏览器退出
+driver.quit();
+}
+截图操作
+public static void testScreenShot(WebDriver driver) throws Exception
+{
+driver.get(""http://www.baidu.com"");
+File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+FileUtils.copyFile(srcFile, new File(""c:\1.png""));
+}
+模拟鼠标操作
+public static void rightClickMouse(WebDriver driver)
+{
+driver.get(""http://www.baidu.com"");
+Actions action = new Actions(driver);
+action.contextClick(driver.findElement(By.id(""kw""))).perform();
+}
+杀掉Windows浏览器进程
+public static void killProcess()
+{
+// kill firefox
+WindowsUtils.tryToKillByName(""firefox.exe"");
+// kill IE
+WindowsUtils.tryToKillByName(""iexplore.exe"");
+// kill chrome
+WindowsUtils.tryToKillByName(""chrome.exe"");
+}
+应一些朋友的要求，我建了一个Java技术交流群：627563196，供大家交流交流。
+非常感谢大家的支持，我现在也是在工作， 也在学习新的知识，现在的技术发展的很快，很多新东西必须学习才能提高开发效率，但是java必须得学，基础的东西一定要打牢，其他的东西学起来就很快了，再次感谢大家的支持，有你们，很愉快！"
+,,,
+51Testing软件测试网,2018/2/26 14:15,Selenium+Python-Unittest多线程生成报告,"前言
+selenium多线程跑用例，这个前面一篇已经解决了，如何生成一个测试报告这个是难点，刚好在github上有个大神分享了BeautifulReport，完美的结合起来，就能生成报告了。
+环境必备：
+· python3.6 : BeautifulReport不支持2.7
+· tomorrow : pip install tomorrow安装
+· BeautifulReport : github下载后放到/Lib/site-packages/目录下
+BeautifulReport
+1.BeautifulReport下载地址：BeautifulReport
+2.下载方法：
+方法一 会使用git的直接用git下载到本地
+git clone
+方法二 点Clone or Download按钮，Download ZIP就能下载到本地了
+3.下载完之后，把BeautifulReport整个包放到python的/Lib/site-packages/目录下
+使用方法
+1.项目结构：
+case test开头的.py用例脚本
+report 放生成的html报告
+run_all.py 用于执行全部脚本
+2.单个测试脚本test_a.py参考
+3.run_all代码
+4.报告效果图
+备注：BeautifulReport是某大神在github分享的框架，这里借花献佛了，更多使用方法请前往51Testing软件测试网哈~。"
+,,,
+软件测试的修行者,2018/5/7 16:27,selenium+python学习11：unittest测试框架2,"setUp(self)和tearDown(self)
+每个测试case运行前都需要运行setUp(self)；
+每个测试case运行完后都要运行tearDown(self);
+setUpClass(cls)和tearDownClass(cls)：必须使用@classmethod装饰器
+所有case运行前只运行一次setUpClass(cls)；
+所有case运行完后只运行一次tearDownClass(cls)；
+例如：
+...@classmethod # 这里的装饰器@classmethod必须有，标识为一个类方法，def setUpClass(cls):profile=webdriver.FirefoxProfile() cls.driver = webdriver.Firefox()cls.driver.implicitly_wait(30) ..."
+,,,
+软件测试的艺术,2017/11/14 9:56,WEB自动化测试基础：元素定位基础详解（JAVA+Selenium）,"前面几篇文章都详细介绍了环境搭建的一些操作，方便大家自己搭建自动化测试环境。其实对于环境搭建，建议大家多搭建几次，因为在不同的环境下、不同的浏览器版本、不同的selenium版本都会存在各种各样的异常问题，熟练地环境搭建技能在工作中会使你如鱼得水~真的，不骗人。
+对于刚刚接触自动化测试的朋友，或者刚刚学会环境搭建的朋友来讲，其实已经迫不及待的想要完成自动化测试了，这种心情我非常理解，因为我也是这样过来的。但是我有一言：大家不妨压制住自己内心的躁动，扎扎实实从基础学起。
+这是我的血泪教训。
+好了，一如既往，我会尽量详细的介绍元素定位基础操作。另外，本次基础操作基于Selenium+Java，后面的文章会介绍Selenium+Python，朋友们可以持续关注。
+首先，我们先来回顾下环境搭建完毕后，我们用来测试环境搭建是否成功的例子：
+WebDriver driver = new FirefoxDriver();Driver.get(""http://youdao.com"");WebElemnet element = driver.findElement(By.id(""translateContent""));element.sendKeys(""selenium"");
+我们先来看一下每一行代码是什么意思？他是干什么的？（不要嫌麻烦哦~）
+WebDriver driver = new FirefoxDriver(); //初始化一个FirefoxDriver类型的对象，名叫driver
+Driver.get(""http://youdao.com""); //使用driver对象打开有道首页
+WebElemnet element = driver.findElement(By.id(""translateContent"")); //使用driver对象找到Html属性id=translateContent的元素，也就是有道搜索的输入框，名叫element
+element.sendKeys(""selenium""); //向element输入框对象中输入“selenium”关键字
+从上面我们可以看出，自动化的语法是要先找到需要操作的元素对象，比如说driver和element；然后这个对象调用相应的API的方法，比如说get和sentKeys；然后再传入数据，比如说By.id(""translateContent"")和""selenium""；最后进行我们所预设的自动化的操作。
+我们将UI自动化测试的语法，整理成一个表格：
+我们可以看到，表格中有3列，分别是对象、操作和数据，我们分行来看：
+第一行：浏览器driver对象，调用get方法，打开有道首页
+第二行：浏览器driver对象，调用findElement方法，传入数据By.id(""translateContent"")，找到输入框元素
+第三行：输入框元素element，调用sendKeys方法，传入selenium关键字数据，进行搜素
+从上面可以看出，UI自动化的语法=
+WEB元素定位语法
+在每一个web页面中，充满了大量的web元素，比如说每一个按钮、连接、图片、文字等等都是web元素，更准确的说他们是Html元素。
+在seleniumwebdriver中，每一个页面上的web元素都可以对应到一个WebElement对象；WebElement对象则可以通过WebDriver实例来获得。在这里selenium提供了一个寻找web元素的方法：findElement 。
+在Java中，查找元素的方法通过一个定位器来定位web元素，这个定位器叫做By。
+接下来我们聊聊元素定位的几种方法。
+首先，元素可以通过ID来定位。通过元素ID是元素定位最有效和最为推荐的方法。
+元素（element）ID
+页面中的格式：<element id = ""value"">
+我们来看一下有道首页输入框的元素ID如何来查看（PS：下面元素查看方法相同，我的文章风格比较详细、啰嗦，大神可以忽略。）
+a、访问有道首页，选中输入框，点击右键，选择“检查”（谷歌浏览器）或“查看元素”（火狐浏览器）
+b、点击“检查”或“查看元素”，元素ID如下图所示
+找到了元素ID，我们就可以通过""translateContent""这个ID来找到输入框元素。在selenium中的写法：
+WebElement element = driver.findElement(By.id(""translateContent"")) //driver对象调用findElement方法，传入数据(By.id(""translateContent""))
+这里的By就是selenium的定位器，By.id就是通过id来定位元素；很容易联想，还有其他定位元素的方法。
+再来看，元素可以通过Name来定位。
+页面中的格式：<element name= ""value"">
+同样我们依旧可以用有道搜索框的例子来查看元素name，如下图：
+在selenium中的写法：
+WebElement element = driver.findElement(By.name(""q""));
+这里可以看到，我们传入的数据变成了By.nama(""q"")，简单说就是使用name定位器来定位name=q的元素。
+继续看，元素可以通过Class Name来定位。
+页面中的格式：<element class= ""value"">
+同样按照之前的步骤，我们在Html查看器中，找到【精选阅读】tab，查看搜索框元素class属性的值，如下图：
+因此，使用class定位器在selenium中的写法是：
+WebElement element = driver.findElement(By.className(""active""));
+另外，selenium还支持通过超链接文本来定位元素。
+页面中的格式：<element href= ""value"">LinkText</element>
+在页面中通常有大量的包含连接的元素，一个包含连接的元素通常是这样的格式：
+那么我们要找的是连接的文本，也就是“下载词典客户端”，通过这几个汉字我么也可以找到这个元素：
+在selenium中的写法是：
+WebElement element = driver.findElement(By.linkText(""下载词典客户端""));
+那么有时候超链接的文本非常的长，如果使用一长串的文字来定位会使我们的代码显得不够优雅，那么我们可以使用缺省超链接文本来定位元素。
+页面中的格式：<element href= ""value"">PartialLinkText</element>
+还是刚才的例子，我们找到“下载词典客户端”这个元素的位置：
+这次我们只使用“客户端”这三个汉字来定位元素，对应在selenium中的使用方法：
+WebElement element = driver.findElement(By.partialLinkText(""客户端""));
+在实际的自动化测试工作中，我们发现在同一个页面会有多个元素拥有同样的属性，那么我们通过这个属性定位到的元素是不是就有很多呢？
+没错，在selenium中我们可以获取同样属性的所有元素。我们以缺省超链接文本定位方法为例，我们来获取一下所有包含“有道”这两个汉字的超链接文本元素。在selenium中的写法如下：
+List<WebElement> elemenets = driver.findElements(By.partialLinkText(""有道""));
+特别注意：我们元素定位定位调用的方法变成了“findElements”，该方法返回的是一个元素集合的list。
+为了便于观察，我们把获取到所有元素的文本都打印出来：
+对应到页面上的我们可以找到这些超链接文本的位置：
+在页面中，每个元素都有一个tag，简单可以理解为html元素类型；我们也可以使用这个tag来找到对应的元素。
+页面中的格式：<tag class= ""value""></tag>
+我们依旧使用有道搜索框作为例子，我们这次不是使用id或者name等属性来定位元素，从下图我们可以看到，这个元素本身是一个input类型的元素，那么我们就用input类型这个tag本身来定位元素
+在selenium中的写法：
+WebElement element = driver.findElement(By.tagName(""input""));
+另外，刚才提到了在页面中通常会有多个元素有着同样的tag，比如同样是input类型的元素，页面上有多个
+那么我们上面使用input类型来定位的元素，最终会定位到那个元素上呢？
+在元素定位的过程中，如果页面上存在多个满足条件的元素，findElement方法只会返回页面树状结构中自上而下的第一个满足条件的元素。
+下面的代码，是模拟id、classname、和paartialLinkText三种方法定位元素的例子，大家可以看一下：
+import java.util.List;import org.openqa.selenium.By;import org.openqa.selenium.JavascriptExecytor;import org.openqa.selenium.WebDriver;import org.openqa.selenium.WebElement;import org.openqa.selenium.firefox.FirefoxDriver;public class Elementlocating{ static WebElement highlighted = null; public static void main(string[] args){ //初始化firefoxdriver对象 WebDriver driver = new FirefoxDriver(); //开启有道首页 driver.get(""http://www.youdao.com/""); //找到有道logo页面元素对应的WebElement对象 WebElement logo = driver.findElement(By.id(""logo"")); //highlight方法为selenium高级应用，用于高亮显示页面元素 highlight(driver,logo); //找到“精选阅读”页面元素对应的WebElement对象 WebElement read = driver.findElement(By.className(""active"")); highlight(driver,read); //找到含有“有道”的页面链接对应的对象列表 List<WebElement> elemenets = driver.findElements(By.partialLinkText(""有道"")); for(WebElement element:elements){ highlight(driver,elements); } //关闭浏览器 driver.quit(); }}public static void highlight(WebDriver driver, WebElement element) { JavascriptExecutor js = (JavascriptExecutor) driver; js.executeScript(""element = arguments[0];"" + ""original_style = element.getAttribute('style');"" + ""element.setAttribute('style', original_style + "";"" + ""background: blue; border: 2px solid red;"");"" + ""setTimeout(function(){element.setAttribute('style', original_style);}, 1000);"", element);}
+其实从以上我们看出，web自动化的核心就是找到一个又一个webelement元素，无论是输入框、按钮、选择框等页面元素，都有着id、name、class等公共属性，以及getid、click、sedkeys等公共方法；总结这些规律，定义一个公共的抽象类，这便是selenium webdriver的核心思想WebElement类的由来。
+大家在练习或工作中会遇到各种各样的错误、问题，不要急躁，一个个问题去解决，去研究自己代码的每一次报错；如果你有心，记录下这些错误，这将是你日后工作的百宝箱！
+当然，我说的这些只是基础的基础，定位方法还有很多比如通过Xpath定位的方法；贪多嚼不烂，如果是真想学习自动化测试，还是脚踏实地的来吧。
+最后，如果您觉得我的文章对您有所帮助，那么烦请您帮忙关注并分享出去，希望这篇文章实现她的价值~！！！"
+,,,
+吾八哥,2018/1/28 23:21,Python里利用Selenium快速登录博客园,"之前我们介绍了Python里如何安装Selenium库，今天这里就实现一个小Demo来简单熟悉下Selenium库的用法，就拿博客园来练手吧！
+初步分析
+在Chrome浏览器里打开博客园登录页面，登录界面如下图：
+登录界面还是比较简洁的，需要输入用户名和密码，已经勾选是否要下次自动登录，然后就是点击登录按钮，一次简单的登录流程，需要用户操作的就是两个编辑框，一个复选框，一个按钮单击事件。那么我们要做的事情就利用Selenium来自动填写表单，自动提交。涉及到如何找页面元素，如何填充值，如何触发单击事件，这里面的具体的细节咱今天就不多说了，找本基础的书看看就可以了。
+元素定位
+在Chrome浏览器里按F12打开强大的开发者工具，然后鼠标对着用户名输入框右键选择“检查”则可自动定位到元素窗口对应的代码。
+用户名元素的代码为：
+Markup
+<input type=""text"" id=""input1"" value="""" class=""input-text"" onkeydown=""check_enter(event)"">
+密码元素的代码为：
+Markup
+<input type=""password"" id=""input2"" value="""" class=""input-text"" autocomplete=""new-password"" onkeydown=""check_enter(event)"">
+下次自动登录复选框的元素代码为：
+Markup
+<label for=""remember_me"" onkeydown=""check_enter(event)"">下次自动登录</label>
+登录按钮的元素代码为：
+Markup
+<input type=""submit"" id=""signin"" class=""button"" value=""登 录"">
+由此可得知用户名和密码编辑框以及登录按钮都有元素id,那么好办了，可以直接通过id来定位元素了。下次自动登录复选框没有id，则可以使用xpath路径来定位的。xpath路径的获取方法为，在开发者工具窗口里对着元素代码右键选择""copy""--->“copy XPath”。
+Python实现
+现在来在Python里实现一下吧，具体代码如下：
+运行效果：
+这里遇到了验证码识别机制，这个就留到后面咱们在分享如何用Python来完成了！"
+,,,
+编程派,2017/12/15 14:19,会玩｜使用 Python + Selenium制作Flash游戏辅助,"知道 Selenium 用来测试或爬取动态内容，还真没想过用来做游戏外挂
+
+作者：sincerefly
+来源：https://blog.yasking.org/a/selenium-whereismouse.html
+之前玩过一款游戏鼠标在哪里，如果说吸引人的地方莫过于在Linux下，这个游戏有BUG，于是，印象中我当时玩了一个多小时。
+偶然想起这款游戏，又去玩了一会，突然想到最近用的selenium driver似乎可以自动化完成这个事情，想来应该可行
+思考了一下，用selenium自动登录倒是很好搞定，但是想要确定点击位置就比较麻烦。因为是Flash游戏，不能打代码的主意，倒是可以截图分析图片，最初的想法是保存一个没有圈圈的图片，然后拿有圈圈的图片做对比，找出差异的地方，进行定位，我没有这么做，不知道PIL能不能做这个事情。在搜索的过程中，找到了更好的方法，使用OpenCV的函数可以识别圆。
+整体流程如下：
+QQ登录
+selenium模拟登录很简单，唯一需要注意的就是操作登录框的时候需要切换iframe，当登录完成后返回之前的环境
+driver.switch_to.frame(driver.find_element(By.ID, 'loginFrame'))
+driver.switch_to.default_content
+开始游戏
+进入游戏页面后，延时10s等待游戏加载完成，然乎使用selenium获取元素定位
+ele = driver.find_element(By.ID, ""FlashContainId"")
+location = ele.location
+size = ele.size
+这个location就是element相对于网页的位置，也就是游戏窗口左上角的位置。size就是element的长宽，查看网页源代码，和它们定义的 640x530大小是一致的。换言之，selenium的位置尺寸单位都是px，更方便接下来的计算
+因为开始按钮的位置是固定的，直接在location基础上算出来坐标点击即可
+from selenium.webdriver.common.action_chains import ActionChains
+action_chains = ActionChains(driver)
+action_chains.move_to_element_with_offset(ele, 250, 420).click.perform
+time.sleep(3)
+截图
+selenium没有 screenshot by element功能，只能截展示出来的窗口，不过有了游戏窗口的左上顶点坐标和游戏窗口的长宽，可以使用PIL从整张图片中截取出游戏窗口
+name = str(time.time)[:10]
+img = tmp_img_dir + name + '.png'
+driver.save_screenshot(img)
+# PIL打开图片
+im = Image.open(img)
+# 选区
+left = location['x']
+top = location['y'] - 174
+right = location['x'] + size['width']
+bottom = location['y'] + size['height'] - 174
+# 裁剪并保存
+im = im.crop((left, top, right, bottom))
+im.save(img)
+因为设置显示器大小为1366x768，这个网站在游戏加载后会有一个向下滚动使得游戏窗口位于屏幕中间的操作，因为游戏窗口相对于浏览器窗口向上移动了，所以截图出来的位置就会包含游戏窗口的下半部分和一百多像素的无关区域， 174根据截图位置进行调整的数值。我没在更大的屏幕上测试，也许不具有通用性。
+获取圆坐标
+下面这篇文章很棒，详细讲解了使用OpenCV识别图像中圆的坐标。
+我在他给的demo的基础上，简单修改下放在函数里，以便循环调用
+def getCirclePos(img_path):
+# load the image, clone it for output, and then convert it to grayscale
+image = cv2.imread(img_path)
+output = image.copy
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+# detect circles in the image
+circles = cv2.HoughCircles(gray, cv2.cv.CV_HOUGH_GRADIENT, 1.2, 50)
+# ensure at least some circles were found
+if circles is not None:
+# convert the (x, y) coordinates and radius of the circles to integers
+circles = np.round(circles[0, :]).astype(""int"")
+# loop over the (x, y) coordinates and radius of the circles
+for (x, y, r) in circles:
+print x, y, r, img_path.split('/')[-1]
+return (x, y)
+else:
+return False
+点击
+将以上功能在main中拼接起来，这个辅助工具就能正常工作啦，先登录，然后加载游戏，开始游戏，进入循环（获取截图，解析圆坐标，点击），点击后需要给一个两秒钟的sleep，不然下一个圆还没出现，并且升级后的提示""恭喜你""什么的也是会影响圆出现的时间，如果恰巧截图中没有出现圆，那么需要休息一下，继续截图，解析，点击。这样做的原因除了避免没有截取到圆的情况，也因为有时即使正确的出现圆，解析圆坐标的函数还是不能获取到坐标。这时，需要手动点击一下，毕竟要是让程序自己蒙一个，5次机会可能很快就用完了。不过遗憾的是，识别率不仅到不了100%，随着圆越来越小，识别率回越来越低，也就不能让这个辅助程序全自动，只能半自动化。至此，虽然不完美，有很多瑕疵，不过功能和流程是完善的
+完整代码：
+最后，贴个玩了几分钟的战绩。
+没错，那个历史最佳就是当年蛋疼的玩了一个多小时的成果...
+题图：pexels，CC0 授权。"
+,,,
+狮子座波哥,2017/5/7 6:33,Python第五天（2）-selenium、元素查找,"#coding=utf-8
+############################################selenium基本方法########################################################
+from selenium import webdriver
+import time
+baidu = ""http://www.baidu.com/""
+if __name__ == '__main__':
+# 创建浏览器对象,打开浏览器
+driver = webdriver.Firefox()
+# 窗口最大化
+driver.maximize_window()
+# print driver.get_window_position()
+# print driver.get_window_size()
+# 设置元素被定位到的最长等待时间
+driver.implicitly_wait(10)
+# 加载页面
+driver.get(baidu)
+keyword = driver.find_element_by_id(""kw"")
+# 元素属性
+# size 元素的尺寸
+# text 元素文本
+print ""文本框大小: "", keyword.size
+print driver.find_element_by_id(""setf"").text
+# 浏览器对象属性
+# print ""浏览器名字: "", driver.name
+print ""页面标题: "", driver.title
+print ""页面的url: "", driver.current_url
+# print ""页面的html : "", driver.page_source
+# 页面截图
+driver.get_screenshot_as_file(""D:\baidu.png"")
+# forward() 前进 back() 后退
+driver.get(""http://news.baidu.com/"")
+time.sleep(1)
+driver.back()
+time.sleep(1)
+driver.forward()
+# # 情况文本框内容
+# keyword.clear()
+# # 模拟键盘输入
+# keyword.send_keys(""hello"")
+time.sleep(3)
+driver.quit()
+####################################################元素查找方法################################################
+from selenium import webdriver
+import time
+baidu = ""http://www.baidu.com/""
+if __name__ == '__main__':
+driver = webdriver.Firefox()
+driver.maximize_window()
+driver.implicitly_wait(10)
+driver.get(baidu)
+# find_element_by_xxx 定位一个页面元素,返回页面元素
+# find_elements_by_xxx 定位一组页面元素,返回列表
+# 根据id定位元素
+# driver.find_element_by_id(""kw"").send_keys(u""软件测试"")
+# 根据name定位元素
+#driver.find_element_by_name(""wd"").send_keys(u""软件测试"")
+# 根据class定位元素
+s_ipts = driver.find_elements_by_class_name(""s_ipt"")
+# print s_ipts
+# print len(s_ipts)
+#s_ipts[0].send_keys(u""软件测试"")
+# css选择器
+#driver.find_element_by_css_selector(""input[maxlength='255']"").send_keys(""test"")
+#driver.find_element_by_css_selector(""input[id='kw']"").send_keys(""test"")
+#driver.find_element_by_css_selector(""input[name='wd'][id='kw']"").send_keys(""test"")
+#driver.find_element_by_css_selector(""input#kw"").send_keys(""test"")
+# parent > son 子元素
+#driver.find_element_by_css_selector(""form#form > span > input#kw"").send_keys(""test"")
+# 祖先 后代
+#driver.find_element_by_css_selector(""form#form span input#kw"").send_keys(""test"")
+#driver.find_element_by_css_selector(""form#form input#kw"").send_keys(""test"")
+# xpath
+#driver.find_element_by_xpath(""//*[@id='kw']"").send_keys(""test"")
+#driver.find_element_by_xpath(""//input[@id='kw']"").send_keys(""test"")
+#driver.find_element_by_xpath(""//form[@id='form']/span[1]/input[1]"").send_keys(""test"")
+#driver.find_element_by_xpath(""//form[@id='form']/span[1]/input[@id='kw']"").send_keys(""test"")
+#driver.find_element_by_xpath(""/html/body/div[1]/div[1]/div/div[1]/div/form/span[1]/input"").send_keys(""test"")
+# 链接定位方式
+# 根据链接文字
+#driver.find_element_by_link_text(u""关于百度"").click()
+# 根据部分链接文字
+driver.find_element_by_partial_link_text(u""关于百"").click()
+time.sleep(3)
+driver.quit()
+#################################################获取同名元素列表##################################################
+if __name__ == '__main__':
+driver = webdriver.Firefox()
+driver.implicitly_wait(10)
+driver.maximize_window()
+file_path = ""file:///"" + os.path.abspath(""form.html"")
+# print file_path
+# 加载本地文档
+driver.get(file_path)
+# driver.find_element_by_tag_name(""input"").send_keys(""jack"")
+inputs = driver.find_elements_by_tag_name(""input"")
+# print ""当前页面的input元素数目:"", len(inputs)
+# for input in inputs:
+# # 获取元素的属性
+# #print input.get_attribute(""type"")
+# if ""checkbox"" == input.get_attribute(""type""):
+# input.click()
+# chbxs = driver.find_elements_by_css_selector(""input[type='checkbox']"")
+# for chbx in chbxs:
+# time.sleep(1)
+# chbx.click()
+driver.find_element_by_xpath(""/html/body/form/p[1]/input"").send_keys(""123456"")
+# driver.find_element_by_xpath(""/html/body/form/p[2]/input"").send_keys(""123456"")
+time.sleep(3)
+driver.quit()"
+,,,
+浩泰思特,2017/9/6 12:00,自动化测试工具-Selenium-环境搭建篇,"在了解了Selenium这个工具之后，接下来的工作就是搭建Selenium环境了，本次搭建环境所要用到的工具有：IDEA+maven+chrome
+点击查看上篇文章：想入坑自动化测试？先了解下必备工具-Selenium
+maven安装
+直接下一步即可
+1.解压缩，将maven-3.0.5复制到一个英文路径下：
+注意：maven-3.0.5路径如下：
+2.右键我的电脑-->属性-->高级-->环境变量-->系统变量
+新建变量名：M2_HOME 变量值为：D:excisesmaven-3.0.5;
+3.系统变量-->Path-->编辑，在变量值后追加：;%M2_HOME%in;
+注意：""Path""是首字母大写，不要改成PATH，bin后面要有分号;
+注意：系统变量上面的用户变量里，不要有这两个变量，如果有应该去掉，以避免被干扰。
+4.验证配置
+点击确认上一步的配置页面，这一步一定要做，否则刚才的配置不能生效
+点WIN键->运行（或者使用win+r)
+输入cmd命令
+命令提示符（cmd）下输入：mvn -version
+5.安装成功，会有如下输出：
+如果失败了，调整前面的配置，然后需要重新启动cmd命令，而不是在原有的cmd里面输入mvn -verison
+Maven配置
+在D:excisesmaven-3.0.5confsettings.xml中,Default:~/.m2/repository 指定了仓库的默认路径
+通常不会把仓库放在C盘，故更改仓库的路径：修改值为：D:excises\userlib
+IDEA安装
+下一步安装即可
+IDEA中创建maven项目
+1.安装成功后的IDEA会弹出选择配置，如果第一次安装，选择第二个，如果已经安装根据需要选择相应配置即可
+2.选择界面底色，如图：
+3.选择任务，默认即可，如有需要根据相应需求选择
+4.下载插件，如果没有特殊需求，默认即可
+5.创建新项目
+6.创建maven项目，选择JDK版本
+7.创建项目所在组名称：groupID对应java包的结构，是main目录里java的目录结构，ArtifactID是项目的唯一标识符
+8.创建项目名称、选择项目位置
+9.创建成功后的界面
+Selenium环境搭建
+（1）添加依赖
+Pom.xml文件中添加依赖包
+<dependencies>
+<dependency>
+<groupId>org.seleniumhq.selenium</groupId>
+<artifactId>selenium-java</artifactId>
+<version>2.48.2</version>
+</dependency>
+</dependencies>
+如图：
+（2）环境验证
+1.新建类TestDemo
+![](https://pek3a.qingstor.com/alphacoding/selenium/environment/TestDemo/new class.png)
+2.编写代码，注意chromePath=""""后面的路径需改为自己chromedriver.exe所在的路径（chromedriver.exe需放在""srcmain esources""这个路径下）：
+import org.openqa.selenium.WebDriver;
+public classTestDemo {
+public static void main (String args[ ]){
+//chromedriver.exe 的绝对路径
+String chromePath=""D:\excises\seleniumfile\IdeaProjects\WebTest\src\main\resources\chromedriver.exe"";
+//设置通过chromedriver.exe启动chrome
+System.setProperty(""webdriver.chrome.driver"",chromePath);
+//实例化类
+WebDriver chromeDriver=new ChromeDriver();
+chromeDriver.get(""http://sou.zhaopin.com"");
+}
+}
+2. 右键运行：
+3.出现智联招聘页面，代表安装成功
+至此，所有环境就搭建完成了，各位小伙伴赶快去试试吧。"
+,,,
+爱分享IT技术的空空,2018/3/1 14:54,python2.7+selenium测试环境搭建,"1、安装好python2.7，将python.exe所在目录设置到系统环境变量的path项里边；
+2、安装setuptools：由于不支持64位，直接下载安装貌似有问题，可以打开http://peak.telecommunity.com/dist/ez_setup.py，复制里边的内容保存到一个文本文件，假设为c:ez_setup.py，然后在DOS窗口使用以下命令安装：python c:ez_setup.py 回车；
+3、安装pip：setuptoolssetuptools安装后，会在python安装目录下的libscripts里边生成easy_install.exe等文件，切换到这个目录，使用easy_install pip指令安装pip；
+4、安装selenium：切换到python安装目录下的libscripts，使用pip install selenium进行安装即可（必须联网状态）
+附ez_setup.py内容：
+#!python
+""""""Bootstrap setuptools installation
+If you want to use setuptools in your package's setup.py, just include this
+file in the same directory with it, and add this to the top of your setup.py::
+from ez_setup import use_setuptools
+use_setuptools()
+If you want to require a specific version of setuptools, set a download
+mirror, or use an alternate download directory, you can do so by supplying
+the appropriate options to ``use_setuptools()``.
+This file can also be run as a script to install or upgrade setuptools.
+""""""
+import sys
+DEFAULT_VERSION = ""0.6c11""
+DEFAULT_URL = ""http://pypi.python.org/packages/%s/s/setuptools/"" % sys.version[:3]
+md5_data = {
+'setuptools-0.6b1-py2.3.egg': '8822caf901250d848b996b7f25c6e6ca',
+'setuptools-0.6b1-py2.4.egg': 'b79a8a403e4502fbb85ee3f1941735cb',
+'setuptools-0.6b2-py2.3.egg': '5657759d8a6d8fc44070a9d07272d99b',
+'setuptools-0.6b2-py2.4.egg': '4996a8d169d2be661fa32a6e52e4f82a',
+'setuptools-0.6b3-py2.3.egg': 'bb31c0fc7399a63579975cad9f5a0618',
+'setuptools-0.6b3-py2.4.egg': '38a8c6b3d6ecd22247f179f7da669fac',
+'setuptools-0.6b4-py2.3.egg': '62045a24ed4e1ebc77fe039aa4e6f7e5',
+'setuptools-0.6b4-py2.4.egg': '4cb2a185d228dacffb2d17f103b3b1c4',
+'setuptools-0.6c1-py2.3.egg': 'b3f2b5539d65cb7f74ad79127f1a908c',
+'setuptools-0.6c1-py2.4.egg': 'b45adeda0667d2d2ffe14009364f2a4b',
+'setuptools-0.6c10-py2.3.egg': 'ce1e2ab5d3a0256456d9fc13800a7090',
+'setuptools-0.6c10-py2.4.egg': '57d6d9d6e9b80772c59a53a8433a5dd4',
+'setuptools-0.6c10-py2.5.egg': 'de46ac8b1c97c895572e5e8596aeb8c7',
+'setuptools-0.6c10-py2.6.egg': '58ea40aef06da02ce641495523a0b7f5',
+'setuptools-0.6c11-py2.3.egg': '2baeac6e13d414a9d28e7ba5b5a596de',
+'setuptools-0.6c11-py2.4.egg': 'bd639f9b0eac4c42497034dec2ec0c2b',
+'setuptools-0.6c11-py2.5.egg': '64c94f3bf7a72a13ec83e0b24f2749b2',
+'setuptools-0.6c11-py2.6.egg': 'bfa92100bd772d5a213eedd356d64086',
+'setuptools-0.6c2-py2.3.egg': 'f0064bf6aa2b7d0f3ba0b43f20817c27',
+'setuptools-0.6c2-py2.4.egg': '616192eec35f47e8ea16cd6a122b7277',
+'setuptools-0.6c3-py2.3.egg': 'f181fa125dfe85a259c9cd6f1d7b78fa',
+'setuptools-0.6c3-py2.4.egg': 'e0ed74682c998bfb73bf803a50e7b71e',
+'setuptools-0.6c3-py2.5.egg': 'abef16fdd61955514841c7c6bd98965e',
+'setuptools-0.6c4-py2.3.egg': 'b0b9131acab32022bfac7f44c5d7971f',
+'setuptools-0.6c4-py2.4.egg': '2a1f9656d4fbf3c97bf946c0a124e6e2',
+'setuptools-0.6c4-py2.5.egg': '8f5a052e32cdb9c72bcf4b5526f28afc',
+'setuptools-0.6c5-py2.3.egg': 'ee9fd80965da04f2f3e6b3576e9d8167',
+'setuptools-0.6c5-py2.4.egg': 'afe2adf1c01701ee841761f5bcd8aa64',
+'setuptools-0.6c5-py2.5.egg': 'a8d3f61494ccaa8714dfed37bccd3d5d',
+'setuptools-0.6c6-py2.3.egg': '35686b78116a668847237b69d549ec20',
+'setuptools-0.6c6-py2.4.egg': '3c56af57be3225019260a644430065ab',
+'setuptools-0.6c6-py2.5.egg': 'b2f8a7520709a5b34f80946de5f02f53',
+'setuptools-0.6c7-py2.3.egg': '209fdf9adc3a615e5115b725658e13e2',
+'setuptools-0.6c7-py2.4.egg': '5a8f954807d46a0fb67cf1f26c55a82e',
+'setuptools-0.6c7-py2.5.egg': '45d2ad28f9750e7434111fde831e8372',
+'setuptools-0.6c8-py2.3.egg': '50759d29b349db8cfd807ba8303f1902',
+'setuptools-0.6c8-py2.4.egg': 'cba38d74f7d483c06e9daa6070cce6de',
+'setuptools-0.6c8-py2.5.egg': '1721747ee329dc150590a58b3e1ac95b',
+'setuptools-0.6c9-py2.3.egg': 'a83c4020414807b496e4cfbe08507c03',
+'setuptools-0.6c9-py2.4.egg': '260a2be2e5388d66bdaee06abec6342a',
+'setuptools-0.6c9-py2.5.egg': 'fe67c3e5a17b12c0e7c541b7ea43a8e6',
+'setuptools-0.6c9-py2.6.egg': 'ca37b1ff16fa2ede6e19383e7b59245a',
+}
+import sys, os
+try: from hashlib import md5
+except ImportError: from md5 import md5
+def _validate_md5(egg_name, data):
+if egg_name in md5_data:
+digest = md5(data).hexdigest()
+if digest != md5_data[egg_name]:
+print >>sys.stderr, (
+""md5 validation of %s failed! (Possible download problem?)""
+% egg_name
+)
+sys.exit(2)
+return data
+def use_setuptools(
+version=DEFAULT_VERSION, download_base=DEFAULT_URL, to_dir=os.curdir,
+download_delay=15
+):
+""""""Automatically find/download setuptools and make it available on sys.path
+`version` should be a valid setuptools version number that is available
+as an egg for download under the `download_base` URL (which should end with
+a '/'). `to_dir` is the directory where setuptools will be downloaded, if
+it is not already available. If `download_delay` is specified, it should
+be the number of seconds that will be paused before initiating a download,
+should one be required. If an older version of setuptools is installed,
+this routine will print a message to ``sys.stderr`` and raise SystemExit in
+an attempt to abort the calling script.
+""""""
+was_imported = 'pkg_resources' in sys.modules or 'setuptools' in sys.modules
+def do_download():
+egg = download_setuptools(version, download_base, to_dir, download_delay)
+sys.path.insert(0, egg)
+import setuptools; setuptools.bootstrap_install_from = egg
+try:
+import pkg_resources
+except ImportError:
+return do_download()
+try:
+pkg_resources.require(""setuptools>=""+version); return
+except pkg_resources.VersionConflict, e:
+if was_imported:
+print >>sys.stderr, (
+""The required version of setuptools (>=%s) is not available, and ""
+""can't be installed while this script is running. Please install ""
+"" a more recent version first, using 'easy_install -U setuptools'.""
+"" (Currently using %r)""
+) % (version, e.args[0])
+sys.exit(2)
+except pkg_resources.DistributionNotFound:
+pass
+del pkg_resources, sys.modules['pkg_resources'] # reload ok
+return do_download()
+def download_setuptools(
+version=DEFAULT_VERSION, download_base=DEFAULT_URL, to_dir=os.curdir,
+delay = 15
+):
+""""""Download setuptools from a specified location and return its filename
+`version` should be a valid setuptools version number that is available
+as an egg for download under the `download_base` URL (which should end
+with a '/'). `to_dir` is the directory where the egg will be downloaded.
+`delay` is the number of seconds to pause before an actual download attempt.
+""""""
+import urllib2, shutil
+egg_name = ""setuptools-%s-py%s.egg"" % (version,sys.version[:3])
+url = download_base + egg_name
+saveto = os.path.join(to_dir, egg_name)
+src = dst = None
+if not os.path.exists(saveto): # Avoid repeated downloads
+try:
+from distutils import log
+if delay:
+log.warn(""""""
+---------------------------------------------------------------------------
+This script requires setuptools version %s to run (even to display
+help). I will attempt to download it for you (from
+%s), but
+you may need to enable firewall access for this script first.
+I will start the download in %d seconds.
+(Note: if this machine does not have network access, please obtain the file
+%s
+and place it in this directory before rerunning this script.)
+---------------------------------------------------------------------------"""""",
+version, download_base, delay, url
+); from time import sleep; sleep(delay)
+log.warn(""Downloading %s"", url)
+src = urllib2.urlopen(url)
+# Read/write all in one block, so we don't create a corrupt file
+# if the download is interrupted.
+data = _validate_md5(egg_name, src.read())
+dst = open(saveto,""wb""); dst.write(data)
+finally:
+if src: src.close()
+if dst: dst.close()
+return os.path.realpath(saveto)"
+,,,
+小熊爱科技,2017/9/25 15:02,selenium+python实现UI自动化问题一,"selenium在某些场景页面上操作无法实现的，需要借助JS来完成。
+常见场景：
+当页面上的元素超过一屏后，想操作屏幕下方的元素，是不能直接定位到，会报元素不可见的。这时候需要借助滚动条来拖动屏幕，使被操作的元素显示在当前的屏幕上。
+滚动条是无法直接用定位工具来定位的。selenium里面也没有直接的方法去控制滚动条，这时候只能借助J了，还好selenium提供了一个操作js的方法: execute_script()，可以直接执行js的脚本。
+一、JavaScript简介
+有些特殊的操作selenium2+python无法直接完成的，JS刚好是这方面的强项，所以算是一个很好的补充。对js不太熟悉的，可以网上找下教程，简单了解下。
+http://www.w3school.com.cn/js/index.asp4
+二、控制滚动条高度
+1.滚动条回到顶部：js=""var q=document.getElementById('id').scrollTop=0""driver.execute_script(js）
+2.滚动条拉到底部
+js=""var q=document.documentElement.scrollTop=10000""
+driver.execute_script(js)
+3.这里可以修改scrollTop 的值，来定位右侧滚动条的位置，0是最上面，10000是最底部。
+三、横向滚动条
+1.有时候浏览器页面需要左右滚动（一般屏幕最大化后，左右滚动的情况已经很少见了）。
+2.通过左边控制横向和纵向滚动条scrollTo(x, y）js = ""window.scrollTo(100,400);""
+driver.execute_script(js)
+3.第一个参数x是横向距离，第二个参数y是纵向距离
+四、Chrome浏览器
+1.以上方法在Firefox上是可以的，但是用Chrome浏览器，发现不管用。谷歌浏览器就是这么任性，不听话，于是用以下方法解决谷歌浏览器滚动条的问题。
+2.Chrome浏览器解决办法：
+js = ""var q=document.body.scrollTop=0""
+driver.execute_script(js)
+五、元素聚焦
+1.虽然用上面的方法可以解决拖动滚动条的位置问题，但是有时候无法确定我需要操作的元素
+在什么位置，有可能每次打开的页面不一样，元素所在的位置也不一样，怎么办呢？
+2.这个时候我们可以先让页面直接跳到元素出现的位置，然后就可以操作了。同样需要借助JS去实现。
+3.元素聚焦：
+target = driver.find_element_by_xxxx()
+driver.execute_script(""arguments[0].scrollIntoView();"", target)
+六、获取浏览器名称:driver.name
+1.为了解决不同浏览器操作方法不一样的问题，可以写个函数去做兼容。
+2.先用driver.name获取浏览器名称，然后用if语句做个判断
+七、兼容性
+1.兼容谷歌和firefox/IE
+八、scrollTo函数
+--scrollHeight 获取对象的滚动高度。
+--scrollLeft 设置或获取位于对象左边界和窗口中目前可见内容的最左端之间的距离。
+--scrollTop 设置或获取位于对象最顶端和窗口中可见内容的最顶端之间的距离。
+--scrollWidth 获取对象的滚动宽度。
+scrollTo函数不存在兼容性问题，直接用这个函数就可以了
+#滚动到底部
+js = ""window.scrollTo(0,document.body.scrollHeight)""
+driver.execute_script(js)
+#滚动到顶部
+js = ""window.scrollTo(0,0)""
+driver.execute_script(js)
+参考代码：
+# coding:utf-8
+from selenium import webdriver
+driver = webdriver.Firefox()
+driver.get(""https://www.baidu.com"")
+print driver.name
+## 回到顶部
+#def scroll_top():
+# if driver.name == ""chrome"":
+# js = ""var q=document.body.scrollTop=0""
+# else:
+# js = ""var q=document.documentElement.scrollTop=0""
+# return driver.execute_script(js)
+# 拉到底部
+#def scroll_foot():
+# if driver.name == ""chrome"":
+# js = ""var q=document.body.scrollTop=10000""
+# else:
+# js = ""var q=document.documentElement.scrollTop=10000""
+# return driver.execute_script(js)
+#滚动到底部
+js = ""window.scrollTo(0,document.body.scrollHeight)""
+driver.execute_script(js)
+#滚动到顶部
+js = ""window.scrollTo(0,0)""
+driver.execute_script(js)
+# 聚焦元素
+target = driver.find_element_by_xxxx()
+driver.execute_script(""arguments[0].scrollIntoView();"", target)
+参考文献：《selenium+python高级教程》 作者：悠悠"
+,,,
+千千看世界,2017/12/15 10:47,selenium + PhantomJS自动化测试环境实例,"Selenium+PhantomJS页面操作
+Selenium 的 WebDriver提供了各种方法来寻找元素，假设下面有一个表单输入框：
+<input type=""text"" name=""name"" id=""passwd"" />
+那么：
+# 获取id标签值
+element = driver.find_element_by_id(""passwd"")
+# 获取name标签值
+element = driver.find_element_by_name(""name"")
+# 获取标签名值
+element = driver.find_elements_by_tag_name(""input"")
+# 也可以通过XPath来匹配
+element = driver.find_element_by_xpath(""//input[@id='passwd']"")
+Selenium+PhantomJS定位元素
+关于元素的选取，有如下的API 单个元素选取
+find_element_by_idfind_elements_by_namefind_elements_by_xpathfind_elements_by_link_textfind_elements_by_partial_link_textfind_elements_by_tag_namefind_elements_by_class_namefind_elements_by_css_selector
+Selenium+PhantomJS鼠标动作
+有时我们需要再页面上模拟一些鼠标操作，比如双击、右击、拖拽甚至按住不动等，我们可以通过导入 ActionChains 类来做到。
+#导入 ActionChains 类
+from selenium.webdriver import ActionChains
+# 鼠标移动到 acs 位置
+acs = driver.find_element_by_xpath('element')
+ActionChains(driver).move_to_element(acs).perform()
+# 在 acs 位置单击
+acs = driver.find_element_by_xpath(""elementA"")
+ActionChains(driver).move_to_element(ac).click(acs).perform()
+# 在 acs 位置双击
+acs = driver.find_element_by_xpath(""elementB"")
+ActionChains(driver).move_to_element(ac).double_click(ac).perform()
+# 在 acs 位置右击
+acs = driver.find_element_by_xpath(""elementC"")
+ActionChains(driver).move_to_element(ac).context_click(acs).perform()
+# 在 acs 位置左键单击hold住
+acs = driver.find_element_by_xpath('elementF')
+ActionChains(driver).move_to_element(ac).click_and_hold(acs).perform()
+# 将 ac1 拖拽到 ac2 位置
+ac1 = driver.find_element_by_xpath('elementD')
+ac2 = driver.find_element_by_xpath('elementE')
+ActionChains(driver).drag_and_drop(ac1, ac2).perform()
+弹窗处理
+当你触发了某个事件之后，页面出现了弹窗提示，处理这个提示或者获取提示信息方法如下：
+alert = driver.switch_to_alert()
+页面切换
+一个浏览器肯定会有很多窗口，所以我们肯定要有方法来实现窗口的切换。切换窗口的方法如下：
+driver.switch_to.window(""this is window name"")
+也可以使用 window_handles 方法来获取每个窗口的操作对象。例如：
+for handle in driver.window_handles: driver.switch_to_window(handle)
+页面前进和后退
+操作页面的前进和后退功能：
+driver.forward() #前进driver.back() # 后退
+Cookies
+获取页面每个Cookies值，用法如下
+for cookie in driver.get_cookies(): print ""%s -> %s"" % (cookie['name'], cookie['value'])
+删除Cookies，用法如下
+# By namedriver.delete_cookie(""CookieName"")# alldriver.delete_all_cookies()
+页面等待
+现在的网页越来越多采用了 Ajax 技术,为了避免这种元素定位困难而且会提高产生 ElementNotVisibleException 的概率。所以 Selenium 提供了两种等待方式，一种是隐式等待，一种是显式等待。
+显式等待指定某个条件，然后设置最长等待时间。如果在这个时间还没有找到元素，那么便会抛出异常。
+隐式等待则设置一个等待时间，单位为秒。
+如果你觉得本文对您有一些帮助的话，点一波关注吧，老铁！"
+,,,
+软件测试的修行者,2018/4/27 9:34,selenium+python学习6：Unittest测试框架的assert断言,"assertEqual(self,first,second [,msg])：fist==second？表达式为False，系统报错；
+assertNotEqual(self,first,second [,msg])：fist！=second？表达式为False，系统报错；
+assertGreater(self,a,b [,msg])：a>b?
+assertGreaterEqual(self,a,b [,msg])：a>=b?
+assertLess(self,a,b [,msg])：a<b?
+assertLessEqual(self,a,b [,msg])：a<=b?
+assertTrue(self,expr [,msg])：expr is True？ 表达式是否为真？
+assertFalse(self,expr [,msg])：expr is False？表达式是否为假？
+assertIs(self,expr1,expr2 [,msg])：expr1 is expr2? 1和2是同一个对象吗？
+assertIsNot(self,expr1,expr2 [,msg])：expr1 is not expr2? 1和2不是同一个对象吗？
+assertIsNone(self,obj [,msg])：obj is None?对象为空吗？
+assertIsNotNone(self,obj [,msg])：obj is not None?对象不为空吗？
+assertListEqual(self,list1,list2 [,msg])：list1 ==list2 ?列表1等于列表2吗？
+assertDictEqual(self,d1,d2 [,msg])：dict1==dict2? 字典1等于字典2吗？
+assertTupleEqual(self,first,second [,msg])：Tuple1==Tuple2?元组1等于元组2吗？
+assertIn(self,member,container [,msg])：member in container? 值在容器里吗？
+assertNotIn(self,member,container [,msg])：member not in container?值不在容器里吗？
+assertIsInstance(self,obj,cls [,msg])：obj是cls的实例吗？
+assertNotIsInstance(self,obj,cls [,msg])：obj不是cls的实例吗？
+assertAlmostEqual(self,first,second,places [,msg],delta)：first约等于second吗？适用于小数，palces: 指定精确到小数点后多少位，默认为7，如果在place位以内不同则断言失败；如果delta指定了值，则first和second之间的差值必须≤delta；
+assertNotAlmostEqual(self,first,second,places [,msg],delta)：first不约等于second吗？
+assertRegex(self,text,unexpected_regexp [,msg])：验证正则表达式regexp搜索是否匹配文本text。
+assertNotRegex(self,text,unexpected_regexp [,msg])：验证正则表达式regexp搜索是否不匹配文本text。
+assertDictContainsSubset(self,expected,actual [,msg])：检查实际是否超预期；
+assertItemEqual(self,expected_seq,actual_seq [,msg])：一个无序的序列特异性的比较。
+assertMultiLineEqual(self,first,second [,msg])：2个多行的字符串是相等的
+assertRaises(self,excClass,callableObj,args,kwargs)：除非excclass类抛出异常失败
+assertRaisesRegexp(self,expected_expected_exception,expected_regexp,...)：认为在引发异常的情况下消息匹配一个正则表达式。"
+,,,
+世界依然很美好,2018/6/8 9:55,使用浏览器无头模式执行Selnium脚本,"执行Selenium脚本时，我们往往不需要盯着电脑看脚本的执行情况，再或者我们的脚本可能被执行在一个无GUI的Linux机器上，那么这时我们都可以使用浏览器的Headless模式来执行。
+Headless Chrome
+chrome版本要求：
+windows 60+
+mac/linux 59+
+chromedriver版本要求:
+2.30+
+@Test public void OpenChromeTest() { String path = System.getProperty(""user.dir""); System.setProperty(""webdriver.chrome.driver"", path + ""\drivers\chromedriver.exe""); ChromeOptions chromeOptions = new ChromeOptions();// 设置为 headless 模式 （必须） chromeOptions.addArguments(""--headless"");// 设置浏览器窗口打开大小 （非必须） chromeOptions.addArguments(""--window-size=1920,1080""); WebDriver driver = new ChromeDriver(chromeOptions); driver.get(""http://www.baidu.com""); String title = driver.getTitle(); System.out.println(title); driver.quit(); }
+PhantomJS
+PhantomJS是一款使用JavaScript API编写的Headless WebKit。它支持各种Web标准：DOM处理，CSS选择器，JSON，Canvas和SVG
+PhantomJS环境准备
+下载地址：http://phantomjs.org/download.html
+解压获取bin目录下的PhantomJS.exe文件，并复制到工程路径下。
+注意：如果Selenium版本<3.0，则需要配置Pom.xml 文件，添加如下：
+<!-- https://mvnrepository.com/artifact/org.webjars.npm/phantomjs --><dependency> <groupId>org.webjars.npm</groupId> <artifactId>phantomjs</artifactId> <version>2.1.7</version></dependency>
+代码例子：
+@Test public void pjsTest() throws InterruptedException { System.setProperty(""phantomjs.binary.path"", ""./drivers/phantomjs.exe""); WebDriver driver = new PhantomJSDriver(); driver.get(""http://www.baidu.com""); String title = driver.getTitle(); System.out.println(title); driver.quit(); }
+headless Firefox
+Firefox版本要求：
+windows/mac 56+
+linux 55+
+geckodriver
+建议都用最新版
+import org.openqa.selenium.By;import org.openqa.selenium.WebElement;import org.openqa.selenium.firefox.FirefoxBinary;import org.openqa.selenium.firefox.FirefoxDriver;import org.openqa.selenium.firefox.FirefoxOptions;import java.util.concurrent.TimeUnit;public class HeadlessFirefoxSeleniumExample { public static void main(String [] args) { FirefoxBinary firefoxBinary = new FirefoxBinary(); firefoxBinary.addCommandLineOptions(""--headless""); System.setProperty(""webdriver.gecko.driver"", ""/opt/geckodriver""); FirefoxOptions firefoxOptions = new FirefoxOptions(); firefoxOptions.setBinary(firefoxBinary); FirefoxDriver driver = new FirefoxDriver(firefoxOptions); try { driver.get(""http://www.google.com""); driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS); WebElement queryBox = driver.findElement(By.name(""q"")); queryBox.sendKeys(""headless firefox""); WebElement searchBtn = driver.findElement(By.name(""btnK"")); searchBtn.click(); WebElement iresDiv = driver.findElement(By.id(""ires"")); iresDiv.findElements(By.tagName(""a"")).get(0).click(); System.out.println(driver.getPageSource()); } finally { driver.quit(); } }}
+Headless Chrome 和 Headless Firefox 的出现是为了取代PhantomJS。 为啥呢？因为PhantomJS并非真在的浏览器，跟真实浏览器还存在一定的差异。当然除了上面介绍的三种无头模式外，Selenium 还自带了一个HttpUnit的无头模式（WebDriver driver = new HtmlUnitDriver()）同样并非真在浏览器，而且对JS支持不好，一般很少用到。"
+,,,
+Python笔录,2018/3/15 19:22,Bs4+Url+selenium爬取花瓣网,"# coding=utf-8import timefrom bs4 import BeautifulSoupfrom selenium import webdriverfrom urllib.request import urlretrieveclass crawl_huaban:def __init__(self, url):self.url = urldef getHtml(self, url):driver = webdriver.PhantomJS()driver.get(url)driver.implicitly_wait(3)resp = BeautifulSoup(driver.page_source, 'html5lib')driver.quit()return respdef getPage(self):driver = webdriver.PhantomJS()driver.get(self.url)driver.implicitly_wait(3)resp = BeautifulSoup(driver.page_source, 'html5lib')driver.quit()return respdef getImage(self):resp = self.getPage()pins_ids = []pins = resp.find_all(""a"", class_=""img x layer-view loaded"")for pin in pins:pins_ids.append(pin.get('href'))pins_ids = pins_ids[2:]total = 1for pinid in pins_ids:print('第{0}张照片'.format(total))img_url = 'http://huaban.com%s' % (pinid)img_html = self.getHtml(img_url)img_hold = img_html.find(""div"", class_=""image-holder"")img_src = img_hold.find(""img"").get(""src"")img_src_url = 'http:%s' % img_srctry:urlretrieve(img_src_url, '%s.jpg' % pinid)print(""获取图片：%s成功!"" % img_src_url)except:print(""获取图片：%s失败，跳过，获取下一张!"" % img_src_url)total += 1print(""获取图片完毕"")if __name__ == '__main__':for i in range(1, 11):print('第{0}页'.format(i))url = 'http://huaban.com/search/?q=%E7%BE%8E%E8%85%BF&izxnwygj&page={0}&per_page=20&wfl=1'.format(i)crawler = crawl_huaban(url)start = time.clock()crawler.getImage()end = time.clock()print('总共用时:%03f seconds ' % (end - start))"
+,,,
+软件测试的修行者,2018/5/8 11:54,selenium+python学习12：通过滚动条来定位元素,"浏览器滚动条
+方法一：
+js=""var q=document.documentElement.scrollTop=10000"" driver.execute_script(js)
+方法二：通过键盘 按“DOWN”键
+driver.find_element_by_xpath(""//*[@id='wrapper_wrapper']"").send_keys(Keys.DOWN)
+方法三：通过键盘按""tab""键
+driver.find_element_by_xpath(""//*[@id='wrapper_wrapper']"").send_keys(Keys.TAB)
+方法四：窗口定位：
+js = ""window.scrollTo(210,550)driver.execute_script(js)
+方法五：使用js拖动到可见的元素去：
+target = driver.find_element_by_id(""value"")driver.execute_script(""arguments[0].scrollIntoView();"", target) #拖动到可见的元素去
+内嵌滚动条：
+需要先定位到该内嵌窗口，再进行滚动条操作，把documentElement 替换成 body。
+纵向滚动条：
+js=""document.getElementById('value').scrollTop=10000"" #scrollTop的值来控制滚动条高度driver.execute_script(js)
+横向滚动条：
+js=""document.getElementById('value').scrollLeft=10000"" driver.execute_script(js)
+可以使用class属性定位滚动条，js用class属性定位，返回的是一个list对象，一般取第一个就可以控制操作滚动条了。例如：
+js = ""document.getElementsByClassName('dataTables_scrollBody')[0].scrollLeft=650""driver.execute_script(js)"
+,,,
+it从业,2018/4/23 20:00,selenium调用js修改页面元素属性,"清理缓存
+driver.manage().deleteAllCookies();
+selenium调用js修改元素属性
+driver.get(sinaUrl);
+Common.sleep(3000);
+if(Store.equals(""store"")) {
+String jsString = ""document.getElementById('tab02').setAttribute('href','https://www.baidu.com'); "";
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript(jsString);
+}
+if(Store.equals(""storedz"")) {
+String jsString = ""document.getElementById('tab02').setAttribute('href','https://www.baidu.com'); "";
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript(jsString);
+}
+driver.findElement(By.xpath(""//a[@id='tab02']"")).click();"
+,,,
+软件测试的修行者,2018/4/27 11:08,selenium+python学习7：WebDriver的截图Screenshot,"get_screenshot_as_file(self,filename)
+获取当前window的截图，所以，需要截图的页面必须是当前页面；出现IOError时候返回False,截图成功返回True。
+filename：保存文件的路径；
+例如：
+nowtime=datetime.datetime.now().strftime('%Y%m%d%H%M%S') #获取当前的日期和时间；filename='C:/Users/Administrator/Desktop/'+str(nowtime)+'.png' #生成文件名和路径driver.get_screenshot_as_file(filename) #截图
+get_screenshot_as_base64(self)
+这个方法也是获取屏幕截图，保存的是base64的编码格式，在HTML界面输出截图的时候，会用到。比如，想把截图放到html测试报告里。
+get_screenshot_as_png(self)
+这个是获取屏幕截图，保存的是二进制数据；"
+,,,
+软件测试的修行者,2018/5/3 14:54,selenium+python学习10：webdriver.FirefoxProfile(),"Profiles概述
+对 Firefox 做的所有设置，比如主页、工具栏、扩展、保存的密码以及书签等，都被保存在一个特别的文件夹中，称为用户配置文件夹，即Profiles文件夹，可参考：
+https://support.mozilla.org/zh-CN/kb/%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6
+配置Firefox的profiles参数
+from selenium import webdriver #该步骤是导入selenium的webdriver模块；driver=webdriver.Firefox(); #将控制webdriver的Firefox赋值给driver，通过driver获取浏览器操作对象，然后就可以操作浏览器及对应的页面元素了。driver.get('https://www.baidu.com') #打开百度
+Webdriver在启动浏览器时，启动的是一个干净的，没有任务、插件及Cookies信息的浏览器，即使你本机的firefox安装了某也插件，webdriver启动firefox也是没有这些插件的；这时候就需要对浏览器参数进行配置了。
+profile=webdriver.FirefoxProfile()profile.set_preference('browser.download.folderList', 2) #配置相关参数driver = webdriver.Firefox(firefox_profile=profile)
+webdriver.FirefoxProfile()的属性和方法
+set_preference(self,key,value)：设置firefox的profile配置参数；在firefox地址栏中输入about:config，可以查看firefox的配置参数；可参考：http://www.cnblogs.com/puresoul/p/4252935.html
+add_extension(self,extension)：加载插件
+例子：文件下载时，设置参数，不弹出提示窗口：
+profile = webdriver.FirefoxProfile()# 设置各项参数，参数可以通过在浏览器地址栏中输入about:config查看。profile.set_preference('browser.download.folderList', 2)# 设置成0表示下载到桌面;设置成1表示下载到默认路径;设置成2则可以保存到指定目录;profile.set_preference('browser.download.dir', 'I:work est eidaexport')# 指定下载文件到你想放的路径profile.set_preference(""browser.download.manager.showWhenStarting"", False)# 开始下载时候显示是否显示进度框 (这个设置目前没生效)profile.set_preference(""browser.helperApps.neverAsk.saveToDisk"", ""application/vnd.ms-excel"")# 对所给出文件类型不再弹出框进行询问self.driver = webdriver.Firefox(firefox_profile=profile)"
+,,,
+测试情报局,2017/7/18 12:11,干货！java+selenium自动化测试环境搭建,"之前讲了python+selenium的相关知识，现在开始讲java+selenium相关知识，先来看看环
+镜怎么搭建。
+一、下载安装最新版jdk8.0（这个要最新，否则后面安装eclipse会提示你要下载）。
+官方下载地址 ：
+http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+请点击此处输入图片描述请点击此处输入图片描述
+下载后直接安装到结束。
+二、配置环境变量
+1.新建一个JAVAHOME,值等于jdk安装目录（C:Program Files Javajdk1.8.0_131）
+2.Path变量里加入以下两个路径：
+
+请点击此处输入图片描述请点击此处输入图片描述
+3.CLASSPATH变量里加入以下路径（这个eclipse调用时会调用）：
+
+CMD验证jdk是否安装并环境变量配置好：
+
+三、Java安装好后，我们需要安装eclipse
+官方下载地址：
+https://www.eclipse.org/downloads/download.php?file=/oomph/epp/oxygen/R/eclipse-inst-win64.exe
+
+下载后点击打开安装文件，选择第一个选项安装：
+
+安装完成后打开eclipse，并创建一个空间，在空间下建立project java项目
+
+填好name，然后其他可以默认，点击finish。然后右击项目新建一个class（这个class
+名必须大写开始）。
+
+完成后就会有测试的框架出现。
+
+实际测试的例子后面再讲了。"
+,,,
+马蚁蛋,2018/2/8 9:31,selenium自动化测试时启动浏览器出现的问题,"在使用Selenium进行自动化测试的时候，常常使用默认的Firefox作为WebDriver.但是你会发现，每次运行测试用例的时候都会出现烦人的""导入向导""很烦人，于是乎找到了一个完美的解决办法。
+想必刚接触Selenium做WEB自动化测试的时候，常常会遇到这种问题。每次使用Selenium启动firefox的时候都会出现""导入向导""，只能通过手动点击取消掉用例才能继续跑下去。
+这个问题困扰着每个自动化测试的初学，下面是解决的思路，供参考。
+解决步骤
+1.使用Google而不是使用百度搜解决方法，用英文而不用中文去搜索；
+2.分析问题出现的原理，而不是粗暴的浅尝辄止的解决了事；
+3.记录下解决的步骤，并设置好标题关键词，希望更多的人看到，解决他们的痛苦。
+Firefox中有一个默认的Profile配置文件，这个只要你安装了firefox就会默认创建的。
+你可以在开始菜单的运行文本框执行firefox -p命令调取查看。
+点击OK后就可以看到了。只有一个default用户配置文件。
+而每次使用Selenium启动Firefox的时候都默认出现导入向导。我们的解决办法是需要创建一个专门用于Selenium使用的用户文件。
+点击『Create Profile』创建一个新的用户配置文件。
+这是创建后的结果。这时你再启动Firefox就会发现，烦人的弹窗没有啦。
+如果用百度搜索，你会发现网上也有解决方案，他们是将到firefox的profiles.ini所在文件中修改IsRelative=1->IsRelative=0
+这种解决方案，我试过了，电脑不启动还可以，一旦重新启动后，又会出现烦人的导入向导。并没有彻底解决问题。
+这就是两种思维带来的两种不同的解决方式。孰优孰劣一目了然了吧。
+作者，西边人
+关注后私信回复如下关键词获取打包资料。
+测试资料，效率，工具，Python等"
+,,,
+Python数据分析实例,2017/11/10 8:50,Python数据分析及可视化实例之Selenium、PantomJS,"系列文章总目录：Python数据分析及可视化实例目录
+一直以来我觉得用在运维的Selenium、PantomJS是一个重器，
+不到万不得已的时候不要祭出这个大杀器，
+但是涉及到JavaScript及Ajax渲染的时候，Requests就完全懵逼了！
+最近回过头来重新审视这货，
+这个重器用反倒轻便了很多。
+1.安装Selenium、PantomJS
+Selenium可以直接通过pip安装，PantomJS则是一个exe可执行文件，需要下载解压。在使用的时候指定exe的绝对路径即可。
+2.Selenium、PantomJS基本设置
+from selenium import webdriverfrom selenium.webdriver.common.desired_capabilities import DesiredCapabilitiesdcap = DesiredCapabilities.PHANTOMJSdcap[ ""phantomjs.page.settings.userAgent""] = ""Mozilla / 4.0(Windows NT 10.0; Win64;x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome/51.0.2704.79 Safari/ 537.36Edge/14.14393""# 请求头不一样，自适应的窗口不一样，卧槽，坑爹！driver = webdriver.PhantomJS(desired_capabilities=dcap)driver.set_page_load_timeout(10)driver.set_script_timeout(10) # 设置页面退出时间，没有必要等一个网页加载完了采集# 采集网页源码 try: driver.get(inurl) content = driver.page_source # print(content) time.sleep(1) except: driver.execute_script('window.stop()')driver.close()
+3.Selenium、PantomJS基本操作
+如果你的网络和机子足够好，基本上就不用等待网页渲染，
+否则，还需要等待，如果用time.sleep()，则有点笨拙，
+#等待页面渲染完成from selenium.webdriver.common.by import Byfrom selenium.webdriver.support.ui import WebDriverWaitfrom selenium.webdriver.support import expected_conditions as EC...try: element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, ""loadedButton"")))# 等某个标签元素出来，不见鸭子不撒鹰。finally: # 撒鹰 print(driver.find_element_by_id(""content"").text) driver.close()
+或者用
+try: elem == driver.find_element_by_tag_name(""html"") # 抛出StaleElementReferenceException异常说明elem元素已经消失了，也就说明页面已经跳转了。except StaleElementReferenceException: return
+其他driver内置函数，可以通过查看源代码或者在pycharm提示获取。
+4.Xpath定位Html标签
+1.id定位：find_element_by_id(self, id_)2.name定位：find_element_by_name(self, name)3.class定位：find_element_by_class_name(self, name)4.tag定位：find_element_by_tag_name(self, name)5.link定位：find_element_by_link_text(self, link_text)6.partial_link定位find_element_by_partial_link_text(self, link_text)7.xpath定位：find_element_by_xpath(self, xpath)8.css定位：find_element_by_css_selector(self, css_selector）9.id复数定位find_elements_by_id(self, id_)10.name复数定位find_elements_by_name(self, name)11.class复数定位find_elements_by_class_name(self, name)12.tag复数定位find_elements_by_tag_name(self, name)13.link复数定位find_elements_by_link_text(self, text)14.partial_link复数定位find_elements_by_partial_link_text(self, link_text)15.xpath复数定位find_elements_by_xpath(self, xpath)16.css复数定位find_elements_by_css_selector(self, css_selector17.find_element(self, by='id', value=None)18.find_elements(self, by='id', value=None)
+其中element方法定位到是是单数，是直接定位到元素；elements方法是复数，这个学过英文的都知道，定位到的是一组元素，返回的是list队列。可参照Re函数中的findall理解。
+如果定位不了标签，只能上JS大法：Selenium2+python自动化46-js解决click失效问题 - 上海-悠悠 - 博客园该作者已经出书，很便宜，可以考虑入一本。如果还想深入练习本节大法，同时推荐博客园ID：虫师虫师 - 博客园，这位兄台是做运维的，我最初就是用他的PDF教材入门Selenium，而且也已经出书了，是不是听这ID，就不是一般的牛逼，哈哈...
+5.完整例子
+这个例子属于标准化操作，在实际中可以适当简化，并结合上面的Xpath定位完成。
+from selenium import webdriverimport timefrom selenium.webdriver.common.desired_capabilities import DesiredCapabilitiesdcap = dict(DesiredCapabilities.PHANTOMJS)dcap[""phantomjs.page.settings.userAgent""] = ""Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36""driver = webdriver.PhantomJS(executable_path=r'C:Users aojwDesktoppyworkphantomjs-2.1.1-windowsinphantomjs.exe', desired_capabilities=dcap)driver.get(""http://pythonscraping.com/pages/javascript/ajaxDemo.html"")time.sleep(3)print(driver.find_element_by_id(""content"").text)driver.close()#设置PHANTOMJS的USER-AGENTfrom selenium import webdriverfrom selenium.webdriver.common.desired_capabilities import DesiredCapabilitiesdcap = dict(DesiredCapabilities.PHANTOMJS)dcap[""phantomjs.page.settings.userAgent""] = ""Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36""driver = webdriver.PhantomJS(executable_path='./phantomjs.exe', desired_capabilities=dcap)driver.get(""http://dianping.com/"")cap_dict = driver.desired_capabilities #查看所有可用的desired_capabilities属性。for key in cap_dict: print('%s: %s' % (key, cap_dict[key]))print(driver.current_url)driver.quit()#等待页面渲染完成from selenium.webdriver.common.by import Byfrom selenium.webdriver.support.ui import WebDriverWaitfrom selenium.webdriver.support import expected_conditions as ECdriver = webdriver.PhantomJS(executable_path=r'C:Users aojwDesktoppyworkphantomjs-2.1.1-windowsinphantomjs.exe')driver.get(""http://pythonscraping.com/pages/javascript/ajaxDemo.html"")try: element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, ""loadedButton"")))finally: print(driver.find_element_by_id(""content"").text) driver.close()#处理Javascript重定向from selenium import webdriverimport timefrom selenium.webdriver.remote.webelement import WebElementfrom selenium.common.exceptions import StaleElementReferenceExceptiondef waitForLoad(driver): elem = driver.find_element_by_tag_name(""html"") count = 0 while True: count += 1 if count > 20: print(""Timing out after 10 seconds and returning"") return time.sleep(.5) try: elem == driver.find_element_by_tag_name(""html"") except StaleElementReferenceException: returndriver = webdriver.PhantomJS(executable_path=r'C:Users aojwDesktoppyworkphantomjs-2.1.1-windowsinphantomjs.exe')driver.get(""http://pythonscraping.com/pages/javascript/redirectDemo1.html"")waitForLoad(driver)print(driver.page_source)######from selenium import webdriverfrom selenium.webdriver.remote.webelement import WebElementfrom selenium.webdriver import ActionChainsdriver = webdriver.PhantomJS(executable_path='phantomjs/bin/phantomjs')driver.get('http://pythonscraping.com/pages/javascript/draggableDemo.html')print(driver.find_element_by_id(""message"").text)element = driver.find_element_by_id(""draggable"")target = driver.find_element_by_id(""div2"")actions = ActionChains(driver)actions.drag_and_drop(element, target).perform()print(driver.find_element_by_id(""message"").text)########截屏driver.get_screenshot_as_file('tmp/pythonscraping.png')#####登陆知乎，然后能自动点击页面下方的“更多”，以载入更多的内容from selenium import webdriverfrom selenium.webdriver.common.keys import Keysfrom selenium.webdriver.support.ui import WebDriverWaitfrom selenium.webdriver import ActionChainsimport timeimport sysdriver = webdriver.PhantomJS(executable_path='C:UsersGentlyguitarDesktopphantomjs-1.9.7-windowsphantomjs.exe')driver.get(""http://www.zhihu.com/#signin"")#driver.find_element_by_name('email').send_keys('your email')driver.find_element_by_xpath('//input[@name=""password""]').send_keys('your password')#driver.find_element_by_xpath('//input[@name=""password""]').send_keys(Keys.RETURN)time.sleep(2)driver.get_screenshot_as_file('show.png')#driver.find_element_by_xpath('//button[@class=""sign-button""]').click()driver.find_element_by_xpath('//form[@class=""zu-side-login-box""]').submit()try: #等待页面加载完毕 dr=WebDriverWait(driver,5) dr.until(lambda the_driver:the_driver.find_element_by_xpath('//a[@class=""zu-top-nav-userinfo ""]').is_displayed())except: print('登录失败') sys.exit(0)driver.get_screenshot_as_file('show.png')#user=driver.find_element_by_class_name('zu-top-nav-userinfo ')#webdriver.ActionChains(driver).move_to_element(user).perform() #移动鼠标到我的用户名loadmore=driver.find_element_by_xpath('//a[@id=""zh-load-more""]')actions = ActionChains(driver)actions.move_to_element(loadmore)actions.click(loadmore)actions.perform()time.sleep(2)driver.get_screenshot_as_file('show.png')print(driver.current_url)print(driver.page_source)driver.quit()##################################################################################
+关于本节更多的实战技巧将会放在实例中。
+胶水语言博大精深，
+本主只得一二为新人带路!"
+,,,
+python,2017/7/6 19:08,Python爬虫小白——（二）爬虫基础——Selenium PhantomJS,"前段时间尝试爬取了网易云音乐的歌曲，这次打算爬取QQ音乐的歌曲信息。网易云音乐歌曲列表是通过iframe展示的，可以借助Selenium获取到iframe的页面元素，
+而QQ音乐采用的是异步加载的方式，套路不一样，这是主流的页面加载方式，爬取有点难度，不过也是对自己的一个挑战。
+二、Python爬取QQ音乐单曲
+之前看的慕课网的一个视频, 很好地讲解了一般编写爬虫的步骤，我们也按这个来。
+爬虫步骤
+1.确定目标
+首先我们要明确目标，本次爬取的是QQ音乐歌手刘德华的单曲。
+（百度百科）->分析目标（策略：url格式（范围）、数据格式、网页编码）->编写代码->执行爬虫
+2.分析目标
+歌曲链接：https://y.qq.com/n/yqq/singer/003aQYLo2x8izP.html#tab=song&
+从左边的截图可以知道单曲采用分页的方式排列歌曲信息，每页显示30条，总共30页。点击页码或者最右边的"">""会跳转到下一页，浏览器会向服务器发送ajax异步请求，从链接可以看到begin和num参数，分别代表起始歌曲下标（截图是第2页，起始下标是30）和一页返回30条，服务器响应返回json格式的歌曲信息（MusicJsonCallbacksinger_track({""code"":0,""data"":{""list"":[{""Flisten_count1"":......]})），如果只是单独想获取歌曲信息，可以直接拼接链接请求和解析返回的json格式的数据。这里不采用直接解析数据格式的方法，我采用的是Python Selenium方式，每获取和解析完一页的单曲信息，点击 "">"" 跳转到下一页继续解析，直至解析并记录所有的单曲信息。最后请求每个单曲的链接，获取详细的单曲信息。
+右边的截图是网页的源码，所有歌曲信息都在类名为mod_songlist的div浮层里面，类名为songlist_list的无序列表ul下，每个子元素li展示一个单曲，类名为songlist__album下的a标签，包含单曲的链接，名称和时长等。
+3.编写代码
+1）下载网页内容，这里使用Python 的Urllib标准库，自己封装了一个download方法：
+def download(url, user_agent='wswp', num_retries=2):
+2）解析网页内容，这里使用第三方插件BeautifulSoup,具体可以参考BeautifulSoup API 。
+def music_scrapter(html, page_num=0):
+def get_music():
+4.执行爬虫
+爬虫跑起来了，一页一页地去爬取专辑的链接，并保存到集合中，最后通过get_music()方法获取单曲的名称，链接，歌手名称和时长并保存到Excel文件中。
+源码 群 595266089
+三、Python爬取QQ音乐单曲总结
+1.单曲采用的是分页方式，切换下一页是通过异步ajax请求从服务器获取json格式的数据并渲染到页面，浏览器地址栏链接是不变的，不能通过拼接链接来请求。一开始想过都通过Python Urllib库来模拟ajax请求，后来想想还是用Selenium。Selenium能够很好地模拟浏览器真实的操作，页面元素定位也很方便，模拟单击下一页，不断地切换单曲分页，再通过BeautifulSoup解析网页源码，获取单曲信息。
+2.url链接管理器，采用集合数据结构来保存单曲链接，为什么要使用集合？因为多个单曲可能来自同一专辑（专辑网址一样），这样可以减少请求次数。
+class UrlManager(object):
+def add_new_url(self, url):
+3.通过Python第三方插件openpyxl读写Excel十分方便，把单曲信息通过Excel文件可以很好地保存起来。
+def write_to_excel(self, content):
+四、后语
+最后还是要庆祝下，毕竟成功把QQ音乐的单曲信息爬取下来了。本次能够成功爬取单曲，Selenium功不可没，这次只是用到了selenium一些简单的功能，后续会更加深入学习Selenium，不仅在爬虫方面还有UI自动化。
+后续还需要优化的点：
+1.下载的链接比较多，一个一个下载起来比较慢，后面打算用多线程并发下载。
+2.下载速度过快，为了避免服务器禁用IP，后面还要对于同一域名访问过于频繁的问题，有个等待机制，每个请求之间有个等待间隔。
+3. 解析网页是一个重要的过程，可以采用正则表达式，BeautifulSoup和lxml，目前采用的是BeautifulSoup库， 在效率方面，BeautifulSoup没lxml效率高，后面会尝试采用lxml。"
+,,,
+软件测试的修行者,2018/4/28 17:48,selenium+python练习2：unittest测试框架的运行轨迹,"运行结果为：
+1.每个要执行的函数必须以“test""命名开头；
+2.执行方法的默认顺序是：根据ASCII码的顺序加载测试用例，数字与字母的顺序为：0-9，A-Z，a-z。
+3.每执行一个函数，都会执行setUp()和tearDown()；"
+,,,
+it从业,2018/4/25 8:08,selenium自动化测试之ImeHandler Options,"一、主要是执行的引擎和机器
+interface ImeHandler {
+/**
+* All available engines on the machine. To use an engine, it has to be activated.
+*
+* @return list of available IME engines.
+* @throws ImeNotAvailableException if the host does not support IME.
+*/
+List<String> getAvailableEngines();
+/**
+* Get the name of the active IME engine. The name string is platform-specific.
+*
+* @return name of the active IME engine.
+* @throws ImeNotAvailableException if the host does not support IME.
+*/
+String getActiveEngine();
+/**
+* Indicates whether IME input active at the moment (not if it's available).
+*
+* @return true if IME input is available and currently active, false otherwise.
+* @throws ImeNotAvailableException if the host does not support IME.
+*/
+boolean isActivated();
+/**
+* De-activate IME input (turns off the currently activated engine). Note that getActiveEngine
+* may still return the name of the engine but isActivated will return false.
+*
+* @throws ImeNotAvailableException if the host does not support IME.
+*/
+void deactivate();
+/**
+* Make an engines that is available (appears on the list returned by getAvailableEngines)
+* active. After this call, the only loaded engine on the IME daemon will be this one and the
+* input sent using sendKeys will be converted by the engine. Note that this is a
+* platform-independent method of activating IME (the platform-specific way being using keyboard
+* shortcuts).
+*
+*
+* @param engine name of engine to activate.
+* @throws ImeNotAvailableException if the host does not support IME.
+* @throws ImeActivationFailedException if the engine is not available or if activation failed
+* for other reasons.
+*/
+void activateEngine(String engine);
+}
+二、Options
+interface Options {
+//添加cookie
+void addCookie(Cookie cookie);
+//根据名字删除cookie
+void deleteCookieNamed(String name);
+//删除cookie
+void deleteCookie(Cookie cookie);
+//删除所有的cookie
+void deleteAllCookies();
+//得到cookie集合
+Set<Cookie> getCookies();
+//得到指定名字的cookie
+Cookie getCookieNamed(String name);
+//返回超时时间
+Timeouts timeouts();
+//返回机器ime
+ImeHandler ime();
+//切换window
+Window window();
+//日志
+Logs logs();
+}
+五、selenium自动化测试之ImeHandler Options"
+,,,
+开源优测,2017/5/12 16:31,python selenium 开发环境搭建,"环境搭建
+基于python和selenium2做自动化测试，你必须会搭建基本的开发环境，掌握python基本的语法和一个IDE来进行开发，这里通过详细的讲解，介绍怎么搭建python和selenium2开发环境，并提供一个基本入门的代码，后续逐步提供系列实践文章。
+安装包
+python
+笔者使用python2.7.13，请根据机器是64位还是32位来选择对应的python版本。
+32位下载：
+https://www.python.org/ftp/python/2.7.13/python-2.7.13.msi
+64位下载：
+https://www.python.org/ftp/python/2.7.13/python-2.7.13.amd64.msi
+开发工具
+笔者使用pyCharm开源版本
+https://download.jetbrains.com/python/pycharm-community-2016.3.2.exe
+python安装过程
+双击已下载的python安装包，进入第一步
+步骤一.png
+设置安装目录，这里默认即可
+步骤二.png
+设置要安装的可选包，全选是最佳的方式
+步骤三.png
+安装过程如下，坐等即可
+步骤四.png
+安装完成，单击“Finish”完成安装
+步骤五.png
+打开命令行，输入python,如图验证安装成功
+安装成功.png
+安装selenium，在命令行中输入一下命令
+pip install selenium -U
+安装成功后提示，如图所示
+selenium安装成功.png
+pyCharm安装
+双击下载的安装包，按照默认步骤一步步安装即可。首次启动时，配置下pycharm的python解析器，如图所示
+【启动界面.png】
+配置python解析器，如图：
+配置python解析器.png
+第一个python selenium代码
+# -*- coding:utf-8 -*-from selenium import webdriverfrom time import sleepif __name__ == '__main__': # 初始化一个webdriver实例
+启动运行即可，如果出现错误，请确定Firefox版本是不是太新，需要降低版本
+另附google和ie浏览器驱动下载地址请选择最新版本进行下载，下载后请放在python安装根目录下。
+iedriver下载地址：
+http://selenium-release.storage.googleapis.com/index.html
+chromedriver下载地址：
+http://chromedriver.storage.googleapis.com/index.html"
+,,,
+繁华落尽and曲终人散,2018/7/28 11:11,利用Python写一款京东自动抢货的脚本！秒杀价？百台电脑也抢不过,"二、通过 pip 安装 selenium
+pip install selenium
+确保 selenium 的版本为 3.7.0
+四、代码
+祝你成功，是不是特别简单？但是很实用哦！"
+,,,
+美国科技有毒,2018/1/23 22:16,Python自动化测试框架selenium中常见几个方法的例子,"Python自动化测试框架中常见几个方法的例子
+from selenium import webdriver
+driver = webdriver.Chrome()
+driver.get(""https://www.bing.com"")
+找到输入框
+e_id = driver.find_element_by_id(""sb_form_q"")
+send_keys() 用的最常见，用于在输入框内输入内容
+e_id.send_keys(""今日头条"")
+clear() 用于清空输入框中的提示信息，一般在send_keys()前使用
+e_id.clear()
+click() 和 submit() 用于对信息的提交，只不过submit()要求提交对象是一个表单，click()更强调事件的独立性
+e_submit = driver.find_element_by_class_name(""b_searchboxSubmit"")
+e_submit.click()
+e_submit.submit()"
+,,,
+测试帮日记,2017/8/25 7:42,python+chrome+Selenium模拟手机浏览器,"百度搜索：小强测试品牌
+转发+点赞=支持
+点击右上角“关注”按钮可以订阅我们哦
+环境
+安装chrome，F12后有个模拟手机浏览器的功能，如果找不到就自己google下啊
+下载chromedriver.exe，并放到python的根目录下
+实现代码
+不废话，直接码起来~
+#引入必要的包
+from selenium import webdriver
+from time import sleep
+#设置
+mobileEmulation = {'deviceName': 'Apple iPhone 6 Plus'}
+options = webdriver.ChromeOptions()
+options.add_experimental_option('mobileEmulation', mobileEmulation)
+#启动driver
+driver=webdriver.Chrome(executable_path='chromedriver.exe', chrome_options=options)
+#访问百度wap页
+driver.get('http://m.baidu.com')
+sleep(3)
+driver.quit()
+如果对你有一丢丢帮助，转发+点赞=支持"
+,,,
+马蚁蛋,2018/1/16 9:45,用Python做selenium自动化测试，HTMLTestRunner无法生成测试报告,"用Python 做selenium自动化测试，HTMLTestRunner 生成测试报告时，遇到很奇怪的问题，明明运行的结果，没有任何报错就是无法生成测试报告，如果你也这样看，这篇文章就对了，总结下。
+代码示例
+un_all_case.py
+生成报告主要代码
+
+解决方法
+1： filename = ‘E: estresult.html’，如果是在windows环境，文件名要使用以下几种格式。
+①filename = 'E:\testresult.html’ ②filename = r'E: estresult.html' ③filename = 'E:/testresult.html'
+2：若不是使用with做文件的上下文管理，记得要fp.close() 关闭打开的文件，才可以保存。
+fp = open(filename, 'wb')fp.close()
+3：第三种就奇葩了，看截图（截图为同一代码）（Pycharm IDE）
+图一
+图二
+如果是以图一方式运行，就不会有报告生成，至于原因,可能是因为if name == ‘main‘。的原因
+Pycharm 自带测试框架，在右上角，
+点击Edit Configurations→Python tests→选中你要删除的项目删除，这样就不会自动执行unittest。
+4：又遇到一种情况，按照以上3个方法都不行，使用快捷键:Ctrl+shift+F10 还是无法生成report，最后在pycharm的右上角，发现了一个按钮(shift + F9)如图
+这样就可以运行了。（前提是必须在Edit Configurations 中配置好，你需要运行的.py Script Path 的文件路径）
+如下图配置。
+5：你下载的HTMLTestRunner源码，如果是Python2.7编写的，那么你机器上安装的是3.6会报错，这个解决办法只能是修改HTMLTestRunner，至于怎么修改可以在网上搜索，也可以在公众号回复这个HTML“TestRunner”,给你自动下发已经修改好的源码，你直接导入即可。
+6：如果还是不行的话，换个IDE(例如Atom Eclipse ) or 直接在cmd 中运行
+作者：西边人"
+,,,
+测试杂货铺,2018/7/21 13:36,Selenium 自动化测试常见面试题,"WebDriver原理
+webDriver是按照client/server模式设计，client就是我们的测试代码，发送请求，server就是打开的浏览器来打开client发出的请求并做出响应。
+具体的工作流程：
+webdriver打开浏览器并绑定到指定端口。启动的浏览器作为remote server.。
+client通过commandExecuter发送httpRequest给remote server的的侦听端口（the webdriver wire control通信协议）
+Remote server根据原生的浏览器组件来转化为浏览器的native调用。
+备注：启动浏览器的时候，使用的是http: hyper test transfer protocol
+自动化脚本稳定性
+1)网速原因，增加时间等待；
+2)函数原因，尽量少使用容易冲突的函数；
+3)配置多线程，在编写测试用例的时候，一定要实现松耦合，在服务器允许的情况下尽量设置多线程运行，提高执行速度。
+常见问题(FAQ)
+页面元素加载时间过长，元素获取不到？
+答案：测试脚本中进行设置等待
+隐式等待（implicitly_wait）：隐式等待是设置的全局等待，分为1、页面加载超时等待 ；2、页面元素加载超时；3、异步脚本超时
+如果是页面元素超时，设置等待时间，是对页面中的所有元素设置加载时间。隐式等待是其实可以理解成在规定的时间范围内，浏览器在不停的刷新页面，直到找到相关元素或者时间结束。
+下拉选择元素获取
+<Select>标签的下拉菜单
+导入该模块进行Select下拉选择
+Select(driver.find_element_by_id(‘gender’)).select_by_index(1)
+Select(driver.find_element_by_id(‘gender’)).select_by_value(“2”)
+Select(driver.find_element_by_id(‘gender’)).select_by_visible_text(“Male”)
+非<Select>标签的下拉菜单
+Dropdown1 = driver.find_element_by_id(‘id’) #先定位到dropdown
+Dropdown1.find_element_by_id(“li2_input_2”) #再定位到dropdown中的值
+页面动态元素如何获取?
+通过数据库进行动态提取。
+多表单切换
+在 web 应用中经常会遇到 frame 嵌套页面的应用，页 WebDriver 每次只能在一个页面上识别元素，对
+于 frame 嵌套内的页面上的元素，直接定位是定位是定位不到的。这个时候就需要通过 switch_to_frame()
+方法将当前定位的主体切换了 frame 里。
+多窗口切换（ WebDriver 提供了 switch_to_window()方法可以切换到任意的窗口）
+#获得当前所在窗口句柄
+sreach_windows= driver.current_window_handle
+#获得当前所有打开的窗口的句柄
+all_handles = driver.window_handles
+switch_to_window()切换到指定窗口"
+,,,
+it从业,2018/4/24 21:43,selenium自动化测试之Timeouts,"selenium等待时间设置，selenium自带的有三种方法，第一种是识别对象的超时时间，第二种是异步超时时间，第三种是等待整个网页加载完成的超时时间，另外最常用的就是sleep，睡一段时间
+一、timeouts
+interface Timeouts {
+//识别对象时的超时时间。过了这个时间如果对象还没找到的话就会抛出NoSuchElement 异常。
+Timeouts implicitlyWait(long time, TimeUnit unit);
+//异步超时时间，WebDriver 可以异步执行脚本，这个是设置异步执行脚本脚本返回结果的超时时间。
+Timeouts setScriptTimeout(long time, TimeUnit unit);
+//整个网页加载完成
+Timeouts pageLoadTimeout(long time, TimeUnit unit);
+}
+应用：
+public static boolean checkElementInvisible(WebDriver driver, WebElement element, int timeoutInSeconds) {
+try {
+driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+int time = 0;
+while (element.isDisplayed() && 2 * time <= timeoutInSeconds) {
+Thread.sleep(2000);
+time++;
+}
+return false;
+} catch (NoSuchElementException | InterruptedException e) {
+return true;
+} finally {
+driver.manage().timeouts().implicitlyWait(PropsUtils.getDefaultTimeout(), TimeUnit.SECONDS);
+}
+}
+二、sleep
+public static void sleep(int milliSecond) {
+try {
+Thread.sleep(milliSecond);
+} catch (InterruptedException e) {
+// TODO Auto-generated catch block
+e.printStackTrace();
+}
+}"
+,,,
+马蚁蛋,2018/2/18 13:27,selenium系列教程 | 7.键盘按键用法,"selenium自动化操作键盘按键
+#需要引入keys包 import os,time
+#coding=utf-8
+from selenium import webdriver
+from selenium.webdriver.common.keys
+import Keys
+driver = webdriver.Firefox() driver.get(""http://123"")
+#浏览器全屏显示
+time.sleep(3) driver.maximize_window()
+driver.find_element_by_id(""user_name"").clear()
+driver.find_element_by_id(""user_name"").send_keys(""fnngj"")
+#tab的定位相当于清除了密码框的默认提示信息，等同上面的clear()
+driver.find_element_by_id(""user_name"").send_keys(Keys.TAB) time.sleep(3)
+driver.find_element_by_id(""user_pwd"").send_keys(""123456"")
+#通过定位密码框，enter（回车）来代替登陆按钮
+driver.find_element_by_id(""user_pwd"").send_keys(Keys.ENTER)
+#也可定位登陆按钮，通过enter（回车）代替click()
+driver.find_element_by_id(""login"").send_keys(Keys.ENTER)
+time.sleep(3)
+driver.quit()
+#要想调用键盘按键操作需要引入 keys 包
+from selenium.webdriver.common.keys import Keys
+#通过 send_keys()调用按键
+send_keys(Keys.TAB)
+#回车
+#TAB send_keys(Keys.ENTER)
+注意：这个操作和页面元素的遍历顺序有关，假如当前定位在账号输入框，
+按键 盘的 tab 键后遍历的不是密码框，那就不法输入密码。
+假如输入密码后，还有 需要填写验证码，那么回车也起不到登陆的效果。
+键盘组合键用法
+#coding=utf-8 from selenium import webdriver from selenium.webdriver.common.keys
+import Keys import time
+driver = webdriver.Firefox()
+driver.get(""http://www.xxx.com"")
+#输入框输入内容
+driver.find_element_by_id(""kw"").send_keys(""selenium"")
+time.sleep(3)
+#ctrl+a 全选输入框内容
+driver.find_element_by_id(""kw"").send_keys(Keys.CONTROL,'a')
+time.sleep(3)
+#ctrl+x 剪切输入框内容
+driver.find_element_by_id(""kw"").send_keys(Keys.CONTROL,'x')
+time.sleep(3)
+#输入框重新输入内容，搜索
+driver.find_element_by_id(""kw"").send_keys(u""虫师 cnblogs"")
+driver.find_element_by_id(""su"").click()
+time.sleep(3)
+driver.quit()
+上面的操作没有实际意义，但向我们演示了键盘组合按键的用法。
+中文乱码问题
+selenium2 python 在 send_keys()中输入中文一直报错，其实前面加个小 u 就解决了： coding=utf-8
+send_keys(u""输入中文"") 需要注意的是 utf-8并不是万能的，我们需要保持脚本、浏览器、程序三者编码之 间的转换；如果 utf-8不能解决，可以尝试 GBK 或修改浏览器的默认编码。
+西边人西说测试，
+头条号(软件测试资源站)作者，程序爬虫获取国内外测试资源分享给自学爱好者。
+今日头条关注后，私信回复如下关键词获取大量打包资料下载。
+测试资料、工具、Python、自动化测试报告、梯子 等"
+,,,
+it从业,2018/4/25 22:06,selenium自动化测试之WebElement,"public interface WebElement extends SearchContext, TakesScreenshot {
+//元素点击
+void click();
+//如果当前元素是一个表单，提交
+void submit();
+//输入框输入内容
+void sendKeys(CharSequence... keysToSend);
+//清楚输入框内容
+void clear();
+//返回元素标签名
+String getTagName();
+//获取元素属性名字
+String getAttribute(String name);
+//判断元素是否选中
+boolean isSelected();
+//判断是否可选择
+boolean isEnabled();
+//获取元素内容
+String getText();
+//获取元素集合
+List<WebElement> findElements(By by);
+//获取元素
+WebElement findElement(By by);
+//判断元素是否显示
+boolean isDisplayed();
+//元素位置
+Point getLocation();
+//返回元素大小
+Dimension getSize();
+//返回元素位置，大小和宽高
+Rectangle getRect();
+//获取css元素属性的值
+String getCssValue(String propertyName);
+}"
+,,,
+it从业,2018/4/24 22:38,selenium自动化测试之TargetLocator,"interface TargetLocator {
+//切换frame,根据索引
+WebDriver frame(int index);
+//切换frame,根据名字或者id
+WebDriver frame(String nameOrId);
+//根据切换的元素
+WebDriver frame(WebElement frameElement);
+//切换到父frame
+WebDriver parentFrame();
+//根据给的名字切换window
+WebDriver window(String nameOrHandle);
+//回退到默认的frame
+WebDriver defaultContent();
+//切换到当前焦点
+WebElement activeElement();
+//切换到当前alert
+Alert alert();
+}"
+,,,
+软件测试BlackCoffee,2018/6/10 10:32,第三章:Python Selenium 自动化测试之Python基础,"Python的安装(简单提下)
+Python下载地址：https://www.python.org/downloads/
+Python的安装配置教程:https://jingyan.baidu.com/article/c45ad29c18fc0b051653e272.html
+安装selenium第三方库：在命令台窗口下输入命令pip install selenium 安装 ，在安装selenium的库的时候可能会遇到一些无法安装的问题，可以在评论留言，我们一起探讨。
+Python基础(参考菜鸟教程)
+Python 中文编码问题
+这个问题存在于python2.x版本中，python2 对中文的支持不太好，python2中默认的编码格式是 ASCII 格式，在没修改编码格式时无法正确打印汉字，所以在读取中文时会报错。解决方法为只要在文件开头加入 # -*- coding: UTF-8 -*- 或者 #coding=utf-8 就行了,注意必须是开头，在python3中没有这个问题，python3.x 源码文件默认使用utf-8编码，所以可以正常解析中文，无需指定 UTF-8 编码。
+Python注释(注释不会被编译器执行)
+Python注释分三种：单行注释、多行注释、特殊注释
+单行注释:使用#号
+如# print('hello,world!')
+多行注释：多行注释需要使用到到三对引号，这里的引号单引号和双引号都行。
+如"""""" 这里是注释的内容 """"""
+特殊注释(包括中文注释和跨平台注释)
+中文注释：如果需要在代码中使用中文注释,必须在python文件的最前面加上，如:#_*_ coding:utf-8 _*_
+跨平台注释：如果需要使python程序运行在Windows以外的平台上,则需要在python文件的最前面加上，如:!# /usr/bin/python
+Python 变量
+变量的概念：变量存储在内存中的值。这就意味着在创建变量时会在内存中开辟一个空间。基于变量的数据类型，解释器会分配指定内存，并决定什么数据可以被存储在内存中。因此，变量可以指定不同的数据类型，这些变量可以存储整数，小数或字符。python中的变量不需要定义，但是使用前必须赋值，否则就会报错。使用'='来为变量赋值
+范例一：变量赋值并输出
+# -*- coding: UTF-8 -*-
+counter = 100 # 赋值整型变量
+miles = 1000.0 # 浮点型
+name = ""John"" # 字符串
+print counter
+print miles
+print name
+范例二：同时为多个变量赋值
+a = b = c = 1
+范例三：为多个对象指定多个变量
+a, b, c = 1, 2, ""john""
+以上实例，两个整型对象1和2的分配给变量 a 和 b，字符串对象 ""john"" 分配给变量 c
+Python数据类型
+数字数据类型用于存储数值。它们是不可改变的数据类型，这意味着改变数字数据类型会分配一个新的对象。当你指定一个值时，Number对象就会被创建,Python 定义了一些标准类型，用于存储各种类型的数据，Python有六个标准的数据类型：
+布尔类型
+只有两个值:True(真)和False(假)
+Numbers(数字类型)
+Python支持四种不同的数字类型：
+int（有符号整型）
+long（长整型[也可以代表八进制和十六进制]）如：51924361L ，L表示长整型，也可以使用小写l,最好使用大写，为了避免和1混淆
+float（浮点型）
+complex（复数） 可以用 a + bj,或者 complex(a,b) 表示， 复数的实部 a 和虚部 b 都是浮点型。
+String（字符串）
+字符串或串(String)是由数字、字母、下划线组成的一串字符，它是编程语言中表示文本的数据类型，字符串一般都放在两个单引号或两个双引号中
+范例一：定义一个字符串的变量
+tmp='I Love You'
+范例二：字符串截取操作，截取其中的某一个字符
+tmp='I Love You'
+res=tmp[0]#字符串名[索引]
+print(res)
+代码的执行结果就是 I,为什么第一个字母是0不是1，这是因为索引默认是从0开始，就是王八的屁股-龟腚(规定)
+范例三:字符串截取操作，截取其中的某一段字符比如love
+tmp='I Love You'
+res=tmp[2:6] #语法：字符串名[开始索引：结束的索引]
+print(res)
+执行的结果如下：输出love,首先说下空格也是算一个字符的，这里顺便解释一下，为什么是[2:6],不是[2:5]，拿数学中的区间比喻的话就是[2,5),也就是左闭右开的，到5的话是不算5的，所以要到6.
+List（列表）
+List（列表） 是 Python 中使用最频繁的数据类型。列表可以完成大多数集合类的数据结构实现。它支持字符，数字，字符串甚至可以包含列表（即嵌套）。列表用 [ ] 标识，是 python 最通用的复合数据类型。列表中值的切割也可以用到变量 [头下标:尾下标] ，就可以截取相应的列表，从左到右索引默认 0 开始，从右到左索引默认 -1 开始，下标可以为空表示取到头或尾。可以使用加号 来连接列表连接运算符，也可以使用，星号 * 是重复操作。如下实例：
+# -*- coding: UTF-8 -*-
+list = [ 'runoob', 786 , 2.23, 'john', 70.2 ]#创建一个列表
+tinylist = [123, 'john']
+print list # 输出完整列表
+print list[0] # 输出列表的第一个元素
+print list[1:3] # 输出第二个至第三个元素
+print list[2:] # 输出从第三个开始至列表末尾的所有元素
+print tinylist * 2 # 输出列表两次
+print list + tinylist # 打印组合的列表
+Tuple（元组）
+元组是另一个数据类型，类似于List（列表）。元组用""()""标识。内部元素用逗号隔开。但是元组不能二次赋值，也就是说元组是不可更改的序列，而列表可以使用一些方法进行改变，如extend()方法、append()方法等等
+tuple = ( 'runoob', 786 , 2.23, 'john', 70.2 )
+tinytuple = (123, 'john')
+print tuple # 输出完整元组
+print tuple[0] # 输出元组的第一个元素
+print tuple[1:3] # 输出第二个至第三个的元素
+print tuple[2:] # 输出从第三个开始至列表末尾的所有元素
+print tinytuple * 2 # 输出元组两次
+print tuple + tinytuple # 打印组合的元组
+Dictionary（字典）
+字典(dictionary)是除列表以外python之中最灵活的内置数据结构类型。列表是有序的对象集合，字典是无序的对象集合。两者之间的区别在于：字典当中的元素是通过键来存取的，而不是通过偏移存取。字典用""{ }""标识。字典由索引(key)和它对应的值value组成。
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+dict = {}
+dict['one'] = ""This is one""
+dict[2] = ""This is two""
+tinydict = {'name': 'john','code':6734, 'dept': 'sales'}
+print dict['one'] # 输出键为'one' 的值
+print dict[2] # 输出键为 2 的值
+print tinydict # 输出完整的字典
+print tinydict.keys() # 输出所有键
+print tinydict.values() # 输出所有值
+补充一下，列表、元组和字典可以使用len()方法来获取其内容的长度，在python中我们可以使用type()的方法来查看一个变量的数据类型，如type(1)，那么就会返回是整型
+Python的条件判断语句
+基本格式if-else如下：
+if 条件判断：
+执行语句
+else:
+执行语句
+多重选择判断if-elif-elif-else
+if 条件判断：
+执行语句
+elif 条件判断:
+执行语句
+elif 条件判断:
+执行语句
+else:
+执行语句
+多重判断语句中可以有个elif语句，在这里顺便提一下，Python编程中一定要注意缩进，缩进只能以一种方式使用，比如你要么使用空格，要么使用tab,不能混合用，混合用就会报错，此外编程中所使用的标点符号一必须是英文状态下的。
+Python的循环语句(for循环和while循环)
+Python for循环可以遍历任何序列的项目，如一个列表或者一个字符串，语法如下
+python提供了一个range()函数，该函数可以生成一个整数序列，因此我们可以使用它来进行整数的循环
+范例:计算1-10的和
+# -*- coding: UTF-8 -*-
+res=0
+for i in range(11):
+res+=i
+print(res)
+运行的结果是55
+while循环(相比较for循环而言，for循环使用的概率比while更加频繁一些)
+while 判断条件： 执行语句……
+Python函数
+函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如print()。但你也可以自己创建函数，这被叫做用户自定义函数。
+用户自定义函数
+定义一个函数
+你可以定义一个由自己想要功能的函数，以下是简单的规则：
+1.函数代码块以 def 关键词开头，后接函数标识符名称和圆括号()。
+2.任何传入参数和自变量必须放在圆括号中间。圆括号之间可以用于定义参数。
+3.函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。
+4.函数内容以冒号起始，并且缩进。
+5.return [表达式] 结束函数，选择性地返回一个值给调用方。不带表达式的return相当于返回 None。
+调用函数
+定义一个函数只给了函数一个名称，指定了函数里包含的参数，和代码块结构。这个函数的基本结构完成以后，你可以通过另一个函数调用执行，也可以直接从Python提示符执行。
+范例：定义一个函数并调用
+Python面向对象
+Python从设计之初就已经是一门面向对象的语言，正因为如此，在Python中创建一个类和对象是很容易的。面向对象的一些基本特征如下：
+类(Class): 用来描述具有相同的属性和方法的对象的集合。它定义了该集合中每个对象所共有的属性和方法。对象是类的实例。
+类变量：类变量在整个实例化的对象中是公用的。类变量定义在类中且在函数体之外。类变量通常不作为实例变量使用。
+数据成员：类变量或者实例变量, 用于处理类及其实例对象的相关的数据。
+方法重写：如果从父类继承的方法不能满足子类的需求，可以对其进行改写，这个过程叫方法的覆盖（override），也称为方法的重写。
+实例变量：定义在方法中的变量，只作用于当前实例的类。
+实例化：创建一个类的实例，类的具体对象。
+方法：类中定义的函数。
+对象：通过类定义的数据结构实例。对象包括两个数据成员（类变量和实例变量）和方法。
+在面向对象中，将世界上的所有的事物都看成是一个对象，比如一个人，一只狗，一头猪，而类就是对这些对象的抽象，比如说人类，猫科动物，他们拥有共同的属性和行为，比如人都有鼻子都有脸，都能吃都能睡，类表现出的是一种共性，而对象表现的是一种个性，而对象的属性在编程的世界中就是变量，对象的行为在面向对象的世界中就是方法。在面向对象的世界中一定是先有类，后有对象。此外提一下面向对象的三大特性：继承、多态、封装
+python类的定义
+使用 class 语句来创建一个新类，class 之后为类的名称并以冒号结尾:
+class ClassName:
+'类的帮助信息' #类文档字符串
+class_suite #类体
+范例：定义一个学生的类
+# -*- coding: UTF-8 -*-
+class Student:
+'定义一个学生的类'
+def __init__(self,name,sex):
+'初始化方法'
+self.name=name
+self.sex=sex
+def haveClass(self,name):
+print(name+'在上课')
+s=Student('name','male')#创建一个对象
+s.haveClass(s.name)#类的的方法
+代码解释：
+__init__()方法是一种特殊的方法，被称为类的构造函数或初始化方法，当创建了这个类的对象时就会调用该方法
+self 代表类的实例，代表当前对象的地址，self 在定义类的方法时是必须有的，虽然在调用时不必传入相应的参数。
+您可以使用点号 . 来访问对象的属性。
+Python模块
+Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。模块让你能够有逻辑地组织你的 Python 代码段。把相关的代码分配到一个模块里能让你的代码更好用，更易懂。模块能定义函数，类和变量，模块里也能包含可执行的代码。简单的讲模块就是一个py文件。最大的好处是大大提高了代码的可维护性。其次，编写代码不必从零开始。当一个模块编写完毕，就可以被其他地方引用。我们在编写程序的时候，也经常引用其他模块，包括Python内置的模块和来自第三方的模块。使用模块还可以避免函数名和变量名冲突。相同名字的函数和变量完全可以分别存在不同的模块中，因此，我们自己在编写模块时，不必考虑名字会与其他模块冲突。但是也要注意，尽量不要与内置函数名字冲突
+模块的引入
+模块定义好后，我们可以使用 import 语句来引入模块，语法如下
+import module1[, module2[,... moduleN]
+Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中。语法如下：
+from modname import name1[, name2[, ... nameN]]
+Python 的 from 语句，导入一个模块的所有内容
+from modname import *
+当你导入一个模块，Python 解析器对模块位置的搜索顺序是：
+1、当前目录
+2、如果不在当前目录，Python 则搜索在 shell 变量 PYTHONPATH 下的每个目录。
+3、如果都找不到，Python会察看默认路径。UNIX下，默认路径一般为/usr/local/lib/python/。
+此外补充一点：一个模块只会被导入一次，不管你执行了多少次import。这样可以防止导入模块被一遍又一遍地执行
+Python异常
+异常即是一个事件，该事件会在程序执行过程中发生，影响了程序的正常执行。一般情况下，在Python无法正常处理程序时就会发生一个异常。异常是Python对象，表示一个错误。当Python脚本发生异常时我们需要捕获处理它，否则程序会终止执行。
+异常处理
+基本语法如下
+try:
+有可能抛出异常的代码
+except 异常类型名称：
+处理代码
+当 try 代码块中一旦出现异常，这个代码块后续的代码不会继续执行，会直接进入到 except 异常处理代码块中。
+范例：它打开一个文件，在该文件中的内容写入内容，且并未发生异常
+try:
+fh = open(""testfile.txt"", ""w"")
+fh.write(""这是一个测试文件，用于测试异常!!"")
+except IOError:
+print(""Error: 没有找到文件或读取文件失败"")
+else:
+print(""内容写入文件成功"")
+fh.close()
+捕捉系统异常信息
+try :
+有可能抛出异常的代码
+except BaseExcept as a:
+print(a)
+as:
+范例：捕获没有定义变量的异常
+使用except而不带任何异常类型
+try:
+正常的操作
+except:
+发生异常，执行这块代码
+else:
+如果没有异常执行这块代码
+try-finally 语句(无论是否发生异常都会执行finally下的语句)
+try: 正常的操作except: 发生异常，执行这块代码finally: 无论是否发生异常都会执行这块代码
+示例代码如下：
+触发异常
+我们可以使用raise语句自己触发异常，语法如下
+raise [Exception [, args [, traceback]]]
+语句中 Exception 是异常的类型（例如，NameError）参数标准异常中任一种，args 是自已提供的异常参数。最后一个参数是可选的（在实践中很少使用），如果存在，是跟踪异常对象。注意raise只能用于python标准异常类
+这一章的目的是为自动化做一个铺垫，对python的知识有个大致的概念，由于自动化的教程重点是自动化，不是python,所以python中的内容就是简单涉及，并且以菜鸟教程为参考，Python的学习还是系统的学习比较好，下一章我们正式的开始python selenium的学习即web界面元素的定位。"
+,,,
+it从业,2018/4/25 22:45,selenium自动化测试之TakesScreenshot,"public interface TakesScreenshot {
+//截图方法
+<X> X getScreenshotAs(OutputType<X> target) throws WebDriverException;
+}
+示例：
+File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+String screenshotBase64 = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);"
+,,,
+软件测试BlackCoffee,2018/6/3 14:46,第一章：Python Selenium 自动化测试入门之漫谈,"揭开自动化测试神秘面纱
+自动化测试概念：自动化测试是把以人为驱动的测试行为转化为机器执行的一种过程，目的是为了提高效率，提高软件质量，虽然自动化测试是现在发展的一种趋势，但是自动化测试并不能完全替代手工测试，也不能说自动化测试就能比手工测试发现更多的bug,目前自动化测试主要是用来做回归测试。
+适合使用自动化测试的条件：需求变动不频繁，项目的周期足够长，项目需要重复回归测试
+常用的自动化测试工具：
+web自动化测试工具：Selenium 、RbotFrameWork
+APP自动化测试工具:Appium、UIautomation、monkey runner
+PC客户端测试工具：QTP
+接口测试工具：postman、httpUnit、Python
+云测平台：Testin、Testbird
+Selenium的前世今生
+selenium1.0: selenium1.0包括三个模块:selenium IDE(一个FireFox浏览器的插件，可以录制用户的基本操作，生成测试用例，可以在浏览器中回放录制的测试用例，也可以将测试用例转换成其他的编程语言的自动化脚本); selenium RC(RC就是remote control的缩写，是用来模拟浏览器的，主要测试web网页，支持多种平台和多种浏览器以及多种编程语言); selenium Grid(允许selenium RC 针对规模庞大的测试案例集或者需要在不同测试环境中运行的测试案例集进行的拓展)，selenium1.0的不足之处就是：不支持本机的键盘和鼠标的事件，不支持拓展脚本，不支持对话框、弹出框。例外此时的selenium的主要竞争对手是webdriver。
+selenium2.0: selenium2.0=selenium1.0+webdriver,和对手webdriver成一家了，selenium2.0基于webdriver API 来模拟用户操作，直接交互操作的浏览器，因此速度更快，支持多种编程语言。
+selenium3.0: 去掉了对selenium RC的支持，全面拥抱java8，支持macOS 的safari浏览器。
+HTML基础(Selenium自动化测试的基础)
+什么是HTML?
+HTML 是用来描述网页的一种语言。
+HTML 指的是超文本标记语言: HyperText Markup Language
+HTML 不是一种编程语言，而是一种标记语言
+标记语言是一套标记标签 (markup tag)
+HTML 使用标记标签来描述网页
+HTML 文档包含了HTML 标签及文本内容
+HTML文档也叫做 web 页面
+HTML注释
+注释的目的是为了提高代码的可读性，浏览器是不会解析注释的内容，HTML注释的语法为：
+<!--这里写注释的内容-->
+HTML 标签(在selenium自动化中要定位元素就需要熟悉标签)
+HTML 标记标签通常被称为 HTML 标签 (HTML tag)
+HTML 标签是由尖括号包围的关键词，比如 <html>
+HTML 标签通常是成对出现的，比如 <b> 和 </b>
+标签对中的第一个标签是开始标签，第二个标签是结束标签
+开始和结束标签也被称为开放标签和闭合标签
+<标签>内容</标签>
+常用的标签如下：
+标题标签：通过 <h1> - <h6> 标签进行定义的. <h1> 定义最大的标题。 <h6> 定义最小的标题。
+头部标签：<head> 元素包含了所有的头部标签元素， <head>元素中你可插入脚本, 样式文件及各种meta信息。
+段落标签：<p>可以将文档分割为若干段落。
+链接标签：<a>来设置超文本链接。超链接可以文字也可以是一幅图像，您可以点击这些内容来进行页面跳转
+图像标签：图像由<img> 标签定义，注意<img> 是空标签，意思是说，它只包含属性，并且没有闭合标签。
+换行标签：<br> 可插入一个简单的换行符。
+区块标签： <div> 和 <span>将元素组合起来,自身没有什么特别的含义，可与CSS样式一起使用
+这里只是简单的提一下，详细的可以去W3shool网站学习
+HTML常用属性简单介绍
+name属性：用于指定标签元素的名称，比如<a name=""value"">id 属性：id 属性规定 HTML 元素的唯一的 id,id 在 HTML 文档中必须是唯一的。style 属性 : style 属性规定元素的行内样式（inline style）,style 属性将覆盖任何全局的样式设定
+HTML简单示例
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv=""Content-Type"" content=""text/html; charset=UTF-8"">
+<title>软件测试BlackCoffee</title>
+</head>
+<body>
+<h1>致橡树</h1>
+<p>我如果爱你</p>
+<p>绝不像攀援的凌霄花</p>
+<p>借你的高枝炫耀自己</p>
+</body>
+</html>
+实例解析
+<!DOCTYPE html> 声明为 HTML5 文档
+<html> 元素是 HTML 页面的根元素
+<head> 元素包含了文档的元（meta）数据
+<title> 元素描述了文档的标题
+<body> 元素包含了可见的页面内容
+<h1> 元素定义一个大标题
+<p> 元素定义一个段落
+HTML部分就是简单的介绍，系统的学习可以访问W3school或其它网上教程
+小生不足之处，还请各位客官多多指点，一起学习，一起交流，共同进步"
+,,,
+马蚁蛋,2018/2/15 10:07,selenium系列教程｜4.操作浏览器之前进和后退,"浏览器上有一个后退、前进按钮，对于浏览网页的人是比较方便的。
+对于做 web 自动化测试的同学来说应该算是一个比较难模拟的问题。
+其实很简单，下面看看python的实现方式。
+#coding=utf-8 from selenium import webdriver import time
+browser = webdriver.Firefox()
+#访问百度首页
+first_url= 'http://www.baidu.com'
+print ""now access %s"" %(first_url) browser.get(first_url) time.sleep(2)
+#访问新闻页面
+second_url='http://news.baidu.com' print ""now access %s"" %(second_url) browser.get(second_url) time.sleep(2)
+#返回（后退）到百度首页
+print ""back to %s ""%(first_url) browser.back() time.sleep(1)
+#前进到新闻页
+print ""forward to %s""%(second_url) browser.forward() time.sleep(2)
+browser.quit()
+为了使过程让你看得更清晰，在每一步操作上都加了print和sleep
+西边人细说测试，
+头条号(软件测试资源站)作者，程序爬虫获取国内外测试资源分享给自学爱好者。
+今日头条关注后，私信回复如下关键词获取大量打包资料下载。
+测试资料、工具、Python、自动化测试报告、梯子 等"
+,,,
+软件测试的修行者,2018/4/28 13:35,selenium+python学习9：unittest测试框架,"unittest.main()
+使用它可以将一个单元测试模块变为可直接运行的测试脚本，main()方法使用TestLoader类来搜索所有包含有该模块中以“test""命名开头的测试方法，并自动执行；执行方法的默认顺序是：根据ASCII码的顺序加载测试用例，数字与字母的顺序为：0-9，A-Z，a-z。所以以A开头的测试用例方法会优先执行，以a开头会后执行。
+unittest.TestCase类
+一个TestCase的实例就是一个测试用例，测试用例就是一个完整的测试流程，包括初始化setUp，运行run，测试后的还原tearDown。unittest.TestCase类，是所有测试用例类继承的基本类。此类提供了很多assert方法用于检查比较。
+setUp()：用于测试用例执行前的初始化工作。如测试用例中需要访问数据库，可以在setUp中建立数据库连接并进行初始化。如测试用例需要登录web，可以先实例化浏览器。
+tearDown()：tearDown()方法用于测试用例执行之后的善后工作。如关闭数据库连接。关闭浏览器。
+assert*()：一些断言方法：在执行测试用例的过程中，最终用例是否执行通过，是通过判断测试得到的实际结果和预期结果是否相等决定的。
+unittest.TestSuite类
+对一个功能的测试往往需要多个测试用例，可以把多个测试用例集合在一起执行，就是TestSuite的概念，常用addTest()方法将一个测试用例添加到测试套件中。
+addTest()：将测试用例添加到测试套件中。
+unittest.TextTestRunner类
+通过该类下的run()方法用来执行TestSuite所组装的测试用例。
+run(suite)：运行测试套件的测试用例，参数为suite测试套件。
+unittest.defaultTestLoader类
+通过该类下的discover()方法可自动在test_dir目录下查找文件名与pattern规则相匹配的测试用例文件，并将查找到的测试用例组装到测试套件中，因此可以直接通过run()方法执行discover对象；
+discover(test_dir,pattern)：test_dir指要查找的文件目录，pattern是查找的目录下的文件名规则；
+unittest.skip类
+有些用例可能不想执行等情况，可用装饰器暂时屏蔽该条测试用例，一种常见的用法是：比如想调试某个测试用例，想先屏蔽其它用例就可以用此类：
+@unittest.skip(reason)：无条件跳过装饰的测试，并说明跳过测试的原因。
+@unittest.skipIf(reason)：条件为真时，跳过装饰的测试，并说明跳过测试的原因。
+@unittest.skipUnless(reason)：条件为假时，跳过装饰的测试，并说明跳过测试的原因。
+@unittest.expectedFailure()：测试标记为失败
+unittest.TestFixture类
+测试准备前要做的工作和测试执行完后要做的工作，包括setUp()和tearDown()。
+组织并执行测试用例
+方案一：
+直接用unittest.main()执行，它会搜索所有以test开头的测试用例方法，按照ASCII的顺序执行多个用例；
+方案二：
+testSuite = unittest.TestSuite() #创建一个TestSuite测试套件，将要执行的测试用例加载到套件中testSuite.addTest(Classname(""test_login"")) #添加要执行的测试用例runner = unittest.TextTestRunner() #创建一个对象，用来执行测试用例集中的测试用例runner.run(testSuite) #执行顺序是按照加载到套件时的顺序
+方案三：
+如果测试用例很多的话，通过testSuite.addTest()一个个添加是不现实的，我们就用defaultTestLoader来加载；
+test_dir='./' #当前目录discover=unittest.defaultTestLoader.discover(test_dir,pattern='test*.py')runner=unittest.TextTestRunner()runner.run(discover) #执行顺序同方案一，按照命名的顺序"
+,,,
+软件先生,2018/2/16 19:52,Selenium ---Web自动化测试的神兵利器，值得收藏！,"Selenium的介绍
+Selenium是开源的自动化测试工具，它主要是用于Web 应用程序的自动化测试。Selenium 是用于测试 Web 应用程序用户界面 (UI) 的常用框架。它是一款用于运行端到端功能测试的超强工具。Selenium 经历了三个版本：Selenium 1，Selenium 2 和 Selenium 3。其支持下面的语言的开发：
+Java
+Python
+C#
+JavaScript
+PHP
+Ruby
+对于最新的Selenium 2，3，其提供了WebDriver，解决了Javascript 环境沙箱的问题.
+Selenium的工具集
+Selenium 也不是简单一个工具，而是由几个工具组成，每个工具都有其特点和应用场景。
+Selenium IDE
+Selenium IDE (集成开发环境) 是一个创建测试脚本的原型工具，实现简单的浏览器操作的录制与回放功能。
+如果大家有兴趣的话，可以点赞或者在文章后面留言，我将写一篇新的文章重点介绍。
+Selenium RC
+Selenium RC 是selenium 家族的核心工具，Selenium RC 支持多种不同的语言编写自动化测试脚本，通过selenium RC 的服务器作为代理服务器去访问应用从而达到测试的目的。
+Selenium Server
+负责控制浏览器行为，总的来说，Selenium Server 主要包括3 个部分：Launcher、Http Proxy、Core。
+Selenium Grid
+主要用来搭建测试的集群，其可以支持IE，Firefox,Chrome等大部分的主流浏览器。同时对于时间效率要求比较高的应用，还可以提高测试并发的效率。
+Client Libraries
+库主要主要用于编写测试脚本，用来控制selenium Server 的库。
+一个简单的Selenium Java 工程
+如果你对笔者的分享感趣的话，请收藏并关注我的自媒体号；
+如果你有任何疑问需要探讨，欢迎在文章末尾留言，我尽量在第一时间个大家回复。
+[部分图片来源于网络，如有侵权，请联系删除，谢谢]"
+,,,
+it从业,2018/4/25 8:15,selenium自动化测试之WebDriver,"一、selenium的api
+二、WebDriver类
+public interface WebDriver extends SearchContext {
+//打开一个网址
+void get(String url);
+//获取当前的url
+String getCurrentUrl();
+// General properties
+//获取当前页面的标题
+String getTitle();
+//获取当前符合条件的元素集合，是父类的方法
+List<WebElement> findElements(By by);
+//获取当前元素，父类的方法
+WebElement findElement(By by);
+//获取页面的信息
+String getPageSource();
+//关闭当前的窗口
+void close();
+//退出驱动
+void quit();
+//获取当前所有窗口的句柄
+Set<String> getWindowHandles();
+//获取当前窗口的句柄
+String getWindowHandle();
+//切换到一个frame或者一个window
+TargetLocator switchTo();
+//后退，跳转到指定的URL
+Navigation navigate();
+//得到options接口
+Options manage();
+}"
+,,,
+软件测试BlackCoffee,2018/6/15 21:59,第四章:Python Selenium 自动化测试之webDeiver,"webDriver
+webDriver概念：Webdriver是一种用于Web应用程序的自动测试工具，它提供了一套友好的API，与Selenium-RC相比，Webdriver 的API更容易理解和使用，其可读性和可维护性也大大提高。Webdriver完全就是一套类库，不依赖于任何测试框架，除了必要的浏览器驱动，不需要启动其他进程或安装其他程序。webDriver支持的浏览器包括Firefox、IE、Opera、Chrome 、safari。webDriver支持的编程语言包括：java、C#、PHP、Python、Perl、Ruby
+selenium的安装(前提是安装好Python)
+安装selenium的相关操作：
+打开dos控制台：输入 pip install selenium命令，回车等它安装好就可以
+查看selenium版本号命令：pip show selenium
+卸载selenium库命令：pip uninstall selenium
+安装好selenium后需要下载相应浏览器的驱动程序，下载好驱动后，不需要安装，解压后添加环境变量即可使用
+附selenium相关内容的下载链接(包括驱动和selenium)：
+https://www.seleniumhq.org/download/
+注意：浏览器位数的版本和驱动版本要一致！ 如果是32bit浏览器而Driver是64bit则会导致脚本运行失败！
+第一个自动化脚本
+实现如下操作：启动IE浏览器，打开百度首页，关闭浏览器
+代码如下：
+浏览器相关操作
+窗口最大化
+driver.maximize_window()
+窗口最小化
+driver.minimize_window()
+设置浏览器窗口大小
+driver.set_window_size(width, height)
+页面的前进
+driver.forward()
+页面的后退
+driver.back()
+页面刷新
+driver.refresh()
+元素的定位(自动化的核心之一)
+使用id定位
+driver.find_element_by_id('kw')
+使用name定位
+driver.find_element_by_name('kw')
+使用tag_name定位
+driver.find_element_by_tag_name('input')
+假设有多个input标签，我们可以通过索引来定位到我们想要的标签如下：driver.find_element_by_tag_name('input')[0]
+使用class_name定位
+driver.find_element_by_class_name('search_btn')
+这里补一下findElements和findElement的不同：findElements是查找页面上所有符合条件的元素，返回的是一个列表list,不能直接点击,findElement才是准确定位到指定元素，才能进行点击操作
+使用link_text(超链接文字)定位
+定位超链接文字全部文字内容：driver.find_element_by_link_text('程序开发')
+定位超链接文字部分内容：driver.find_element_by_partial_link_text('程序')
+使用Xpath定位
+方式一:绝对定位不推荐使用(脚本不好维护)
+driver.find_element_by_xpath('/html/body/div[2]/div[1]/form]/input[@id=""su""]')
+方式二:相对定位
+driver.find_element_by_xpath('//*[@id=""form""]')
+相对路劲相关解释：//表示当前页面；*表示任意标签，你也可以指定标签；@后为属性
+使用CSS定位(推荐使用CSS定位，不推荐使用Xpath定位)
+driver.find_element_by_css_selector(css_selector)
+#值：通过id定位
+.class:通过class定位
+[属性='值']:通过属性定位
+层级>层级：通过层级定位
+下拉菜单元素定位(利用select类来进行定位)
+select=select(driver.find_element_by_css_selector(""[name='CookieData']""))
+select.select_by_index(0)#通过索引定位
+select.select_by_visible__text(""留一年"")#通过选项文字定位
+select.select_by_value('1')#通过value值来定位
+frame嵌套页面元素定位(嵌套页面就是在网页中又嵌套了一个子网页)
+driver.switch_to.frame('search')"
