@@ -79,7 +79,3 @@
 
 mailto: af.liu@stu.pku.edu.cn
 
-## 获取本书
-
-链接：https://www.lanzous.com/b588019/
-密码：9968
