@@ -77,7 +77,7 @@
 
 ## 勘误
 
-http://note.youdao.com/noteshare?id=a7f0705acb54486b627de091ab277314&sub=94EB566C5FB441159FA82618AD3A9090
+mailto: af.liu@stu.pku.edu.cn
 
 ## 获取本书
 
